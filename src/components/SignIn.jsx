@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
-import bannerImg from "../images/bannerImg.png"
-import design from "./signIn.module.scss"
+import bannerImg from "../images/bannerTop.png";
+import design from "./signIn.module.scss";
 
 const SignIn = () => {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -28,36 +27,58 @@ const SignIn = () => {
     <div className="container-lg">
       <div className="row min-vh-100 justify-content-center align-items-center">
         <div className="col col-md-6 col-12 d-flex justify-content-center align-items-center">
-          <div className={`card mx-4 ${design.signInForm}`}>
+          <div
+            className={`card mx-4 my-5 w-100 border-primary rounded-4 ${design.signInForm}`}
+          >
             <div className="card-body">
               <div>
-                <h1>Sign in to your account</h1>
-                <p>
-                  Don't have an account yet? <Link to="/signUp">Sign up.</Link>
-                </p>
+                <h3 className="text-center mb-4 text-primary">Sign in</h3>
               </div>
               <form onSubmit={handleSubmit}>
-                <div>
-                  <label>Email Address</label>
-                  <input
-                    type="email"
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label>Password</label>
-                  <input
-                    type="password"
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-                <button className="btn btn-warning">Sign In</button>
+                <label htmlFor="email" className="form-label">
+                  Email Address
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  className="form-control mb-3"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <label htmlFor="password" className="form-label">
+                  Password
+                </label>
+                <input
+                  id="password"
+                  type="password"
+                  className="form-control mb-3"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <button className="btn w-100 btn-primary mt-4 mb-4">
+                  Sign In
+                </button>
+                <p className="text-center">
+                  Don't have an account yet?{" "}
+                  <Link to="/signUp">Sign up now!</Link>
+                </p>
               </form>
             </div>
           </div>
         </div>
-        <div className="col col-md-6 col-12 d-flex justify-content-center align-items-center">
-          <img src={bannerImg} alt="banner" className={`img-fluid px-5 px-md-0 figure-img ${design.bbb}`} />
+        <div className="col col-md-6 col-12 d-flex flex-column justify-content-center align-items-center px-5">
+          <div className="px-4 pb-4 px-md-0">
+            <h2  className={`${design.explain}`}>Leitnerer</h2>
+            <p className={`${design.explain}`}>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias,
+              quidem qui? Provident sed voluptates exercitationem similique id
+              autem, reprehenderit eum facilis corrupti voluptate? Impedit earum
+              tempora molestias necessitatibus, laboriosam voluptatibus.
+            </p>
+          </div>
+          <img
+            src={bannerImg}
+            alt="banner"
+            className={`img-fluid px-5 px-md-0 figure-img ${design.LeitnerBox}`}
+          />
         </div>
       </div>
     </div>

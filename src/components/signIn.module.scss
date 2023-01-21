@@ -1,8 +1,27 @@
 .signInForm {
-    min-height: 50vh;
-    max-width: 500px;
+  min-height: 50vh;
+  max-width: 500px;
 }
 
-.bbb {
-    width: 550px;
+.LeitnerBox {
+  width: 550px;
+  min-width: 50vh;
+  text-align: justify;
+  @media only screen and (max-width: 674px) {
+    margin-bottom: 2rem;
+  }
+}
+
+.leitnerer {
+  text-align: justify;
+  @media only screen and (min-width: 674px) {
+    padding: 0 2rem;
+  }
+}
+
+.explain {
+  text-align: justify;
+  @media only screen and (min-width: 674px) {
+    padding: 0 2rem;
+  }
 }
