@@ -1,3 +1,5 @@
+@import "../utils/colors.scss";
+
 .signInForm {
   min-height: 50vh;
   max-width: 500px;
@@ -23,5 +25,12 @@
   text-align: justify;
   @media only screen and (min-width: 674px) {
     padding: 0 2rem;
+  }
+}
+
+.passwordIcon {
+  background-color: $inputBlue;
+  &:hover {
+    cursor: pointer;
   }
 }

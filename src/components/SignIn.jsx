@@ -10,6 +10,7 @@ const SignIn = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { signIn } = UserAuth();
+  const [hiddenPass, setHiddenPass] = useState(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,18 +56,24 @@ const SignIn = () => {
                 <input
                   id="email"
                   type="email"
-                  className="form-control mb-3"
+                  className="form-control mb-3 border-primary"
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <label htmlFor="password" className="form-label">
                   Password
                 </label>
-                <input
-                  id="password"
-                  type="password"
-                  className="form-control mb-3"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
+                <div className="input-group">
+                  <input
+                    id="password"
+                    type={hiddenPass ? "password" : "text"}
+                    className="form-control border-primary"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <i
+                    className={`fa-solid fa-eye input-group-text d-flex text-primary border-primary ${design.passwordIcon}`}
+                    onClick={() => setHiddenPass(!hiddenPass)}
+                  ></i>
+                </div>
                 <button className="btn w-100 btn-primary mt-4 mb-4">
                   Sign In
                 </button>
