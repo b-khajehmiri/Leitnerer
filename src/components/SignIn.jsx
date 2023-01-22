@@ -19,9 +19,14 @@ const SignIn = () => {
       navigate("/account");
     } catch (e) {
       setError(e.message);
-      console.log(error);
     }
   };
+
+  function errorCorrector(err) {
+    const phrase = err.replace("Firebase: Error (auth/","").replace(").","").replace(/-/g, " ")
+    const capitalized = phrase.charAt(0).toUpperCase()+phrase.slice(1)+"!"
+    return capitalized
+  }
 
   return (
     <div className="container-lg">
@@ -32,9 +37,15 @@ const SignIn = () => {
           >
             <div className="card-body">
               <div>
-                <h3 className="text-center mb-4 text-primary">Sign in</h3>
+                <h3 className="text-center mb-4 mt-3 text-primary">Sign in</h3>
               </div>
               <form onSubmit={handleSubmit}>
+                {error && (
+                  <div className="alert alert-danger" role="alert">
+                    <i className="fa-solid fa-circle-exclamation me-2"></i>
+                    {errorCorrector(error)}
+                  </div>
+                )}
                 <label htmlFor="email" className="form-label">
                   Email Address
                 </label>
@@ -56,9 +67,11 @@ const SignIn = () => {
                 <button className="btn w-100 btn-primary mt-4 mb-4">
                   Sign In
                 </button>
-                <p className="text-center">
-                  Don't have an account yet?{" "}
-                  <Link to="/signUp">Sign up now!</Link>
+                <p className="text-center mt-4">
+                  Don't have an account yet?
+                  <Link to="/signUp" className="text-decoration-none ms-2">
+                    Sign up now!
+                  </Link>
                 </p>
               </form>
             </div>
@@ -66,7 +79,7 @@ const SignIn = () => {
         </div>
         <div className="col col-md-6 col-12 d-flex flex-column justify-content-center align-items-center px-5">
           <div className="px-4 pb-4 px-md-0">
-            <h2  className={`${design.explain}`}>Leitnerer</h2>
+            <h2 className={`${design.explain}`}>Leitnerer</h2>
             <p className={`${design.explain}`}>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias,
               quidem qui? Provident sed voluptates exercitationem similique id
