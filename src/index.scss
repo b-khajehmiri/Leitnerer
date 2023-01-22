@@ -1,5 +1,10 @@
 @import "./utils/colors.scss";
 
 body {
-    background-color: $backGroundBlue;
+  background-color: $backGroundBlue;
+}
+
+.logoFont {
+  font-family: "Baumans", cursive;
+  font-weight: 700;
 }

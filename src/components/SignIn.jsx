@@ -23,9 +23,12 @@ const SignIn = () => {
   };
 
   function errorCorrector(err) {
-    const phrase = err.replace("Firebase: Error (auth/","").replace(").","").replace(/-/g, " ")
-    const capitalized = phrase.charAt(0).toUpperCase()+phrase.slice(1)+"!"
-    return capitalized
+    const phrase = err
+      .replace("Firebase: Error (auth/", "")
+      .replace(").", "")
+      .replace(/-/g, " ");
+    const capitalized = phrase.charAt(0).toUpperCase() + phrase.slice(1) + "!";
+    return capitalized;
   }
 
   return (
@@ -79,7 +82,7 @@ const SignIn = () => {
         </div>
         <div className="col col-md-6 col-12 d-flex flex-column justify-content-center align-items-center px-5">
           <div className="px-4 pb-4 px-md-0">
-            <h2 className={`${design.explain}`}>Leitnerer</h2>
+            <h2 className={`${design.explain} logoFont`}>Leitnerer</h2>
             <p className={`${design.explain}`}>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias,
               quidem qui? Provident sed voluptates exercitationem similique id
