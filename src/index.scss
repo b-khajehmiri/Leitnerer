@@ -8,3 +8,19 @@ body {
   font-family: "Baumans", cursive;
   font-weight: 700;
 }
+
+.whiteText {
+  color: $whiteColor;
+}
+
+.activeNavLink {
+  color: $whiteColor;
+  text-decoration: none;
+  border-bottom: white 2px solid;
+  padding-bottom: 3px;
+}
+
+.inactiveNavLink {
+  color: $whiteColor;
+  text-decoration: none;
+}

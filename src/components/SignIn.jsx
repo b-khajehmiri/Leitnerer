@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
 import bannerImg from "../images/bannerTop.png";
+import NavBar from "./NavBar";
 import design from "./signIn.module.scss";
 
 const SignIn = () => {
@@ -33,6 +34,8 @@ const SignIn = () => {
   }
 
   return (
+    <>
+    <NavBar/>
     <div className="container-lg">
       <div className="row min-vh-100 justify-content-center align-items-center">
         <div className="col col-md-6 col-12 d-flex justify-content-center align-items-center">
@@ -105,6 +108,7 @@ const SignIn = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

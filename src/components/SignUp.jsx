@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { UserAuth } from '../context/AuthContext';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { UserAuth } from "../context/AuthContext";
+import NavBar from "./NavBar";
 
 const Signup = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('')
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const { createUser } = UserAuth();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
     try {
       await createUser(email, password);
-      navigate('/account')
+      navigate("/account");
     } catch (e) {
       setError(e.message);
       console.log(error);
@@ -22,36 +23,29 @@ const Signup = () => {
   };
 
   return (
-    <div>
+    <>
+      <NavBar />
       <div>
         <h1>Sign up for a free account</h1>
         <p>
-          Already have an account yet?{' '}
-          <Link to='/'>
-            Sign in.
-          </Link>
+          Already have an account yet? <Link to="/">Sign in.</Link>
         </p>
       </div>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Email Address</label>
-          <input
-            onChange={(e) => setEmail(e.target.value)}
-            type='email'
-          />
+          <input onChange={(e) => setEmail(e.target.value)} type="email" />
         </div>
         <div>
           <label>Password</label>
           <input
             onChange={(e) => setPassword(e.target.value)}
-            type='password'
+            type="password"
           />
         </div>
-        <button>
-          Sign Up
-        </button>
+        <button>Sign Up</button>
       </form>
-    </div>
+    </>
   );
 };
 

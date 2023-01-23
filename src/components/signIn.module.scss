@@ -1,13 +1,11 @@
 @import "../utils/colors.scss";
 
 .signInForm {
-  min-height: 50vh;
   max-width: 500px;
 }
 
 .LeitnerBox {
   width: 550px;
-  min-width: 50vh;
   text-align: justify;
   @media only screen and (max-width: 674px) {
     margin-bottom: 2rem;
