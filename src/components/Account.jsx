@@ -75,7 +75,7 @@ const Account = () => {
       <button onClick={changeCard}>change cards</button>
 
       <button onClick={selectCard}>select card</button>
-      
+
       <button onClick={deleteCard}>delete card</button>
     </div>
   );

@@ -24,3 +24,11 @@ body {
   color: $whiteColor;
   text-decoration: none;
 }
+
+.navLogo {
+  color: $whiteColor;
+  font-size: 24px;
+  &:hover {
+    color: $whiteColor;
+  }
+}

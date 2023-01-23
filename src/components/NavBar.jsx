@@ -5,7 +5,7 @@ const NavBar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-primary fixed-top">
       <div className="container-lg">
-        <a className="navbar-brand logoFont whiteText me-5" href="#">
+        <a className="navbar-brand navLogo logoFont me-5" href="#">
           Leitnerer
         </a>
         <button
@@ -19,8 +19,31 @@ const NavBar = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav mr-auto">
+            <li className="nav-item me-4">
+              <NavLink
+                to="/signUp"
+                className={({ isActive }) =>
+                  isActive ? "activeNavLink" : "inactiveNavLink"
+                }
+              >
+                Sign Up
+              </NavLink>
+            </li>
+            <li className="nav-item me-4">
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  isActive ? "activeNavLink" : "inactiveNavLink"
+                }
+              >
+                Sign In
+              </NavLink>
+            </li>
+          </ul>
+        </div>
+        <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item me-4">
               <NavLink
