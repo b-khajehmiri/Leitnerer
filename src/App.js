@@ -1,10 +1,12 @@
 import React from "react";
-import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import Account from "./components/Account";
 import { Route, Routes } from "react-router-dom";
 import { AuthContextProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import CardsTable from "./components/CardsTable";
+import Training from "./components/Training";
+import AddCards from "./components/AddCards";
 
 function App() {
   return (
@@ -19,7 +21,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/signUp" element={<SignUp />} />
           <Route
             path="/account"
             element={
@@ -28,6 +29,31 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/cardsTable"
+            element={
+              <ProtectedRoute>
+                <CardsTable />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/training"
+            element={
+              <ProtectedRoute>
+                <Training />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/addCards"
+            element={
+              <ProtectedRoute>
+                <AddCards />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/signUp" element={<SignUp />} />
         </Routes>
       </AuthContextProvider>
     </div>

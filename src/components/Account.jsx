@@ -72,20 +72,22 @@ const Account = () => {
   return (
     <>
       <NavBar navsShow={navsShow} />
-      <h1>Account</h1>
-      <p>User Email: {user && user.email}</p>
+      <div className="container-lg">
+          <h1>Account</h1>
+          <p>User Email: {user && user.email}</p>
 
-      <button onClick={handleLogout}>Logout</button>
+          <button onClick={handleLogout}>Logout</button>
 
-      <button onClick={addCard}>add card</button>
+          <button onClick={addCard}>add card</button>
 
-      <button onClick={getCards}>get cards</button>
+          <button onClick={getCards}>get cards</button>
 
-      <button onClick={changeCard}>change cards</button>
+          <button onClick={changeCard}>change cards</button>
 
-      <button onClick={selectCard}>select card</button>
+          <button onClick={selectCard}>select card</button>
 
-      <button onClick={deleteCard}>delete card</button>
+          <button onClick={deleteCard}>delete card</button>
+        </div>
     </>
   );
 };

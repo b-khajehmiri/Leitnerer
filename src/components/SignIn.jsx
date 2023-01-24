@@ -44,7 +44,7 @@ const SignIn = () => {
     <>
       <NavBar navsShow={navsShow} />
       <div className="container-lg">
-        <div className="row min-vh-100 justify-content-center align-items-center">
+        <div className="row justify-content-center align-items-center">
           <div className="col col-md-6 col-12 d-flex justify-content-center align-items-center">
             <div
               className={`card mx-4 my-5 w-100 border-primary rounded-4 ${design.signInForm}`}

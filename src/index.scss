@@ -28,7 +28,8 @@ body {
 .navLogo {
   color: $whiteColor;
   font-size: 26px;
-  &:hover {
+  &:hover,
+  &:focus {
     color: $whiteColor;
   }
 }

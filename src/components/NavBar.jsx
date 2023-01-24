@@ -17,11 +17,11 @@ const NavBar = (props) => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-primary fixed-top" style={{fontSize:"17px"}}>
+    <nav className="navbar navbar-expand-lg navbar-light bg-primary sticky-top" style={{fontSize:"17px"}}>
       <div className="container-lg">
-        <a className="navbar-brand navLogo logoFont me-5" href="#">
+        <NavLink className="navbar-brand navLogo logoFont me-5" to="/">
           Leitnerer
-        </a>
+        </NavLink>
         <button
           className="navbar-toggler"
           type="button"
