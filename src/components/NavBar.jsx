@@ -1,9 +1,23 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { UserAuth } from "../context/AuthContext";
 
-const NavBar = () => {
+const NavBar = (props) => {
+  
+  const { logout } = UserAuth();
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/");
+      console.log("You are logged out");
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-primary fixed-top">
+    <nav className="navbar navbar-expand-lg navbar-light bg-primary fixed-top" style={{fontSize:"17px"}}>
       <div className="container-lg">
         <a className="navbar-brand navLogo logoFont me-5" href="#">
           Leitnerer
@@ -23,22 +37,46 @@ const NavBar = () => {
           <ul className="navbar-nav mr-auto">
             <li className="nav-item me-4">
               <NavLink
-                to="/signUp"
+                to="/account"
                 className={({ isActive }) =>
                   isActive ? "activeNavLink" : "inactiveNavLink"
                 }
+                style={{display: props.navsShow.otherLinksShow ? "flex" : "none"}}
               >
-                Sign Up
+                Account
               </NavLink>
             </li>
             <li className="nav-item me-4">
               <NavLink
-                to="/"
+                to="/cardsTable"
                 className={({ isActive }) =>
                   isActive ? "activeNavLink" : "inactiveNavLink"
                 }
+                style={{display: props.navsShow.otherLinksShow ? "flex" : "none"}}
               >
-                Sign In
+                Cards Table
+              </NavLink>
+            </li>
+            <li className="nav-item me-4">
+              <NavLink
+                to="/training"
+                className={({ isActive }) =>
+                  isActive ? "activeNavLink" : "inactiveNavLink"
+                }
+                style={{display: props.navsShow.otherLinksShow ? "flex" : "none"}}
+              >
+                Training
+              </NavLink>
+            </li>
+            <li className="nav-item me-4">
+              <NavLink
+                to="/addCards"
+                className={({ isActive }) =>
+                  isActive ? "activeNavLink" : "inactiveNavLink"
+                }
+                style={{display: props.navsShow.otherLinksShow ? "flex" : "none"}}
+              >
+                Add Cards
               </NavLink>
             </li>
           </ul>
@@ -51,6 +89,7 @@ const NavBar = () => {
                 className={({ isActive }) =>
                   isActive ? "activeNavLink" : "inactiveNavLink"
                 }
+                style={{display: props.navsShow.signUpShow ? "flex" : "none"}}
               >
                 Sign Up
               </NavLink>
@@ -61,9 +100,19 @@ const NavBar = () => {
                 className={({ isActive }) =>
                   isActive ? "activeNavLink" : "inactiveNavLink"
                 }
+                style={{display: props.navsShow.signInShow ? "flex" : "none"}}
               >
                 Sign In
               </NavLink>
+            </li>
+            <li className="nav-item me-4">
+              <button
+                onClick={() => handleLogout()}
+                className="logOutButton"
+                style={{display: props.navsShow.logOUtShow ? "flex" : "none"}}
+              >
+                Log Out
+              </button>
             </li>
           </ul>
         </div>

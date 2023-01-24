@@ -3,12 +3,19 @@ import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
 import NavBar from "./NavBar";
 
-const Signup = () => {
+const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const { createUser } = UserAuth();
   const navigate = useNavigate();
+
+  const navsShow = {
+    signUpShow: false,
+    signInShow: true,
+    otherLinksShow: false,
+    logOUtShow: false,
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,7 +31,7 @@ const Signup = () => {
 
   return (
     <>
-      <NavBar />
+      <NavBar navsShow={navsShow} />
       <div>
         <h1>Sign up for a free account</h1>
         <p>
@@ -49,4 +56,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default SignUp;

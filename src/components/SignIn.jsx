@@ -13,6 +13,13 @@ const SignIn = () => {
   const { signIn } = UserAuth();
   const [hiddenPass, setHiddenPass] = useState(true);
 
+  const navsShow = {
+    signUpShow: true,
+    signInShow: false,
+    otherLinksShow: false,
+    logOUtShow: false,
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -35,7 +42,7 @@ const SignIn = () => {
 
   return (
     <>
-      <NavBar />
+      <NavBar navsShow={navsShow} />
       <div className="container-lg">
         <div className="row min-vh-100 justify-content-center align-items-center">
           <div className="col col-md-6 col-12 d-flex justify-content-center align-items-center">

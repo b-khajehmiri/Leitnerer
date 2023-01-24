@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
+import NavBar from "./NavBar";
 
 const Account = () => {
   const { user, logout } = UserAuth();
@@ -9,6 +10,13 @@ const Account = () => {
   const [rawData, setRawData] = useState({});
   const [cards, setCards] = useState([]);
   const [selectedCard, setSelectedCard] = useState({});
+
+  const navsShow = {
+    signUpShow: false,
+    signInShow: false,
+    otherLinksShow: true,
+    logOUtShow: true,
+  };
 
   const handleLogout = async () => {
     try {
@@ -62,7 +70,8 @@ const Account = () => {
   }
 
   return (
-    <div>
+    <>
+      <NavBar navsShow={navsShow} />
       <h1>Account</h1>
       <p>User Email: {user && user.email}</p>
 
@@ -77,7 +86,7 @@ const Account = () => {
       <button onClick={selectCard}>select card</button>
 
       <button onClick={deleteCard}>delete card</button>
-    </div>
+    </>
   );
 };
 

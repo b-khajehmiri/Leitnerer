@@ -27,8 +27,14 @@ body {
 
 .navLogo {
   color: $whiteColor;
-  font-size: 24px;
+  font-size: 26px;
   &:hover {
     color: $whiteColor;
   }
+}
+
+.logOutButton {
+  background-color: $primary;
+  border: 0;
+  color: $whiteColor;
 }
