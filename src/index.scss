@@ -35,7 +35,18 @@ body {
 }
 
 .logOutButton {
-  background-color: $primary;
+  background-color: $primaryBlue;
   border: 0;
   color: $whiteColor;
+}
+
+.hamburgerMenu {
+  background-color: $primaryBlue;
+  border: none;
+  font-size: 22px;
+  color: $whiteColor;
+}
+
+.mainRowHeight {
+  min-height: calc(100vh - 69px);
 }
