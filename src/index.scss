@@ -50,3 +50,19 @@ body {
 .mainRowHeight {
   min-height: calc(100vh - 69px);
 }
+
+.navLogo {
+  color: $primaryBlue;
+  font-size: 26px;
+  &:hover,
+  &:focus {
+    color: $primaryBlue;
+  }
+}
+
+.closeButton {
+  color: $primaryBlue;
+  border: none;
+  font-size: 22px;
+  background-color: $backGroundBlue;
+}

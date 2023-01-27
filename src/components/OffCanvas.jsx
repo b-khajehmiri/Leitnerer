@@ -1,56 +1,33 @@
+import { NavLink } from "react-router-dom";
+import design from "./offCanvas.module.scss";
+
 const OffCanvas = (props) => {
   return (
     <>
       <div
-        className={`offcanvas offcanvas-start ${props.offCanvasShow ? "show" : "show hiding"}`}
+        className={`offcanvas offcanvas-start offCanvasMain d-lg-none
+        ${design.offCanvasMain}
+        ${props.offCanvasShow ? "show" : "hiding"}
+        `}
         tabindex="-1"
         id="offcanvasExample"
         aria-labelledby="offcanvasExampleLabel"
       >
         <div className="offcanvas-header">
-          <h5 className="offcanvas-title" id="offcanvasExampleLabel">
-            Offcanvas
-          </h5>
+          <NavLink className="navbar-brand navLogo logoFont me-5" to="/">
+            Leitnerer
+          </NavLink>
           <button
             type="button"
-            className="btn-close"
+            className="closeButton"
             data-bs-dismiss="offcanvas"
             aria-label="Close"
             onClick={() => props.setOffCanvasShow(false)}
-          ></button>
+          >
+            <i className="fa-solid fa-xmark"></i>
+          </button>
         </div>
-        <div className="offcanvas-body">
-          <div>
-            Some text as placeholder. In real life you can have the elements you
-            have chosen. Like, text, images, lists, etc.
-          </div>
-          <div className="dropdown mt-3">
-            <button
-              className="btn btn-secondary dropdown-toggle"
-              type="button"
-              data-bs-toggle="dropdown"
-            >
-              Dropdown button
-            </button>
-            <ul className="dropdown-menu">
-              <li>
-                <a className="dropdown-item" href="#">
-                  Action
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  Another action
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  Something else here
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
+        <div className="offcanvas-body"></div>
       </div>
     </>
   );
