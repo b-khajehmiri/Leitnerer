@@ -21,8 +21,7 @@ const NavBar = (props) => {
   return (
     <>
       <nav
-        className="navbar navbar-expand-lg navbar-light bg-primary sticky-top"
-        style={{ fontSize: "17px" }}
+        className="navbar navbar-expand-lg navbar-light bg-primary sticky-top font17"
       >
         <div className="container-lg">
           <NavLink className="navbar-brand navLogo logoFont me-5" to="/">
@@ -120,7 +119,7 @@ const NavBar = (props) => {
               </li>
               <li className="nav-item me-4">
                 <button
-                  onClick={() => handleLogout()}
+                  onClick={handleLogout}
                   className="logOutButton"
                   style={{
                     display: props.navsShow.logOUtShow ? "flex" : "none",
@@ -133,7 +132,7 @@ const NavBar = (props) => {
           </div>
         </div>
       </nav>
-      <OffCanvas offCanvasShow={offCanvasShow} setOffCanvasShow={setOffCanvasShow} />
+      <OffCanvas offCanvasShow={offCanvasShow} setOffCanvasShow={setOffCanvasShow} navsShow={props.navsShow}/>
     </>
   );
 };
