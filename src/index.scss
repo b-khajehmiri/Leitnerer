@@ -70,3 +70,21 @@ body {
   font-size: 22px;
   background-color: $backGroundBlue;
 }
+
+.inactiveOffcanvasLink {
+  margin: 0 0.5rem 1.5rem 0.5rem;
+  text-decoration: none;
+  
+}
+
+.activeOffcanvasLink {
+  margin: 0 0.5rem 1.5rem 0.5rem;
+  text-decoration: none;
+  border-bottom: 2px solid ;
+}
+
+.offcanvasLogOutButton {
+  background-color: $backGroundBlue;
+  border: 0;
+  color: $primaryBlue;
+}

@@ -47,7 +47,7 @@ const OffCanvas = (props) => {
                 <NavLink
                   to="/account"
                   className={({ isActive }) =>
-                    isActive ? "activeNavLink" : "inactiveNavLink"
+                    isActive ? "activeOffcanvasLink" : "inactiveOffcanvasLink"
                   }
                   style={{
                     display: props.navsShow.otherLinksShow ? "flex" : "none",
@@ -60,7 +60,7 @@ const OffCanvas = (props) => {
                 <NavLink
                   to="/cardsTable"
                   className={({ isActive }) =>
-                    isActive ? "activeNavLink" : "inactiveNavLink"
+                    isActive ? "activeOffcanvasLink" : "inactiveOffcanvasLink"
                   }
                   style={{
                     display: props.navsShow.otherLinksShow ? "flex" : "none",
@@ -73,7 +73,7 @@ const OffCanvas = (props) => {
                 <NavLink
                   to="/training"
                   className={({ isActive }) =>
-                    isActive ? "activeNavLink" : "inactiveNavLink"
+                    isActive ? "activeOffcanvasLink" : "inactiveOffcanvasLink"
                   }
                   style={{
                     display: props.navsShow.otherLinksShow ? "flex" : "none",
@@ -86,7 +86,7 @@ const OffCanvas = (props) => {
                 <NavLink
                   to="/addCards"
                   className={({ isActive }) =>
-                    isActive ? "activeNavLink" : "inactiveNavLink"
+                    isActive ? "activeOffcanvasLink" : "inactiveOffcanvasLink"
                   }
                   style={{
                     display: props.navsShow.otherLinksShow ? "flex" : "none",
@@ -101,7 +101,7 @@ const OffCanvas = (props) => {
                 <NavLink
                   to="/signUp"
                   className={({ isActive }) =>
-                    isActive ? "activeNavLink" : "inactiveNavLink"
+                    isActive ? "activeOffcanvasLink" : "inactiveOffcanvasLink"
                   }
                   style={{
                     display: props.navsShow.signUpShow ? "flex" : "none",
@@ -114,7 +114,7 @@ const OffCanvas = (props) => {
                 <NavLink
                   to="/"
                   className={({ isActive }) =>
-                    isActive ? "activeNavLink" : "inactiveNavLink"
+                    isActive ? "activeOffcanvasLink" : "inactiveOffcanvasLink"
                   }
                   style={{
                     display: props.navsShow.signInShow ? "flex" : "none",
@@ -126,7 +126,7 @@ const OffCanvas = (props) => {
               <li className="nav-item me-4">
                 <button
                   onClick={handleLogout}
-                  className="logOutButton"
+                  className="offcanvasLogOutButton"
                   style={{
                     display: props.navsShow.logOUtShow ? "flex" : "none",
                   }}
