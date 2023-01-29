@@ -31,7 +31,7 @@ const Account = () => {
   async function addCard() {
     const res = await axios.post(
       `https://leitnerer-e8694-default-rtdb.firebaseio.com/${user.uid}.json`,
-      { f: "test1", b: "امتحان" }
+      { f: "test2", b: "امتحان2", d:0 }
     );
     console.log(res);
   }
@@ -44,7 +44,7 @@ const Account = () => {
   async function changeCard() {
     await axios.put(
       `https://leitnerer-e8694-default-rtdb.firebaseio.com/${user.uid}/${selectedCard[0].id}.json`,
-      { f: "gfgg", b: "125عوض شد" }
+      { f: "gfgg", b: "125عوض شد", d:5 }
     );
     console.log("selected card was:", selectedCard[0]);
   }
@@ -60,6 +60,7 @@ const Account = () => {
     const res = await axios.get(
       `https://leitnerer-e8694-default-rtdb.firebaseio.com/${user.uid}.json`
     );
+
     setRawData(res);
     let keys = Object.keys(res.data);
     let values = Object.values(res.data);
@@ -73,21 +74,21 @@ const Account = () => {
     <>
       <NavBar navsShow={navsShow} />
       <div className="container-lg">
-          <h1>Account</h1>
-          <p>User Email: {user && user.email}</p>
+        <h1>Account</h1>
+        <p>User Email: {user && user.email}</p>
 
-          <button onClick={handleLogout}>Logout</button>
+        <button onClick={handleLogout}>Logout</button>
 
-          <button onClick={addCard}>add card</button>
+        <button onClick={addCard}>add card</button>
 
-          <button onClick={getCards}>get cards</button>
+        <button onClick={getCards}>get cards</button>
 
-          <button onClick={changeCard}>change cards</button>
+        <button onClick={changeCard}>change cards</button>
 
-          <button onClick={selectCard}>select card</button>
+        <button onClick={selectCard}>select card</button>
 
-          <button onClick={deleteCard}>delete card</button>
-        </div>
+        <button onClick={deleteCard}>delete card</button>
+      </div>
     </>
   );
 };

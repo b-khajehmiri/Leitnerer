@@ -18,23 +18,31 @@ body {
   text-decoration: none;
   border-bottom: white 2px solid;
   padding-bottom: 3px;
+  &:hover {
+    color: $whiteColor;
+    cursor: default;
+  }
 }
 
 .inactiveNavLink {
   color: $whiteColor;
   text-decoration: none;
+  &:hover {
+    font-weight: bolder;
+    color: $whiteColor;
+  }
 }
 
 .navLogo {
   color: $whiteColor;
   font-size: 26px;
-  &:hover,
-  &:focus {
+  &:focus,
+  &:hover {
     color: $whiteColor;
   }
 }
 
-.font17{
+.font17 {
   font-size: 17px;
 }
 
@@ -42,6 +50,9 @@ body {
   background-color: $primaryBlue;
   border: 0;
   color: $whiteColor;
+  &:hover {
+    font-weight: bolder;
+  }
 }
 
 .hamburgerMenu {
@@ -60,7 +71,7 @@ body {
   font-size: 26px;
   &:hover,
   &:focus {
-    color: $primaryBlue;
+    color: $blackColor;
   }
 }
 
@@ -74,17 +85,31 @@ body {
 .inactiveOffcanvasLink {
   margin: 0 0.5rem 1.5rem 0.5rem;
   text-decoration: none;
-  
+  &:hover {
+    font-weight: bolder;
+  }
 }
 
 .activeOffcanvasLink {
   margin: 0 0.5rem 1.5rem 0.5rem;
   text-decoration: none;
-  border-bottom: 2px solid ;
+  border-bottom: 2px solid;
 }
 
 .offcanvasLogOutButton {
   background-color: $backGroundBlue;
   border: 0;
   color: $primaryBlue;
+  &:hover {
+    font-weight: bolder;
+  }
+}
+
+.greenButton {
+  background-color: $successColor;
+  color: $whiteColor;
+  &:hover {
+    background-color: $darkSuccessColor;
+    color: $whiteColor;
+  }
 }

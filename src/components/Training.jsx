@@ -1,5 +1,5 @@
 const Training = () => {
-    return <h3>Training</h3>
-}
+  return <h3>Training</h3>;
+};
 
-export default Training
+export default Training;

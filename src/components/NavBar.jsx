@@ -20,14 +20,15 @@ const NavBar = (props) => {
 
   return (
     <>
-      <nav
-        className="navbar navbar-expand-lg navbar-light bg-primary sticky-top font17"
-      >
+      <nav className="navbar navbar-expand-lg navbar-light bg-primary sticky-top font17">
         <div className="container-lg">
           <NavLink className="navbar-brand navLogo logoFont me-5" to="/">
             Leitnerer
           </NavLink>
-          <button className="d-lg-none hamburgerMenu" onClick={() => setOffCanvasShow(!offCanvasShow)}> 
+          <button
+            className="d-lg-none hamburgerMenu"
+            onClick={() => setOffCanvasShow(!offCanvasShow)}
+          >
             <i className="fa-solid fa-bars"></i>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -132,7 +133,11 @@ const NavBar = (props) => {
           </div>
         </div>
       </nav>
-      <OffCanvas offCanvasShow={offCanvasShow} setOffCanvasShow={setOffCanvasShow} navsShow={props.navsShow}/>
+      <OffCanvas
+        offCanvasShow={offCanvasShow}
+        setOffCanvasShow={setOffCanvasShow}
+        navsShow={props.navsShow}
+      />
     </>
   );
 };

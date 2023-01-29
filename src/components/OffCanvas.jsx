@@ -43,98 +43,98 @@ const OffCanvas = (props) => {
         </div>
         <div className="offcanvas-body font17">
           <ul class="nav flex-column">
-          <li className="nav-item">
-                <NavLink
-                  to="/account"
-                  className={({ isActive }) =>
-                    isActive ? "activeOffcanvasLink" : "inactiveOffcanvasLink"
-                  }
-                  style={{
-                    display: props.navsShow.otherLinksShow ? "flex" : "none",
-                  }}
-                >
-                  Account
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  to="/cardsTable"
-                  className={({ isActive }) =>
-                    isActive ? "activeOffcanvasLink" : "inactiveOffcanvasLink"
-                  }
-                  style={{
-                    display: props.navsShow.otherLinksShow ? "flex" : "none",
-                  }}
-                >
-                  Cards Table
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  to="/training"
-                  className={({ isActive }) =>
-                    isActive ? "activeOffcanvasLink" : "inactiveOffcanvasLink"
-                  }
-                  style={{
-                    display: props.navsShow.otherLinksShow ? "flex" : "none",
-                  }}
-                >
-                  Training
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  to="/addCards"
-                  className={({ isActive }) =>
-                    isActive ? "activeOffcanvasLink" : "inactiveOffcanvasLink"
-                  }
-                  style={{
-                    display: props.navsShow.otherLinksShow ? "flex" : "none",
-                  }}
-                >
-                  Add Cards
-                </NavLink>
-              </li>
+            <li className="nav-item">
+              <NavLink
+                to="/account"
+                className={({ isActive }) =>
+                  isActive ? "activeOffcanvasLink" : "inactiveOffcanvasLink"
+                }
+                style={{
+                  display: props.navsShow.otherLinksShow ? "flex" : "none",
+                }}
+              >
+                Account
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                to="/cardsTable"
+                className={({ isActive }) =>
+                  isActive ? "activeOffcanvasLink" : "inactiveOffcanvasLink"
+                }
+                style={{
+                  display: props.navsShow.otherLinksShow ? "flex" : "none",
+                }}
+              >
+                Cards Table
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                to="/training"
+                className={({ isActive }) =>
+                  isActive ? "activeOffcanvasLink" : "inactiveOffcanvasLink"
+                }
+                style={{
+                  display: props.navsShow.otherLinksShow ? "flex" : "none",
+                }}
+              >
+                Training
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                to="/addCards"
+                className={({ isActive }) =>
+                  isActive ? "activeOffcanvasLink" : "inactiveOffcanvasLink"
+                }
+                style={{
+                  display: props.navsShow.otherLinksShow ? "flex" : "none",
+                }}
+              >
+                Add Cards
+              </NavLink>
+            </li>
           </ul>
           <ul className="navbar-nav mr-auto">
-              <li className="nav-item me-4">
-                <NavLink
-                  to="/signUp"
-                  className={({ isActive }) =>
-                    isActive ? "activeOffcanvasLink" : "inactiveOffcanvasLink"
-                  }
-                  style={{
-                    display: props.navsShow.signUpShow ? "flex" : "none",
-                  }}
-                >
-                  Sign Up
-                </NavLink>
-              </li>
-              <li className="nav-item me-4">
-                <NavLink
-                  to="/"
-                  className={({ isActive }) =>
-                    isActive ? "activeOffcanvasLink" : "inactiveOffcanvasLink"
-                  }
-                  style={{
-                    display: props.navsShow.signInShow ? "flex" : "none",
-                  }}
-                >
-                  Sign In
-                </NavLink>
-              </li>
-              <li className="nav-item me-4">
-                <button
-                  onClick={handleLogout}
-                  className="offcanvasLogOutButton"
-                  style={{
-                    display: props.navsShow.logOUtShow ? "flex" : "none",
-                  }}
-                >
-                  Log Out
-                </button>
-              </li>
-            </ul>
+            <li className="nav-item me-4">
+              <NavLink
+                to="/signUp"
+                className={({ isActive }) =>
+                  isActive ? "activeOffcanvasLink" : "inactiveOffcanvasLink"
+                }
+                style={{
+                  display: props.navsShow.signUpShow ? "flex" : "none",
+                }}
+              >
+                Sign Up
+              </NavLink>
+            </li>
+            <li className="nav-item me-4">
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  isActive ? "activeOffcanvasLink" : "inactiveOffcanvasLink"
+                }
+                style={{
+                  display: props.navsShow.signInShow ? "flex" : "none",
+                }}
+              >
+                Sign In
+              </NavLink>
+            </li>
+            <li className="nav-item me-4">
+              <button
+                onClick={handleLogout}
+                className="offcanvasLogOutButton"
+                style={{
+                  display: props.navsShow.logOUtShow ? "flex" : "none",
+                }}
+              >
+                Log Out
+              </button>
+            </li>
+          </ul>
         </div>
       </div>
     </>
