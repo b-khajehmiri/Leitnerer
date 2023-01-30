@@ -113,3 +113,15 @@ body {
     color: $whiteColor;
   }
 }
+
+.formikError {
+  font-size: 14px;
+  font-weight: 500;
+  margin: -0.5rem 0 1rem 0;
+  padding: 0 0.5rem;
+  background-color: $warningBackground;
+  color: $warningTextColor;
+  max-width: fit-content;
+  border: 1px solid $warningTextColor;
+  border-radius: 5px;
+}

@@ -42,7 +42,7 @@ const OffCanvas = (props) => {
           </button>
         </div>
         <div className="offcanvas-body font17">
-          <ul class="nav flex-column">
+          <ul className="nav flex-column">
             <li className="nav-item">
               <NavLink
                 to="/account"
