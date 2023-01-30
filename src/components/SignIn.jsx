@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
 import bannerImg from "../images/bannerTop.png";
+import ErrorHandler from "../utils/ErrorHandler";
 import NavBar from "./NavBar";
 import design from "./signIn.module.scss";
 
@@ -31,15 +32,6 @@ const SignIn = () => {
     }
   };
 
-  function errorCorrector(err) {
-    const phrase = err
-      .replace("Firebase: Error (auth/", "")
-      .replace(").", "")
-      .replace(/-/g, " ");
-    const capitalized = phrase.charAt(0).toUpperCase() + phrase.slice(1) + "!";
-    return capitalized;
-  }
-
   return (
     <>
       <NavBar navsShow={navsShow} />
@@ -59,11 +51,11 @@ const SignIn = () => {
                   {error && (
                     <div className="alert alert-danger" role="alert">
                       <i className="fa-solid fa-circle-exclamation me-2"></i>
-                      {errorCorrector(error)}
+                      {ErrorHandler(error)}
                     </div>
                   )}
                   <label htmlFor="email" className="form-label">
-                    Email Address
+                    Email Address:
                   </label>
                   <input
                     id="email"
@@ -72,7 +64,7 @@ const SignIn = () => {
                     onChange={(e) => setEmail(e.target.value)}
                   />
                   <label htmlFor="password" className="form-label">
-                    Password
+                    Password:
                   </label>
                   <div className="input-group">
                     <input
@@ -82,7 +74,7 @@ const SignIn = () => {
                       onChange={(e) => setPassword(e.target.value)}
                     />
                     <i
-                      className={`fa-solid fa-eye input-group-text d-flex text-primary border-primary ${design.passwordIcon}`}
+                      className={`fa-solid ${hiddenPass ? "fa-eye" : "fa-eye-slash"} input-group-text d-flex text-primary border-primary ${design.passwordIcon}`}
                       onClick={() => setHiddenPass(!hiddenPass)}
                     ></i>
                   </div>

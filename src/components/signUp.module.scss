@@ -1,0 +1,34 @@
+@import "../utils/colors.scss";
+
+.signUpForm {
+  max-width: 500px;
+}
+
+.LeitnerBox {
+    width: 550px;
+    text-align: justify;
+    @media only screen and (max-width: 674px) {
+      margin-bottom: 2rem;
+    }
+  }
+  
+  .leitnerer {
+    text-align: justify;
+    @media only screen and (min-width: 674px) {
+      padding: 0 2rem;
+    }
+  }
+  
+  .explain {
+    text-align: justify;
+    @media only screen and (min-width: 674px) {
+      padding: 0 2rem;
+    }
+  }
+  
+  .passwordIcon {
+    background-color: $inputBlue;
+    &:hover {
+      cursor: pointer;
+    }
+  }
