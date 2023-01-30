@@ -5,6 +5,7 @@ import NavBar from "./NavBar";
 import design from "./signUp.module.scss";
 import bannerImg from "../images/bannerTop.png";
 import ErrorHandler from "../utils/ErrorHandler";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -28,6 +29,7 @@ const SignUp = () => {
       try {
         await createUser(email, password);
         navigate("/account");
+        toast.success("New user created and signed in.")
       } catch (e) {
         setError(e.message);
         console.log(error);

@@ -6,6 +6,7 @@ import design from "./addCard.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { AddCardsValidationSchema } from "../utils/AddCardsValidationSchema";
+import { toast } from "react-toastify";
 
 const AddCards = () => {
   const navsShow = {
@@ -44,6 +45,7 @@ const AddCards = () => {
           `https://leitnerer-e8694-default-rtdb.firebaseio.com/${user.uid}.json`,
           card
         );
+        toast.success("Card added successfully!")
         resetForm({ values: "" });
       } catch (e) {
         console.log(e);

@@ -7,11 +7,24 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import CardsTable from "./components/CardsTable";
 import Training from "./components/Training";
 import AddCards from "./components/AddCards";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <div>
       <AuthContextProvider>
+        <ToastContainer
+          position="bottom-left"
+          autoClose={1500}
+          hideProgressBar
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover={false}
+          theme="colored"
+        />
         <Routes>
           <Route
             path="/"
