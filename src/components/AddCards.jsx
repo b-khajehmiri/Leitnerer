@@ -18,7 +18,7 @@ const AddCards = () => {
   const { user } = UserAuth();
   const navigate = useNavigate();
   const [cards, setCards] = useState([]);
-  const [getHandler, setGetHandler] = useState(true);
+  const [onAdd, setOnAdd] = useState(true);
   const [duplication, setDuplication] = useState(false);
 
   const formik = useFormik({
@@ -50,7 +50,7 @@ const AddCards = () => {
       }
     }
 
-    setGetHandler(!getHandler);
+    setOnAdd(!onAdd);
   }
 
   async function getCards() {
@@ -68,7 +68,11 @@ const AddCards = () => {
 
   useEffect(() => {
     getCards();
-  }, [getHandler]);
+  }, [onAdd]);
+  
+  useEffect(() => {
+    document.getElementById("frontSide").focus()
+  }, [onAdd]);
 
   return (
     <>
