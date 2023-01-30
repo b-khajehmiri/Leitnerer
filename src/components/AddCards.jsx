@@ -15,18 +15,19 @@ const AddCards = () => {
 
   const { user } = UserAuth();
   const navigate = useNavigate();
-  const [front, setFront] = useState("");
-  const [back, setBack] = useState("");
+  const [card, setCard] = useState({ front: "", back: "", deck: 0 });
+
+  const cardSetter = (e) => {
+    setCard({...card, [e.target.name]:e.target.value})
+  };
 
   async function addCard(e) {
     e.preventDefault();
     try {
-       await axios.post(
+      await axios.post(
         `https://leitnerer-e8694-default-rtdb.firebaseio.com/${user.uid}.json`,
-        { front: front, back: back, deck: 0 }
+        card
       );
-      setFront("");
-      setBack("");
     } catch (e) {
       console.log(e);
     }
@@ -49,21 +50,23 @@ const AddCards = () => {
                   Front side:
                 </label>
                 <textarea
+                  name="front"
                   id="frontSide"
                   type="text"
                   className="form-control mb-3 border-primary"
-                  value={front}
-                  onChange={(e) => setFront(e.target.value)}
+                  value={card.front}
+                  onChange={(e) => cardSetter(e)}
                 />
                 <label htmlFor="backSide" className="form-label">
                   Back side:
                 </label>
                 <textarea
+                  name="back"
                   id="backSide"
                   type="text"
                   className="form-control mb-3 border-primary"
-                  value={back}
-                  onChange={(e) => setBack(e.target.value)}
+                  value={card.back}
+                  onChange={(e) => cardSetter(e)}
                 />
                 <button className="btn w-100 greenButton mt-3 mb-4">Add</button>
               </form>
@@ -89,7 +92,7 @@ const AddCards = () => {
           </div>
         </div>
       </div>
-      {console.log(front,back)}
+      {console.log(card)}
     </>
   );
 };
