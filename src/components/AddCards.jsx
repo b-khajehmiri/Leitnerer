@@ -27,21 +27,24 @@ const AddCards = () => {
       back: "",
     },
     onSubmit: (values, { resetForm }) => {
-      addCard(values);
-      resetForm({ values: "" });
+      addCard(values, { resetForm });
     },
     validationSchema: AddCardsValidationSchema,
   });
 
-  async function addCard(card) {
+  async function addCard(card, { resetForm }) {
     if (cards.some((card) => card.front === formik.values.front)) {
       setDuplication(true);
+      setTimeout(() => {
+        setDuplication(false);
+      }, 2500)
     } else {
       try {
         await axios.post(
           `https://leitnerer-e8694-default-rtdb.firebaseio.com/${user.uid}.json`,
           card
         );
+        resetForm({ values: "" });
       } catch (e) {
         console.log(e);
       }
