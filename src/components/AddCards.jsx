@@ -63,16 +63,12 @@ const AddCards = () => {
     let keys = Object.keys(res.data);
     let values = Object.values(res.data);
     values.map((v, index) => (v.id = keys[index]));
-    console.log("all cards got");
     setCards(values);
     console.log(values);
   }
 
   useEffect(() => {
     getCards();
-  }, [onAdd]);
-  
-  useEffect(() => {
     document.getElementById("frontSide").focus()
   }, [onAdd]);
 
@@ -159,7 +155,6 @@ const AddCards = () => {
           </div>
         </div>
       </div>
-      {/* {console.log(card)} */}
     </>
   );
 };
