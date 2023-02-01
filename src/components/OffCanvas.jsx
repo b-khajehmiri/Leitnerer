@@ -10,6 +10,7 @@ const OffCanvas = (props) => {
     try {
       await logout();
       navigate("/");
+      window.localStorage.setItem("user", "");
       console.log("You are logged out");
     } catch (e) {
       console.log(e.message);

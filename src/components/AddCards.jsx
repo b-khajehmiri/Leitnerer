@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { UserAuth } from "../context/AuthContext";
 import NavBar from "./NavBar";
 import design from "./addCard.module.scss";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +8,8 @@ import { AddCardsValidationSchema } from "../utils/AddCardsValidationSchema";
 import { toast } from "react-toastify";
 
 const AddCards = () => {
+
+  const userId = window.localStorage.getItem("user");
   const navsShow = {
     signUpShow: false,
     signInShow: false,
@@ -16,7 +17,6 @@ const AddCards = () => {
     logOUtShow: true,
   };
 
-  const { user } = UserAuth();
   const navigate = useNavigate();
   const [cards, setCards] = useState([]);
   const [onAdd, setOnAdd] = useState(true);
@@ -42,8 +42,8 @@ const AddCards = () => {
     } else {
       try {
         await axios.post(
-          `https://leitnerer-e8694-default-rtdb.firebaseio.com/${user.uid}.json`,
-          card
+          `https://leitnerer-e8694-default-rtdb.firebaseio.com/${userId}.json`,
+          {...card, deck:0}
         );
         toast.success("Card added successfully!")
         resetForm({ values: "" });
@@ -57,7 +57,7 @@ const AddCards = () => {
 
   async function getCards() {
     const res = await axios.get(
-      `https://leitnerer-e8694-default-rtdb.firebaseio.com/${user.uid}.json`
+      `https://leitnerer-e8694-default-rtdb.firebaseio.com/${userId}.json`
     );
 
     let keys = Object.keys(res.data);

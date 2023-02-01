@@ -6,6 +6,7 @@ import NavBar from "./NavBar";
 
 const Account = () => {
   const { user, logout } = UserAuth();
+  window.localStorage.setItem("user", user.uid);
   const navigate = useNavigate();
   const [rawData, setRawData] = useState({});
   const [cards, setCards] = useState([]);
@@ -22,6 +23,7 @@ const Account = () => {
     try {
       await logout();
       navigate("/");
+      window.localStorage.setItem("user", "");
       console.log("You are logged out");
     } catch (e) {
       console.log(e.message);

@@ -16,7 +16,7 @@ body {
 .activeNavLink {
   color: $whiteColor;
   text-decoration: none;
-  border-bottom: white 2px solid;
+  border-bottom: $whiteColor 2px solid;
   padding-bottom: 3px;
   &:hover {
     color: $whiteColor;
@@ -28,8 +28,7 @@ body {
   color: $whiteColor;
   text-decoration: none;
   &:hover {
-    font-weight: bolder;
-    color: $whiteColor;
+    color: $blackColor;
   }
 }
 
@@ -51,7 +50,7 @@ body {
   border: 0;
   color: $whiteColor;
   &:hover {
-    font-weight: bolder;
+    color: $blackColor;
   }
 }
 
@@ -71,7 +70,7 @@ body {
   font-size: 26px;
   &:hover,
   &:focus {
-    color: $blackColor;
+    color: $primaryBlue;
   }
 }
 
@@ -86,7 +85,7 @@ body {
   margin: 0 0.5rem 1.5rem 0.5rem;
   text-decoration: none;
   &:hover {
-    font-weight: bolder;
+    color: $blackColor;
   }
 }
 
@@ -94,6 +93,10 @@ body {
   margin: 0 0.5rem 1.5rem 0.5rem;
   text-decoration: none;
   border-bottom: 2px solid;
+  &:hover {
+    cursor: default;
+    color: $primaryBlue;
+  }
 }
 
 .offcanvasLogOutButton {
@@ -101,7 +104,7 @@ body {
   border: 0;
   color: $primaryBlue;
   &:hover {
-    font-weight: bolder;
+    color: $blackColor;
   }
 }
 
