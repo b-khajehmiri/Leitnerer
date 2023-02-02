@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useMemo } from "react";
 import { useEffect, useState } from "react";
-import { useTable } from "react-table";
+import { useTable, useSortBy } from "react-table";
 import NavBar from "./NavBar";
 import design from "./cardsTable.module.scss";
 
@@ -40,10 +40,13 @@ const CardsTable = () => {
   const columns = useMemo(() => Columns, []);
   // const data = useMemo(() => cards, []);
 
-  const cardsTable = useTable({
-    columns: columns,
-    data: cards,
-  });
+  const cardsTable = useTable(
+    {
+      columns: columns,
+      data: cards,
+    },
+    useSortBy
+  );
 
   const {
     getTableProps,
@@ -66,8 +69,15 @@ const CardsTable = () => {
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
-                  <th {...column.getHeaderProps()}>
+                  <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                     {column.render("Header")}
+                    <span>
+                      {column.isSorted
+                        ? column.isSortedDesc
+                          ? <i className="fa-solid fa-down-long ms-2"></i>
+                          : <i className="fa-solid fa-up-long ms-2"></i>
+                        : ""}
+                    </span>
                   </th>
                 ))}
               </tr>
