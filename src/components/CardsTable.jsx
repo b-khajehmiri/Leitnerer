@@ -1,7 +1,12 @@
 import axios from "axios";
 import { useMemo } from "react";
 import { useEffect, useState } from "react";
-import { useTable, useSortBy, useGlobalFilter } from "react-table";
+import {
+  useTable,
+  useSortBy,
+  useGlobalFilter,
+  usePagination,
+} from "react-table";
 import NavBar from "./NavBar";
 import design from "./cardsTable.module.scss";
 import { GlobalFilter } from "../utils/GlobalFilter";
@@ -47,29 +52,37 @@ const CardsTable = () => {
       data: cards,
     },
     useGlobalFilter,
-    useSortBy
+    useSortBy,
+    usePagination
   );
 
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    rows,
+    page,
+    nextPage,
+    previousPage,
+    canNextPage,
+    canPreviousPage,
+    pageOptions,
+    gotoPage,
+    pageCount,
     prepareRow,
     footerGroups,
     state,
     setGlobalFilter,
   } = cardsTable;
 
-  const { globalFilter } = state;
+  const { globalFilter, pageIndex } = state;
 
   return (
     <>
       <NavBar navsShow={navsShow} />
-      <div className="container lg mt-5">
+      <div className="container lg my-5">
         <div className="d-flex mb-1">
           <h3 className="my-2 text-primary">Cards table</h3>
-          <div className="ms-5 mt-1 text-primary" style={{fontSize:"18px"}}>
+          <div className="ms-5 mt-1 text-primary" style={{ fontSize: "18px" }}>
             <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
           </div>
         </div>
@@ -100,7 +113,7 @@ const CardsTable = () => {
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {rows.map((row, i) => {
+            {page.map((row, i) => {
               prepareRow(row);
               return (
                 <tr {...row.getRowProps()}>
@@ -125,6 +138,26 @@ const CardsTable = () => {
             ))}
           </tfoot>
         </table>
+        <div className="d-flex justify-content-center">
+          <span>
+            <i
+              className="fa-solid fa-chevron-left text-primary cursorPointer"
+              style={{ display: canPreviousPage ? "inline-block" : "none" }}
+              onClick={() => previousPage()}
+            ></i>
+          </span>
+          <span className="mx-3 text-primary">
+            Page {[pageIndex + 1]} of {pageOptions.length}
+          </span>
+          <span>
+            {" "}
+            <i
+              className="fa-solid fa-chevron-right text-primary cursorPointer"
+              style={{ display: canNextPage ? "inline-block" : "none" }}
+              onClick={() => nextPage()}
+            ></i>
+          </span>
+        </div>
       </div>
     </>
   );

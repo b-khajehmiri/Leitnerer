@@ -127,3 +127,9 @@ body {
   // border: 1px solid $warningTextColor;
   border-radius: 5px;
 }
+
+.cursorPointer {
+  &:hover {
+    cursor: pointer;
+  }
+}
