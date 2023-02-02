@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useMemo } from "react";
 import { useEffect, useState } from "react";
-import { useTable, useSortBy } from "react-table";
+import { useTable, useSortBy, useGlobalFilter } from "react-table";
 import NavBar from "./NavBar";
 import design from "./cardsTable.module.scss";
+import { GlobalFilter } from "../utils/GlobalFilter";
 
 const CardsTable = () => {
   const userId = window.localStorage.getItem("user");
@@ -45,6 +46,7 @@ const CardsTable = () => {
       columns: columns,
       data: cards,
     },
+    useGlobalFilter,
     useSortBy
   );
 
@@ -55,12 +57,22 @@ const CardsTable = () => {
     rows,
     prepareRow,
     footerGroups,
+    state,
+    setGlobalFilter,
   } = cardsTable;
+
+  const { globalFilter } = state;
 
   return (
     <>
       <NavBar navsShow={navsShow} />
       <div className="container lg mt-5">
+        <div className="d-flex mb-1">
+          <h3 className="my-2 text-primary">Cards table</h3>
+          <div className="ms-5 mt-1 text-primary" style={{fontSize:"18px"}}>
+            <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
+          </div>
+        </div>
         <table
           className={`table table-responsive ${design.cardsTable}`}
           {...getTableProps()}
@@ -72,11 +84,15 @@ const CardsTable = () => {
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                     {column.render("Header")}
                     <span>
-                      {column.isSorted
-                        ? column.isSortedDesc
-                          ? <i className="fa-solid fa-down-long ms-2"></i>
-                          : <i className="fa-solid fa-up-long ms-2"></i>
-                        : ""}
+                      {column.isSorted ? (
+                        column.isSortedDesc ? (
+                          <i className="fa-solid fa-down-long ms-2"></i>
+                        ) : (
+                          <i className="fa-solid fa-up-long ms-2"></i>
+                        )
+                      ) : (
+                        ""
+                      )}
                     </span>
                   </th>
                 ))}
