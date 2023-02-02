@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import { useEffect, useState } from "react";
 import { useTable } from "react-table";
 import NavBar from "./NavBar";
-import design from "./cardsTable.module.scss"
+import design from "./cardsTable.module.scss";
 
 const CardsTable = () => {
   const userId = window.localStorage.getItem("user");
@@ -31,9 +31,9 @@ const CardsTable = () => {
   }, []);
 
   const Columns = [
-    { Header: "Front Side", accessor: "front" },
-    { Header: "Back Side", accessor: "back" },
-    { Header: "Deck Number", accessor: "deck" },
+    { Header: "Front Side", Footer: "Front Side", accessor: "front" },
+    { Header: "Back Side", Footer: "Back Side", accessor: "back" },
+    { Header: "Deck Number", Footer: "Deck Number", accessor: "deck" },
   ];
 
   console.log(cards);
@@ -45,8 +45,14 @@ const CardsTable = () => {
     data: cards,
   });
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    cardsTable;
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    footerGroups,
+  } = cardsTable;
 
   return (
     <>
@@ -81,6 +87,17 @@ const CardsTable = () => {
               );
             })}
           </tbody>
+          <tfoot>
+            {footerGroups.map((footerGroup) => (
+              <tr {...footerGroup.getFooterGroupProps()}>
+                {footerGroup.headers.map((column) => (
+                  <td {...column.getFooterGroupProps}>
+                    {column.render("Footer")}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tfoot>
         </table>
       </div>
     </>

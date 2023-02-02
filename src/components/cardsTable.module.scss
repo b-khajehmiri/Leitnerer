@@ -1,24 +1,27 @@
 @import "../utils/colors.scss";
 
 table.cardsTable {
-    font-size: 17px;
-    background-color: $whiteColor;
-  }
-  table.cardsTable td, table.cardsTable th {
-    border: 1px solid $primaryBlue;
-    padding: 0.4rem;
-  }
-  table.cardsTable tbody td {
-    color: $blackColor;
-    font-size: 17px;
-  }
-  table.cardsTable tr:nth-child(even) {
-    background: #cee1fd;
-  }
-  table.cardsTable thead {
-    background: $primaryBlue;
-  }
-  table.cardsTable thead th {
-    font-weight:600;
-    color: #FFFFFF;
-  }
+  font-size: 17px;
+  background-color: $whiteColor;
+}
+table.cardsTable td,
+table.cardsTable th {
+  border: 1px solid $primaryBlue;
+  padding: 0.4rem 1rem;
+}
+table.cardsTable tbody td {
+  color: $blackColor;
+  font-size: 17px;
+}
+table.cardsTable tr:nth-child(even) {
+  background: #cee1fd;
+}
+table.cardsTable thead,
+table.cardsTable tfoot {
+  background: $primaryBlue;
+}
+table.cardsTable thead th,
+table.cardsTable tfoot {
+  font-weight: 600;
+  color: #ffffff;
+}
