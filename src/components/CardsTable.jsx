@@ -139,23 +139,30 @@ const CardsTable = () => {
           </tfoot>
         </table>
         <div className="d-flex justify-content-center">
-          <span>
-            <i
-              className="fa-solid fa-chevron-left text-primary cursorPointer"
-              style={{ display: canPreviousPage ? "inline-block" : "none" }}
-              onClick={() => previousPage()}
-            ></i>
+          <span
+            className={`text-primary ${design.paginationHover}`}
+            style={{
+              visibility: canPreviousPage ? "visible" : "hidden",
+              fontWeight: 500,
+            }}
+            onClick={() => previousPage()}
+          >
+            <i className="fa-solid fa-chevron-left me-1"></i>
+            Previous
           </span>
-          <span className="mx-3 text-primary">
+          <span className="mx-3 text-primary fw-bolder">
             Page {[pageIndex + 1]} of {pageOptions.length}
           </span>
-          <span>
-            {" "}
-            <i
-              className="fa-solid fa-chevron-right text-primary cursorPointer"
-              style={{ display: canNextPage ? "inline-block" : "none" }}
-              onClick={() => nextPage()}
-            ></i>
+          <span
+            className={`text-primary ${design.paginationHover}`}
+            style={{
+              visibility: canNextPage ? "visible" : "hidden",
+              fontWeight: 500,
+            }}
+            onClick={() => nextPage()}
+          >
+            Next
+            <i className="fa-solid fa-chevron-right ms-1"></i>
           </span>
         </div>
       </div>

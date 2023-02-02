@@ -25,3 +25,10 @@ table.cardsTable tfoot {
   font-weight: 600;
   color: #ffffff;
 }
+
+.paginationHover {
+  &:hover {
+    cursor: pointer;
+    border-bottom: 2px solid $primaryBlue;
+  }
+}
