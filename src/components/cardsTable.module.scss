@@ -35,14 +35,24 @@ table.cardsTable tfoot {
 
 .gotoPageInput {
   width: 80px;
-  height: 25px;
+  height: 35px;
   color: $primaryBlue;
 }
 
-.gotoPageLabel {
+.pageSizeInput {
+  width: 80px;
+  height: 35px;
+  color: $primaryBlue;
+}
+
+.gotoPageLabel, .pageSizeLabel {
   width: 90px;
 }
 
 .iconsFontSize {
   font-size: 12px;
+}
+
+.pageHandlers {
+  margin: auto 0;
 }

@@ -68,13 +68,14 @@ const CardsTable = () => {
     canPreviousPage,
     gotoPage,
     pageCount,
+    setPageSize,
     prepareRow,
     footerGroups,
     state,
     setGlobalFilter,
   } = cardsTable;
 
-  const { globalFilter, pageIndex } = state;
+  const { globalFilter, pageIndex, pageSize } = state;
 
   return (
     <>
@@ -140,7 +141,7 @@ const CardsTable = () => {
         </table>
         <div className="d-flex justify-content-center align-item-center">
           <span
-            className={`text-primary ${design.paginationHover} me-4`}
+            className={`text-primary ${design.paginationHover} ${design.pageHandlers} me-4`}
             style={{
               display: canPreviousPage ? "inline-block" : "none",
             }}
@@ -149,7 +150,7 @@ const CardsTable = () => {
             First
           </span>
           <span
-            className={`text-primary ${design.paginationHover}`}
+            className={`text-primary ${design.paginationHover} ${design.pageHandlers}`}
             style={{
               display: canPreviousPage ? "inline-block" : "none",
             }}
@@ -161,38 +162,40 @@ const CardsTable = () => {
             Previous
           </span>
           <span
-            className="mx-3 text-primary cursorPointer"
+            className={`mx-3 text-primary cursorPointer ${design.pageHandlers}`}
             style={{ display: pageIndex > 1 ? "block" : "none" }}
             onClick={() => gotoPage(pageIndex - 2)}
           >
             {[pageIndex - 1]}
           </span>
           <span
-            className="mx-3 text-primary cursorPointer"
+            className={`mx-3 text-primary cursorPointer ${design.pageHandlers}`}
             style={{ display: pageIndex > 0 ? "block" : "none" }}
             onClick={() => gotoPage(pageIndex - 1)}
           >
             {[pageIndex]}
           </span>
-          <span className="mx-3 text-primary fw-bolder cursorDefault">
+          <span
+            className={`mx-3 text-primary fw-bolder cursorDefault ${design.pageHandlers}`}
+          >
             {[pageIndex + 1]}
           </span>
           <span
-            className="mx-3 text-primary cursorPointer"
+            className={`mx-3 text-primary cursorPointer ${design.pageHandlers}`}
             style={{ display: pageIndex < pageCount - 1 ? "block" : "none" }}
             onClick={() => gotoPage(pageIndex + 1)}
           >
             {[pageIndex + 2]}
           </span>
           <span
-            className="mx-3 text-primary cursorPointer"
+            className={`mx-3 text-primary cursorPointer ${design.pageHandlers}`}
             style={{ display: pageIndex < pageCount - 2 ? "block" : "none" }}
             onClick={() => gotoPage(pageIndex + 2)}
           >
             {[pageIndex + 3]}
           </span>
           <span
-            className={`text-primary ms-2 ${design.paginationHover}`}
+            className={`text-primary ms-2 ${design.paginationHover} ${design.pageHandlers}`}
             style={{
               display: canNextPage ? "inline-block" : "none",
             }}
@@ -204,7 +207,7 @@ const CardsTable = () => {
             ></i>
           </span>
           <span
-            className={`text-primary ${design.paginationHover} ms-3`}
+            className={`text-primary ${design.paginationHover} ${design.pageHandlers} ms-4`}
             style={{
               display: canNextPage ? "inline-block" : "none",
             }}
@@ -212,7 +215,7 @@ const CardsTable = () => {
           >
             Last
           </span>
-          <span className="text-primary ms-5 d-flex">
+          <span className="text-primary ms-5 d-none d-lg-flex">
             <label
               htmlFor="goToPage"
               className={`form-label m-0 p-0 align-self-center ${design.gotoPageLabel}`}
@@ -233,6 +236,26 @@ const CardsTable = () => {
                 gotoPage(pageNumber);
               }}
             />
+          </span>
+          <span className="text-primary ms-5 d-none d-lg-flex">
+            <label
+              htmlFor="pageSize"
+              className={`form-label m-0 p-0 align-self-center ${design.pageSizeLabel}`}
+            >
+              Page rows:
+            </label>
+            <select
+              id="pageSize"
+              className={`form-control border-primary ms-2 ${design.pageSizeInput}`}
+              value={pageSize}
+              onChange={(e) => setPageSize(Number(e.target.value))}
+            >
+              {[5, 10, 20, 50, 100].map((pageSize) => (
+                <option key={pageSize} value={pageSize}>
+                  {pageSize}
+                </option>
+              ))}
+            </select>
           </span>
         </div>
       </div>
