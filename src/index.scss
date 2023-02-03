@@ -133,3 +133,9 @@ body {
     cursor: pointer;
   }
 }
+
+.cursorDefault {
+  &:hover {
+    cursor: default;
+  }
+}

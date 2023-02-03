@@ -32,3 +32,17 @@ table.cardsTable tfoot {
     border-bottom: 1px solid $primaryBlue;
   }
 }
+
+.gotoPageInput {
+  width: 80px;
+  height: 25px;
+  color: $primaryBlue;
+}
+
+.gotoPageLabel {
+  width: 90px;
+}
+
+.iconsFontSize {
+  font-size: 12px;
+}

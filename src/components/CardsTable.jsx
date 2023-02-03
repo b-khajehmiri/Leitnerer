@@ -140,7 +140,7 @@ const CardsTable = () => {
         </table>
         <div className="d-flex justify-content-center align-item-center">
           <span
-            className={`text-primary ${design.paginationHover} me-3`}
+            className={`text-primary ${design.paginationHover} me-4`}
             style={{
               display: canPreviousPage ? "inline-block" : "none",
             }}
@@ -156,14 +156,43 @@ const CardsTable = () => {
             onClick={() => previousPage()}
           >
             <i
-              className="fa-solid fa-chevron-left"
-              style={{ fontSize: "12px" }}
+              className={`fa-solid fa-chevron-left ${design.iconsFontSize}`}
             ></i>
             Previous
           </span>
-          <span className="mx-3 text-primary fw-bolder">{[pageIndex + 1]}</span>
           <span
-            className={`text-primary ${design.paginationHover}`}
+            className="mx-3 text-primary cursorPointer"
+            style={{ display: pageIndex > 1 ? "block" : "none" }}
+            onClick={() => gotoPage(pageIndex - 2)}
+          >
+            {[pageIndex - 1]}
+          </span>
+          <span
+            className="mx-3 text-primary cursorPointer"
+            style={{ display: pageIndex > 0 ? "block" : "none" }}
+            onClick={() => gotoPage(pageIndex - 1)}
+          >
+            {[pageIndex]}
+          </span>
+          <span className="mx-3 text-primary fw-bolder cursorDefault">
+            {[pageIndex + 1]}
+          </span>
+          <span
+            className="mx-3 text-primary cursorPointer"
+            style={{ display: pageIndex < pageCount - 1 ? "block" : "none" }}
+            onClick={() => gotoPage(pageIndex + 1)}
+          >
+            {[pageIndex + 2]}
+          </span>
+          <span
+            className="mx-3 text-primary cursorPointer"
+            style={{ display: pageIndex < pageCount - 2 ? "block" : "none" }}
+            onClick={() => gotoPage(pageIndex + 2)}
+          >
+            {[pageIndex + 3]}
+          </span>
+          <span
+            className={`text-primary ms-2 ${design.paginationHover}`}
             style={{
               display: canNextPage ? "inline-block" : "none",
             }}
@@ -171,8 +200,7 @@ const CardsTable = () => {
           >
             Next
             <i
-              className="fa-solid fa-chevron-right"
-              style={{ fontSize: "12px" }}
+              className={`fa-solid fa-chevron-right ${design.iconsFontSize}`}
             ></i>
           </span>
           <span
@@ -187,14 +215,13 @@ const CardsTable = () => {
           <span className="text-primary ms-5 d-flex">
             <label
               htmlFor="goToPage"
-              className="form-label m-0 p-0 align-self-center"
-              style={{width:"90px"}}
+              className={`form-label m-0 p-0 align-self-center ${design.gotoPageLabel}`}
             >
               Go to page:
             </label>
             <input
               id="goToPage"
-              className="form-control border-primary ms-2"
+              className={`form-control border-primary ms-2 ${design.gotoPageInput}`}
               type="number"
               min={1}
               max={pageCount}
@@ -205,7 +232,6 @@ const CardsTable = () => {
                   : 0;
                 gotoPage(pageNumber);
               }}
-              style={{width:"80px", height:"25px"}}
             />
           </span>
         </div>
