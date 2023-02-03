@@ -10,6 +10,7 @@ import {
 import NavBar from "./NavBar";
 import design from "./cardsTable.module.scss";
 import { GlobalFilter } from "../utils/GlobalFilter";
+import { number } from "yup";
 
 const CardsTable = () => {
   const userId = window.localStorage.getItem("user");
@@ -65,7 +66,6 @@ const CardsTable = () => {
     previousPage,
     canNextPage,
     canPreviousPage,
-    pageOptions,
     gotoPage,
     pageCount,
     prepareRow,
@@ -138,31 +138,75 @@ const CardsTable = () => {
             ))}
           </tfoot>
         </table>
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center align-item-center">
+          <span
+            className={`text-primary ${design.paginationHover} me-3`}
+            style={{
+              display: canPreviousPage ? "inline-block" : "none",
+            }}
+            onClick={() => gotoPage(0)}
+          >
+            First
+          </span>
           <span
             className={`text-primary ${design.paginationHover}`}
             style={{
-              visibility: canPreviousPage ? "visible" : "hidden",
-              fontWeight: 500,
+              display: canPreviousPage ? "inline-block" : "none",
             }}
             onClick={() => previousPage()}
           >
-            <i className="fa-solid fa-chevron-left me-1"></i>
+            <i
+              className="fa-solid fa-chevron-left"
+              style={{ fontSize: "12px" }}
+            ></i>
             Previous
           </span>
-          <span className="mx-3 text-primary fw-bolder">
-            Page {[pageIndex + 1]} of {pageOptions.length}
-          </span>
+          <span className="mx-3 text-primary fw-bolder">{[pageIndex + 1]}</span>
           <span
             className={`text-primary ${design.paginationHover}`}
             style={{
-              visibility: canNextPage ? "visible" : "hidden",
-              fontWeight: 500,
+              display: canNextPage ? "inline-block" : "none",
             }}
             onClick={() => nextPage()}
           >
             Next
-            <i className="fa-solid fa-chevron-right ms-1"></i>
+            <i
+              className="fa-solid fa-chevron-right"
+              style={{ fontSize: "12px" }}
+            ></i>
+          </span>
+          <span
+            className={`text-primary ${design.paginationHover} ms-3`}
+            style={{
+              display: canNextPage ? "inline-block" : "none",
+            }}
+            onClick={() => gotoPage(pageCount - 1)}
+          >
+            Last
+          </span>
+          <span className="text-primary ms-5 d-flex">
+            <label
+              htmlFor="goToPage"
+              className="form-label m-0 p-0 align-self-center"
+              style={{width:"90px"}}
+            >
+              Go to page:
+            </label>
+            <input
+              id="goToPage"
+              className="form-control border-primary ms-2"
+              type="number"
+              min={1}
+              max={pageCount}
+              defaultValue={pageIndex + 1}
+              onChange={(e) => {
+                const pageNumber = e.target.value
+                  ? Number(e.target.value) - 1
+                  : 0;
+                gotoPage(pageNumber);
+              }}
+              style={{width:"80px", height:"25px"}}
+            />
           </span>
         </div>
       </div>

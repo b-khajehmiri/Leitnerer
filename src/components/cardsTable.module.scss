@@ -29,6 +29,6 @@ table.cardsTable tfoot {
 .paginationHover {
   &:hover {
     cursor: pointer;
-    border-bottom: 2px solid $primaryBlue;
+    border-bottom: 1px solid $primaryBlue;
   }
 }
