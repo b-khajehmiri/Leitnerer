@@ -41,6 +41,28 @@ const CardsTable = () => {
     { Header: "Front Side", Footer: "Front Side", accessor: "front" },
     { Header: "Back Side", Footer: "Back Side", accessor: "back" },
     { Header: "Deck Number", Footer: "Deck Number", accessor: "deck" },
+    {
+      Header: "Actions",
+      Footer: "Actions",
+      accessor: "actions",
+      Cell: (props) => {
+        const values = props.row.values;
+        return (
+          <div>
+            <span
+            onClick={() => console.log(values)}
+            >
+              <i className="far fa-edit action mr-2 text-success cursorPointer"></i>
+            </span>
+
+            <span
+            >
+              <i className="fas fa-trash action text-danger cursorPointer ms-4"></i>
+            </span>
+          </div>
+        );
+      },
+    },
   ];
 
   console.log(cards);
