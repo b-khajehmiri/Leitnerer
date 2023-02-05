@@ -22,17 +22,27 @@ const CardsTable = () => {
   };
 
   const [cards, setCards] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [deleteModalShow, setDeleteModalShow] = useState(false);
   const [deletingCard, setDeletingCard] = useState({});
 
   async function getCards() {
-    const res = await axios.get(
-      `https://leitnerer-e8694-default-rtdb.firebaseio.com/${userId}.json`
-    );
-    let keys = Object.keys(res.data);
-    let values = Object.values(res.data);
-    values.map((v, index) => (v.id = keys[index]));
-    setCards(values);
+    setLoading(true);
+    try {
+      const res = await axios.get(
+        `https://leitnerer-e8694-default-rtdb.firebaseio.com/${userId}.json`
+      );
+      let keys = Object.keys(res.data);
+      let values = Object.values(res.data);
+      values.map((v, index) => (v.id = keys[index]));
+      setCards(values);
+      setTimeout(() => {
+        setLoading(false);
+      }, "300");
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+    }
   }
 
   useEffect(() => {
@@ -45,7 +55,7 @@ const CardsTable = () => {
         `https://leitnerer-e8694-default-rtdb.firebaseio.com/${userId}/${card.id}.json`
       );
       setDeleteModalShow(false);
-      toast.success("Card deleted successfully.")
+      toast.success("Card deleted successfully.");
       getCards();
     } catch (err) {
       console.log(err);
@@ -118,9 +128,17 @@ const CardsTable = () => {
   return (
     <>
       <div
-        className={`modal-backdrop ${deleteModalShow ? "show" : "fade"}`}
+        className={`modal-backdrop bg-light ${
+          deleteModalShow ? "show" : "fade"
+        }`}
         style={{ display: deleteModalShow ? "block" : "none" }}
       ></div>
+      {loading && (
+        <div class="LoadingContainer">
+          <div class="spinner-border text-primary mb-3 loading" role="status" />
+          <h5 class="text-primary">Loading...</h5>
+        </div>
+      )}
       <NavBar navsShow={navsShow} />
       <div className="container lg my-5">
         <div className="d-flex mb-1">
