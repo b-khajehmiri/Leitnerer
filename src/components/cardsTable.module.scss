@@ -56,3 +56,13 @@ table.cardsTable tfoot {
 .pageHandlers {
   margin: auto 0;
 }
+
+.deleteModal {
+  background-color: $warningBackground;
+}
+
+.deleteCloseButton {
+  border: none;
+  font-size: 28px;
+  background-color: $warningBackground;
+}

@@ -10,7 +10,7 @@ import {
 import NavBar from "./NavBar";
 import design from "./cardsTable.module.scss";
 import { GlobalFilter } from "../utils/GlobalFilter";
-import { number } from "yup";
+import { toast } from "react-toastify";
 
 const CardsTable = () => {
   const userId = window.localStorage.getItem("user");
@@ -22,20 +22,36 @@ const CardsTable = () => {
   };
 
   const [cards, setCards] = useState([]);
+  const [selectedCard, setSelectedCard] = useState({});
+  const [deleteModalShow, setDeleteModalShow] = useState(false);
+  const [deletingCard, setDeletingCard] = useState({});
+
+  async function getCards() {
+    const res = await axios.get(
+      `https://leitnerer-e8694-default-rtdb.firebaseio.com/${userId}.json`
+    );
+    let keys = Object.keys(res.data);
+    let values = Object.values(res.data);
+    values.map((v, index) => (v.id = keys[index]));
+    setCards(values);
+  }
 
   useEffect(() => {
-    async function getCards() {
-      const res = await axios.get(
-        `https://leitnerer-e8694-default-rtdb.firebaseio.com/${userId}.json`
-      );
-      let keys = Object.keys(res.data);
-      let values = Object.values(res.data);
-      values.map((v, index) => (v.id = keys[index]));
-      setCards(values);
-    }
-
     getCards();
   }, []);
+
+  async function deleteCard(card) {
+    try {
+      await axios.delete(
+        `https://leitnerer-e8694-default-rtdb.firebaseio.com/${userId}/${card.id}.json`
+      );
+      setDeleteModalShow(false);
+      toast.success("Card deleted successfully.")
+      getCards();
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   const Columns = [
     { Header: "Front Side", Footer: "Front Side", accessor: "front" },
@@ -49,13 +65,15 @@ const CardsTable = () => {
         const values = props.row.values;
         return (
           <div>
-            <span
-            onClick={() => console.log(values)}
-            >
+            <span onClick={() => {}}>
               <i className="far fa-edit action mr-2 text-success cursorPointer"></i>
             </span>
 
             <span
+              onClick={() => {
+                setSelectedCard(values);
+                setDeleteModalShow(true);
+              }}
             >
               <i className="fas fa-trash action text-danger cursorPointer ms-4"></i>
             </span>
@@ -65,7 +83,6 @@ const CardsTable = () => {
     },
   ];
 
-  console.log(cards);
   const columns = useMemo(() => Columns, []);
   // const data = useMemo(() => cards, []);
 
@@ -101,6 +118,10 @@ const CardsTable = () => {
 
   return (
     <>
+      <div
+        className={`modal-backdrop ${deleteModalShow ? "show" : "fade"}`}
+        style={{ display: deleteModalShow ? "block" : "none" }}
+      ></div>
       <NavBar navsShow={navsShow} />
       <div className="container lg my-5">
         <div className="d-flex mb-1">
@@ -279,6 +300,62 @@ const CardsTable = () => {
               ))}
             </select>
           </span>
+        </div>
+      </div>
+      <div
+        className={`modal fade ${deleteModalShow ? "show" : "fade"}`}
+        id="exampleModalCenter"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+        style={{ display: deleteModalShow ? "block" : "none" }}
+      >
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className={`modal-content deleteModal ${design.deleteModal}`}>
+            <div className="modal-header modalTopPart">
+              <h5
+                className="modal-title text-danger"
+                id="exampleModalLongTitle"
+              >
+                Delete Card
+              </h5>
+              <button
+                type="button"
+                className={`close text-danger ${design.deleteCloseButton}`}
+                data-dismiss="modal"
+                aria-label="Close"
+                onClick={() => setDeleteModalShow(false)}
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body text-danger">
+              Are you sure? Do you want to delete card with{" "}
+              <b>"{selectedCard.front}"</b> front side?
+            </div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-dismiss="modal"
+                onClick={() => setDeleteModalShow(false)}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={() => {
+                  deleteCard(
+                    cards.filter((c) => c.front === selectedCard.front)[0]
+                  );
+                }}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </>
