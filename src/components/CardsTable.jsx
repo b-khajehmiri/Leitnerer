@@ -22,7 +22,6 @@ const CardsTable = () => {
   };
 
   const [cards, setCards] = useState([]);
-  const [selectedCard, setSelectedCard] = useState({});
   const [deleteModalShow, setDeleteModalShow] = useState(false);
   const [deletingCard, setDeletingCard] = useState({});
 
@@ -71,7 +70,7 @@ const CardsTable = () => {
 
             <span
               onClick={() => {
-                setSelectedCard(values);
+                setDeletingCard(values);
                 setDeleteModalShow(true);
               }}
             >
@@ -293,7 +292,7 @@ const CardsTable = () => {
               value={pageSize}
               onChange={(e) => setPageSize(Number(e.target.value))}
             >
-              {[5, 10, 20, 50, 100].map((pageSize) => (
+              {[5, 10, 15, 20, 50, 100].map((pageSize) => (
                 <option key={pageSize} value={pageSize}>
                   {pageSize}
                 </option>
@@ -332,7 +331,7 @@ const CardsTable = () => {
             </div>
             <div className="modal-body text-danger">
               Are you sure? Do you want to delete card with{" "}
-              <b>"{selectedCard.front}"</b> front side?
+              <b>"{deletingCard.front}"</b> front side?
             </div>
             <div className="modal-footer">
               <button
@@ -348,7 +347,7 @@ const CardsTable = () => {
                 className="btn btn-danger"
                 onClick={() => {
                   deleteCard(
-                    cards.filter((c) => c.front === selectedCard.front)[0]
+                    cards.filter((c) => c.front === deletingCard.front)[0]
                   );
                 }}
               >
