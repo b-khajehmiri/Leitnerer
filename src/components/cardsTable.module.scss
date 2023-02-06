@@ -45,7 +45,8 @@ table.cardsTable tfoot {
   color: $primaryBlue;
 }
 
-.gotoPageLabel, .pageSizeLabel {
+.gotoPageLabel,
+.pageSizeLabel {
   width: 90px;
 }
 
@@ -65,4 +66,14 @@ table.cardsTable tfoot {
   border: none;
   font-size: 28px;
   background-color: $warningBackground;
+}
+
+.editModal {
+  background-color: $successBackground;
+}
+
+.editCloseButton {
+  border: none;
+  font-size: 28px;
+  background-color: $successBackground;
 }

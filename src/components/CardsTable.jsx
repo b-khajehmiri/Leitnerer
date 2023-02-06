@@ -24,7 +24,9 @@ const CardsTable = () => {
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(false);
   const [deleteModalShow, setDeleteModalShow] = useState(false);
+  const [editModalShow, setEditModalShow] = useState(false);
   const [deletingCard, setDeletingCard] = useState({});
+  const [selectedForEdit, setSelectedForEdit] = useState({});
 
   async function getCards() {
     setLoading(true);
@@ -74,7 +76,12 @@ const CardsTable = () => {
         const values = props.row.values;
         return (
           <div>
-            <span onClick={() => {}}>
+            <span
+              onClick={() => {
+                setSelectedForEdit(values);
+                setEditModalShow(true);
+              }}
+            >
               <i className="far fa-edit action mr-2 text-success cursorPointer"></i>
             </span>
 
@@ -127,11 +134,12 @@ const CardsTable = () => {
 
   return (
     <>
+      {console.log(selectedForEdit)}
       <div
         className={`modal-backdrop bg-light ${
-          deleteModalShow ? "show" : "fade"
+          deleteModalShow || editModalShow ? "show" : "fade"
         }`}
-        style={{ display: deleteModalShow ? "block" : "none" }}
+        style={{ display: deleteModalShow || editModalShow ? "block" : "none" }}
       ></div>
       {loading && (
         <div class="LoadingContainer">
@@ -329,7 +337,7 @@ const CardsTable = () => {
         style={{ display: deleteModalShow ? "block" : "none" }}
       >
         <div className="modal-dialog modal-dialog-centered" role="document">
-          <div className={`modal-content deleteModal ${design.deleteModal}`}>
+          <div className={`modal-content ${design.deleteModal}`}>
             <div className="modal-header modalTopPart">
               <h5
                 className="modal-title text-danger"
@@ -370,6 +378,57 @@ const CardsTable = () => {
                 }}
               >
                 Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className={`modal fade ${editModalShow ? "show" : "fade"}`}
+        id="exampleModalCenter"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+        style={{ display: editModalShow ? "block" : "none" }}
+      >
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className={`modal-content ${design.editModal}`}>
+            <div className="modal-header modalTopPart">
+              <h5
+                className="modal-title text-success"
+                id="exampleModalLongTitle"
+              >
+                Edit Card
+              </h5>
+              <button
+                type="button"
+                className={`close text-success ${design.editCloseButton}`}
+                data-dismiss="modal"
+                aria-label="Close"
+                onClick={() => setEditModalShow(false)}
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body text-success">
+              
+            </div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-dismiss="modal"
+                onClick={() => setEditModalShow(false)}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="btn btn-success"
+                onClick={() => {}}
+              >
+                Save
               </button>
             </div>
           </div>
