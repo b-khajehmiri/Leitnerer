@@ -11,6 +11,9 @@ import NavBar from "./NavBar";
 import design from "./cardsTable.module.scss";
 import { GlobalFilter } from "../utils/GlobalFilter";
 import { toast } from "react-toastify";
+import { useFormik } from "formik";
+import { async } from "@firebase/util";
+import { EditCardsValidationSchema } from "../utils/ValidationSchemas";
 
 const CardsTable = () => {
   const userId = window.localStorage.getItem("user");
@@ -27,6 +30,7 @@ const CardsTable = () => {
   const [editModalShow, setEditModalShow] = useState(false);
   const [deletingCard, setDeletingCard] = useState({});
   const [selectedForEdit, setSelectedForEdit] = useState({});
+  const [duplication, setDuplication] = useState(false);
 
   async function getCards() {
     setLoading(true);
@@ -63,6 +67,34 @@ const CardsTable = () => {
       console.log(err);
     }
   }
+
+  async function editCard(card) {
+    try {
+      card.id = cards.filter((c) => c.front === selectedForEdit.front)[0].id;
+      await axios.put(
+        `https://leitnerer-e8694-default-rtdb.firebaseio.com/${userId}/${card.id}.json`,
+        card
+      );
+      setEditModalShow(false);
+      toast.success("Card edited successfully.");
+      getCards();
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const formik = useFormik({
+    initialValues: {
+      front: selectedForEdit.front,
+      back: selectedForEdit.back,
+      deck: selectedForEdit.deck,
+    },
+    onSubmit: (values) => {
+      editCard(values);
+    },
+    validationSchema: EditCardsValidationSchema,
+    enableReinitialize: true,
+  });
 
   const Columns = [
     { Header: "Front Side", Footer: "Front Side", accessor: "front" },
@@ -412,24 +444,81 @@ const CardsTable = () => {
               </button>
             </div>
             <div className="modal-body text-success">
-              
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-dismiss="modal"
-                onClick={() => setEditModalShow(false)}
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                className="btn btn-success"
-                onClick={() => {}}
-              >
-                Save
-              </button>
+              <form onSubmit={formik.handleSubmit}>
+                <label htmlFor="frontSide" className="form-label">
+                  Front side:
+                </label>
+                <textarea
+                  name="front"
+                  id="frontSide"
+                  type="text"
+                  className="form-control mb-3 border-success"
+                  value={formik.values.front}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.touched.front && formik.errors.front ? (
+                  <div className="formikError">
+                    <i className="fa-solid fa-circle-exclamation me-2"></i>
+                    {formik.errors.front}
+                  </div>
+                ) : null}
+                {duplication ? (
+                  <div className="formikError">
+                    <i className="fa-solid fa-circle-exclamation me-2"></i>
+                    There is another card with this front content!
+                  </div>
+                ) : null}
+                <label htmlFor="backSide" className="form-label">
+                  Back side:
+                </label>
+                <textarea
+                  name="back"
+                  id="backSide"
+                  type="text"
+                  className="form-control mb-3 border-success"
+                  value={formik.values.back}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.touched.back && formik.errors.back ? (
+                  <div className="formikError">
+                    <i className="fa-solid fa-circle-exclamation me-2"></i>
+                    {formik.errors.back}
+                  </div>
+                ) : null}{" "}
+                <label htmlFor="deck" className="form-label">
+                  Deck Number:
+                </label>
+                <input
+                  type="number"
+                  name="deck"
+                  id="deck"
+                  className="form-control mb-3 border-success w-25"
+                  value={formik.values.deck}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                <div className="modal-footer" style={{marginTop:"-4.5rem"}}>
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    data-dismiss="modal"
+                    onClick={() => setEditModalShow(false)}
+                  >
+                    Cancel
+                  </button>
+                  <button type="submit" className="btn btn-success">
+                    Save
+                  </button>
+                </div>
+                {formik.touched.deck && formik.errors.deck ? (
+                  <div className="formikError">
+                    <i className="fa-solid fa-circle-exclamation me-2"></i>
+                    {formik.errors.deck}
+                  </div>
+                ) : null}{" "}
+              </form>
             </div>
           </div>
         </div>

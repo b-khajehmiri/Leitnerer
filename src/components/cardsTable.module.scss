@@ -70,6 +70,7 @@ table.cardsTable tfoot {
 
 .editModal {
   background-color: $successBackground;
+  border: 1px solid $successColor; 
 }
 
 .editCloseButton {

@@ -4,11 +4,10 @@ import NavBar from "./NavBar";
 import design from "./addCard.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import { AddCardsValidationSchema } from "../utils/AddCardsValidationSchema";
+import { AddCardsValidationSchema } from "../utils/ValidationSchemas";
 import { toast } from "react-toastify";
 
 const AddCards = () => {
-
   const userId = window.localStorage.getItem("user");
   const navsShow = {
     signUpShow: false,
@@ -38,14 +37,14 @@ const AddCards = () => {
       setDuplication(true);
       setTimeout(() => {
         setDuplication(false);
-      }, 2500)
+      }, 2500);
     } else {
       try {
         await axios.post(
           `https://leitnerer-e8694-default-rtdb.firebaseio.com/${userId}.json`,
-          {...card, deck:0}
+          { ...card, deck: 0 }
         );
-        toast.success("Card added successfully!")
+        toast.success("Card added successfully!");
         resetForm({ values: "" });
       } catch (e) {
         console.log(e);
@@ -69,7 +68,7 @@ const AddCards = () => {
 
   useEffect(() => {
     getCards();
-    document.getElementById("frontSide").focus()
+    document.getElementById("frontSide").focus();
   }, [onAdd]);
 
   return (
