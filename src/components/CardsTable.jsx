@@ -12,7 +12,6 @@ import design from "./cardsTable.module.scss";
 import { GlobalFilter } from "../utils/GlobalFilter";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
-import { async } from "@firebase/util";
 import { EditCardsValidationSchema } from "../utils/ValidationSchemas";
 
 const CardsTable = () => {
@@ -166,7 +165,6 @@ const CardsTable = () => {
 
   return (
     <>
-      {console.log(selectedForEdit)}
       <div
         className={`modal-backdrop bg-light ${
           deleteModalShow || editModalShow ? "show" : "fade"

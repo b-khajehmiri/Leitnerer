@@ -166,7 +166,7 @@ const AddCards = () => {
             <img
               src={bannerImg}
               alt="banner"
-              className={`img-fluid px-5 px-md-0 figure-img ${design.LeitnerBox}`}
+              className={`img-fluid px-5 px-md-0 figure-img`}
               style={{height:"20rem"}}
             />
           </div>

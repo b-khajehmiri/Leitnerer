@@ -1,0 +1,37 @@
+@import "../utils/colors.scss";
+
+.decksInfo {
+  display: flex;
+  margin: 0.35rem;
+  min-height: 3rem;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  border-radius: 1.5rem;
+  border: 2px solid #ffffff;
+}
+
+.deckInfo0 {
+  background-color: $deck0;
+}
+.deckInfo1 {
+  background-color: $deck1;
+}
+.deckInfo2 {
+  background-color: $deck2;
+}
+.deckInfo3 {
+  background-color: $deck3;
+}
+.deckInfo4 {
+  background-color: $deck4;
+}
+.deckInfo5 {
+  background-color: $deck5;
+}
+.deckInfo6 {
+  background-color: $deck6;
+}
+.deckInfo7 {
+  background-color: $deck7;
+}

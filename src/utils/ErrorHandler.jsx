@@ -10,6 +10,8 @@ const ErrorHandler = (err) => {
     return "Wrong Password!";
   } else if (err === "Firebase: Error (auth/user-not-found).") {
     return "User not found!";
+  } else if (err === "Firebase: Error (auth/network-request-failed).") {
+    return "Network request Failed!";
   } else {
     return err;
   }
