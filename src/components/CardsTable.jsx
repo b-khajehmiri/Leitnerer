@@ -16,6 +16,7 @@ import { EditCardsValidationSchema } from "../utils/ValidationSchemas";
 
 const CardsTable = () => {
   const userId = window.localStorage.getItem("user");
+  
   const navsShow = {
     signUpShow: false,
     signInShow: false,

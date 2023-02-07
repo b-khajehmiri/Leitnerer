@@ -35,3 +35,7 @@
 .deckInfo7 {
   background-color: $deck7;
 }
+
+.bottomContainer {
+  min-height: calc( 100vh - 260px);
+}
