@@ -36,6 +36,22 @@
   background-color: $deck7;
 }
 
-.bottomContainer {
-  min-height: calc( 100vh - 260px);
+.mainContainer {
+  min-height: calc( 100vh - 65px);
+  margin: auto 0;
+}
+
+.trainingContainer {
+  background-color: $primaryBlue;
+}
+
+.trainingModal {
+  background-color: $primaryBlue; 
+}
+
+.trainingCloseButton {
+  border: none;
+  font-size: 28px;
+  background-color: $primaryBlue;
+  color: $whiteColor;
 }

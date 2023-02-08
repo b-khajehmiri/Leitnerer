@@ -493,6 +493,8 @@ const CardsTable = () => {
                   type="number"
                   name="deck"
                   id="deck"
+                  min={0}
+                  max={7}
                   className="form-control mb-3 border-success w-25"
                   value={formik.values.deck}
                   onChange={formik.handleChange}
