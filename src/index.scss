@@ -167,3 +167,12 @@ body {
   width: 4rem;
   height: 4rem;
 }
+
+.form-check-input[type=checkbox].trainingChecks {
+  background-color: $whiteColor;
+  border: 1px solid $primaryBlue;
+}
+
+.form-check-input:checked[type=checkbox].trainingChecks {
+  background-color: $primaryBlue;
+}

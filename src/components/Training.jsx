@@ -2,7 +2,7 @@ import NavBar from "./NavBar";
 import design from "./training.module.scss";
 import bannerImg from "../images/training.png";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Training = () => {
   const userId = window.localStorage.getItem("user");
@@ -14,6 +14,7 @@ const Training = () => {
     logOUtShow: true,
   };
 
+  const checkboxes = useRef();
   const [getter, setGetter] = useState(false);
   const [deck0, setDeck0] = useState([]);
   const [deck1, setDeck1] = useState([]);
@@ -52,6 +53,16 @@ const Training = () => {
     setDeck7(cards.filter((c) => c.deck === 7));
   };
 
+  const decks = [
+    "deck0",
+    "deck1",
+    "deck2",
+    "deck3",
+    "deck4",
+    "deck5",
+    "deck6",
+    "deck7",
+  ];
   const orderedCards = [deck0, deck1, deck2, deck3, deck4, deck5, deck6, deck7];
 
   useEffect(() => {
@@ -61,11 +72,13 @@ const Training = () => {
   return (
     <>
       <div
-        className={`modal-backdrop bg-light ${IsTraining ? "fade" : "show"}`}
+        className={`modal-backdrop bg-primary ${IsTraining ? "fade" : "show"}`}
         style={{ display: IsTraining ? "none" : "block" }}
       ></div>
       <NavBar navsShow={navsShow} />
-      <div className={`container-lg d-flex justify-content-center align-item-center`}>
+      <div
+        className={`container-lg d-flex justify-content-center align-item-center`}
+      >
         {/* <h5 className="mt-4 mb-4">Before training, there were:</h5>
         <div className="row justify-content-center align-items-center container-lg">
           {[0, 1, 2, 3, 4, 5, 6, 7].map((deckNo) => (
@@ -108,12 +121,9 @@ const Training = () => {
         style={{ display: IsTraining ? "none" : "block" }}
       >
         <div className="modal-dialog modal-dialog-centered" role="document">
-          <div className={`modal-content whiteText ${design.trainingModal}`}>
+          <div className={`modal-content text-primary ${design.trainingModal}`}>
             <div className="modal-header modalTopPart">
-              <h5
-                className="modal-title"
-                id="exampleModalLongTitle"
-              >
+              <h5 className="modal-title" id="exampleModalLongTitle">
                 Training
               </h5>
               <button
@@ -126,7 +136,33 @@ const Training = () => {
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div className="modal-body text-success">
+            <div className="modal-body text-light">
+              <form
+                ref={checkboxes}
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  console.log(checkboxes.current.deck4.checked);
+                }}
+                >
+                <p className="text-primary">Select decks you want to be included:</p>
+                <div className="row">
+                  {decks.map((deck, index) => (
+                    <div className="col-3">
+                      <input
+                        className="mx-2 form-check-input trainingChecks"
+                        type="checkbox"
+                        id={decks[index]}
+                        name={decks[index]}
+                        value={decks[index]}
+                      />
+                      <label for={decks[index]} className="text-primary">
+                        Deck {index}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+                <input type="submit" value="Submit" />
+              </form>
             </div>
           </div>
         </div>
