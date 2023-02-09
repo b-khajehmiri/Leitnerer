@@ -14,19 +14,18 @@ const Training = () => {
     logOUtShow: true,
   };
 
-  const checkboxes = useRef();
   const [getter, setGetter] = useState(false);
-  const [deck0, setDeck0] = useState([]);
-  const [deck1, setDeck1] = useState([]);
-  const [deck2, setDeck2] = useState([]);
-  const [deck3, setDeck3] = useState([]);
-  const [deck4, setDeck4] = useState([]);
-  const [deck5, setDeck5] = useState([]);
-  const [deck6, setDeck6] = useState([]);
-  const [deck7, setDeck7] = useState([]);
+  const [deck0Cards, setDeck0Cards] = useState([]);
+  const [deck1Cards, setDeck1Cards] = useState([]);
+  const [deck2Cards, setDeck2Cards] = useState([]);
+  const [deck3Cards, setDeck3Cards] = useState([]);
+  const [deck4Cards, setDeck4Cards] = useState([]);
+  const [deck5Cards, setDeck5Cards] = useState([]);
+  const [deck6Cards, setDeck6Cards] = useState([]);
+  const [deck7Cards, setDeck7Cards] = useState([]);
 
+  const [cardsInSelectedDecks, setCardsInSelectedDecks] = useState(0);
   const [IsTraining, setIsTraining] = useState(false);
-  const [trainMode, setTrainMode] = useState("single");
 
   async function getCards() {
     try {
@@ -36,6 +35,7 @@ const Training = () => {
       let keys = Object.keys(res.data);
       let values = Object.values(res.data);
       values.map((v, index) => (v.id = keys[index]));
+      setCardsInSelectedDecks(values.length)
       CardClassifier(values);
     } catch (err) {
       console.log(err);
@@ -43,31 +43,47 @@ const Training = () => {
   }
 
   const CardClassifier = (cards) => {
-    setDeck0(cards.filter((c) => c.deck === 0));
-    setDeck1(cards.filter((c) => c.deck === 1));
-    setDeck2(cards.filter((c) => c.deck === 2));
-    setDeck3(cards.filter((c) => c.deck === 3));
-    setDeck4(cards.filter((c) => c.deck === 4));
-    setDeck5(cards.filter((c) => c.deck === 5));
-    setDeck6(cards.filter((c) => c.deck === 6));
-    setDeck7(cards.filter((c) => c.deck === 7));
+    setDeck0Cards(cards.filter((c) => c.deck === 0));
+    setDeck1Cards(cards.filter((c) => c.deck === 1));
+    setDeck2Cards(cards.filter((c) => c.deck === 2));
+    setDeck3Cards(cards.filter((c) => c.deck === 3));
+    setDeck4Cards(cards.filter((c) => c.deck === 4));
+    setDeck5Cards(cards.filter((c) => c.deck === 5));
+    setDeck6Cards(cards.filter((c) => c.deck === 6));
+    setDeck7Cards(cards.filter((c) => c.deck === 7));
   };
 
-  const decks = [
-    "deck0",
-    "deck1",
-    "deck2",
-    "deck3",
-    "deck4",
-    "deck5",
-    "deck6",
-    "deck7",
+  const orderedCards = [
+    { name: "deck0", cards: deck0Cards, checked: true },
+    { name: "deck1", cards: deck1Cards, checked: true },
+    { name: "deck2", cards: deck2Cards, checked: true },
+    { name: "deck3", cards: deck3Cards, checked: true },
+    { name: "deck4", cards: deck4Cards, checked: true },
+    { name: "deck5", cards: deck5Cards, checked: true },
+    { name: "deck6", cards: deck6Cards, checked: true },
+    { name: "deck7", cards: deck7Cards, checked: true },
   ];
-  const orderedCards = [deck0, deck1, deck2, deck3, deck4, deck5, deck6, deck7];
 
   useEffect(() => {
     getCards();
   }, [getter]);
+
+  const checkboxes = useRef();
+
+  const decksCheckStatusManager = () => {
+
+    for (let i = 0; i <= 7; i++) {
+      orderedCards[i].checked =
+        checkboxes.current.elements[orderedCards[i].name].checked;
+    }
+
+    let sum = 0;
+    for (let i = 0; i <= 7; i++) {
+      if (orderedCards[i].checked === true)
+        sum = sum + orderedCards[i].cards.length;
+        setCardsInSelectedDecks(sum)
+    }
+  };
 
   return (
     <>
@@ -79,18 +95,6 @@ const Training = () => {
       <div
         className={`container-lg d-flex justify-content-center align-item-center`}
       >
-        {/* <h5 className="mt-4 mb-4">Before training, there were:</h5>
-        <div className="row justify-content-center align-items-center container-lg">
-          {[0, 1, 2, 3, 4, 5, 6, 7].map((deckNo) => (
-            <p
-              className={`col col-md-2 col-sm-4 col-12 decksInfo py-1 ${
-                design.decksInfo
-              } ${design["deckInfo" + deckNo]}`}
-            >
-              {orderedCards[deckNo].length} cards in deck {deckNo}
-            </p>
-          ))}
-        </div> */}
         <div
           className={`row justify-content-center align-items-center ${design.mainContainer}`}
         >
@@ -113,10 +117,10 @@ const Training = () => {
       </div>
       <div
         className={`modal fade ${IsTraining ? "fade" : "show"}`}
-        id="exampleModalCenter"
+        id="TrainingModal"
         tabindex="-1"
         role="dialog"
-        aria-labelledby="exampleModalCenterTitle"
+        aria-labelledby="TrainingModalTitle"
         aria-hidden="true"
         style={{ display: IsTraining ? "none" : "block" }}
       >
@@ -136,32 +140,46 @@ const Training = () => {
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div className="modal-body text-light">
+            <div className="modal-body">
               <form
                 ref={checkboxes}
+                id="TrainingForm"
                 onSubmit={(e) => {
                   e.preventDefault();
-                  console.log(checkboxes.current.deck4.checked);
+                  console.log(e.target.elements);
                 }}
-                >
-                <p className="text-primary">Select decks you want to be included:</p>
+              >
+                <p className="text-primary">
+                  Select decks you want to be included:
+                </p>
                 <div className="row">
-                  {decks.map((deck, index) => (
-                    <div className="col-3">
+                  {orderedCards.map((deck, index) => (
+                    <div className={`col-6 ${design["deckInfo" + index]}`}>
                       <input
-                        className="mx-2 form-check-input trainingChecks"
+                        className="m-2 form-check-input trainingChecks"
                         type="checkbox"
-                        id={decks[index]}
-                        name={decks[index]}
-                        value={decks[index]}
+                        id={deck.name}
+                        name={deck.name}
+                        value={deck.name}
+                        defaultChecked
+                        onChange={decksCheckStatusManager}
                       />
-                      <label for={decks[index]} className="text-primary">
-                        Deck {index}
+                      <label for={deck.name} className="my-1">
+                        Deck {index} which has {deck.cards.length} cards.
                       </label>
                     </div>
                   ))}
                 </div>
-                <input type="submit" value="Submit" />
+                
+                <div>{cardsInSelectedDecks} cards</div>
+
+                <div className="row justify-content-end mt-5 me-1">
+                  <input
+                    className="btn btn-primary w-25"
+                    type="submit"
+                    value="Start"
+                  />
+                </div>
               </form>
             </div>
           </div>
