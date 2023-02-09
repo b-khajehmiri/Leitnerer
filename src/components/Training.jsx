@@ -5,6 +5,9 @@ import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 
 const Training = () => {
+
+  // === STATES ===
+
   const userId = window.localStorage.getItem("user");
 
   const navsShow = {
@@ -27,6 +30,34 @@ const Training = () => {
   const [cardsInSelectedDecks, setCardsInSelectedDecks] = useState(0);
   const [IsTraining, setIsTraining] = useState(false);
 
+  const CardClassifier = (cards) => {
+    setDeck0Cards(cards.filter((c) => c.deck === 0));
+    setDeck1Cards(cards.filter((c) => c.deck === 1));
+    setDeck2Cards(cards.filter((c) => c.deck === 2));
+    setDeck3Cards(cards.filter((c) => c.deck === 3));
+    setDeck4Cards(cards.filter((c) => c.deck === 4));
+    setDeck5Cards(cards.filter((c) => c.deck === 5));
+    setDeck6Cards(cards.filter((c) => c.deck === 6));
+    setDeck7Cards(cards.filter((c) => c.deck === 7));
+  };
+
+  const orderedDecks = [
+    { name: "deck0", cards: deck0Cards, checked: true },
+    { name: "deck1", cards: deck1Cards, checked: true },
+    { name: "deck2", cards: deck2Cards, checked: true },
+    { name: "deck3", cards: deck3Cards, checked: true },
+    { name: "deck4", cards: deck4Cards, checked: true },
+    { name: "deck5", cards: deck5Cards, checked: true },
+    { name: "deck6", cards: deck6Cards, checked: true },
+    { name: "deck7", cards: deck7Cards, checked: true },
+  ];
+
+  const [checkedDecks, setCheckedDecks] = useState (orderedDecks)
+
+  const checkboxes = useRef();
+
+  // === FUNCTIONS ===
+
   async function getCards() {
     try {
       const res = await axios.get(
@@ -43,47 +74,28 @@ const Training = () => {
     }
   }
 
-  const CardClassifier = (cards) => {
-    setDeck0Cards(cards.filter((c) => c.deck === 0));
-    setDeck1Cards(cards.filter((c) => c.deck === 1));
-    setDeck2Cards(cards.filter((c) => c.deck === 2));
-    setDeck3Cards(cards.filter((c) => c.deck === 3));
-    setDeck4Cards(cards.filter((c) => c.deck === 4));
-    setDeck5Cards(cards.filter((c) => c.deck === 5));
-    setDeck6Cards(cards.filter((c) => c.deck === 6));
-    setDeck7Cards(cards.filter((c) => c.deck === 7));
-  };
-
-  const orderedCards = [
-    { name: "deck0", cards: deck0Cards, checked: true },
-    { name: "deck1", cards: deck1Cards, checked: true },
-    { name: "deck2", cards: deck2Cards, checked: true },
-    { name: "deck3", cards: deck3Cards, checked: true },
-    { name: "deck4", cards: deck4Cards, checked: true },
-    { name: "deck5", cards: deck5Cards, checked: true },
-    { name: "deck6", cards: deck6Cards, checked: true },
-    { name: "deck7", cards: deck7Cards, checked: true },
-  ];
-
   useEffect(() => {
     getCards();
   }, [getter]);
 
-  const checkboxes = useRef();
-
-  const decksCheckStatusHandler = () => {
+  const decksCheckStatusHandler
+   = () => {
     for (let i = 0; i <= 7; i++) {
-      orderedCards[i].checked =
-        checkboxes.current.elements[orderedCards[i].name].checked;
+      orderedDecks[i].checked =
+        checkboxes.current.elements[orderedDecks[i].name].checked;
     }
+
+    setCheckedDecks(orderedDecks.filter(deck=> deck.checked === true))
 
     let sum = 0;
     for (let i = 0; i <= 7; i++) {
-      if (orderedCards[i].checked === true)
-        sum = sum + orderedCards[i].cards.length;
+      if (orderedDecks[i].checked === true)
+        sum = sum + orderedDecks[i].cards.length;
       setCardsInSelectedDecks(sum);
     }
   };
+
+  console.table(checkedDecks)
 
   return (
     <>
@@ -153,7 +165,7 @@ const Training = () => {
                   Select decks you want to be included:
                 </p>
                 <div className="row mb-4">
-                  {orderedCards.map((deck, index) => (
+                  {orderedDecks.map((deck, index) => (
                     <div className={`col-6 ${design["deckInfo" + index]}`}>
                       <input
                         className="m-2 form-check-input trainingChecks"
