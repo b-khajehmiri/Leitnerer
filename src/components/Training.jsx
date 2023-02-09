@@ -15,6 +15,7 @@ const Training = () => {
   };
 
   const [getter, setGetter] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [deck0Cards, setDeck0Cards] = useState([]);
   const [deck1Cards, setDeck1Cards] = useState([]);
   const [deck2Cards, setDeck2Cards] = useState([]);
@@ -23,7 +24,6 @@ const Training = () => {
   const [deck5Cards, setDeck5Cards] = useState([]);
   const [deck6Cards, setDeck6Cards] = useState([]);
   const [deck7Cards, setDeck7Cards] = useState([]);
-
   const [cardsInSelectedDecks, setCardsInSelectedDecks] = useState(0);
   const [IsTraining, setIsTraining] = useState(false);
 
@@ -35,8 +35,9 @@ const Training = () => {
       let keys = Object.keys(res.data);
       let values = Object.values(res.data);
       values.map((v, index) => (v.id = keys[index]));
-      setCardsInSelectedDecks(values.length)
+      setCardsInSelectedDecks(values.length);
       CardClassifier(values);
+      setLoading(false);
     } catch (err) {
       console.log(err);
     }
@@ -70,8 +71,7 @@ const Training = () => {
 
   const checkboxes = useRef();
 
-  const decksCheckStatusManager = () => {
-
+  const decksCheckStatusHandler = () => {
     for (let i = 0; i <= 7; i++) {
       orderedCards[i].checked =
         checkboxes.current.elements[orderedCards[i].name].checked;
@@ -81,7 +81,7 @@ const Training = () => {
     for (let i = 0; i <= 7; i++) {
       if (orderedCards[i].checked === true)
         sum = sum + orderedCards[i].cards.length;
-        setCardsInSelectedDecks(sum)
+      setCardsInSelectedDecks(sum);
     }
   };
 
@@ -152,7 +152,7 @@ const Training = () => {
                 <p className="text-primary">
                   Select decks you want to be included:
                 </p>
-                <div className="row">
+                <div className="row mb-4">
                   {orderedCards.map((deck, index) => (
                     <div className={`col-6 ${design["deckInfo" + index]}`}>
                       <input
@@ -162,7 +162,7 @@ const Training = () => {
                         name={deck.name}
                         value={deck.name}
                         defaultChecked
-                        onChange={decksCheckStatusManager}
+                        onChange={decksCheckStatusHandler}
                       />
                       <label for={deck.name} className="my-1">
                         Deck {index} which has {deck.cards.length} cards.
@@ -170,10 +170,34 @@ const Training = () => {
                     </div>
                   ))}
                 </div>
-                
-                <div>{cardsInSelectedDecks} cards</div>
-
-                <div className="row justify-content-end mt-5 me-1">
+                <div className="ms-2">
+                  <i class="fa-solid fa-circle-info me-2 mb-4"></i>
+                  There are{" "}
+                  {loading ? (
+                    <div
+                      class="spinner-border spinner-border-sm text-primary"
+                      role="status"
+                    >
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                  ) : (
+                    <b>{cardsInSelectedDecks}</b>
+                  )}{" "}
+                  cards in selected decks.
+                </div>
+                <div className="ms-2 my-1 d-inline">
+                  How many cards do you want to train?
+                </div>
+                <input
+                  id="TrainingCardNumber"
+                  className={`form-control border-primary ms-3 w-25 d-inline text-primary`}
+                  type="number"
+                  min={1}
+                  max={cardsInSelectedDecks}
+                  defaultValue={20}
+                  onChange={(e) => {}}
+                />
+                <div className="row justify-content-center mt-4">
                   <input
                     className="btn btn-primary w-25"
                     type="submit"
