@@ -5,7 +5,6 @@ import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 
 const Training = () => {
-
   // === STATES ===
 
   const userId = window.localStorage.getItem("user");
@@ -42,17 +41,18 @@ const Training = () => {
   };
 
   const orderedDecks = [
-    { name: "deck0", cards: deck0Cards, checked: true },
-    { name: "deck1", cards: deck1Cards, checked: true },
-    { name: "deck2", cards: deck2Cards, checked: true },
-    { name: "deck3", cards: deck3Cards, checked: true },
-    { name: "deck4", cards: deck4Cards, checked: true },
-    { name: "deck5", cards: deck5Cards, checked: true },
-    { name: "deck6", cards: deck6Cards, checked: true },
-    { name: "deck7", cards: deck7Cards, checked: true },
+    { name: "deck0", cards: deck0Cards, checked: true, weight: 16 },
+    { name: "deck1", cards: deck1Cards, checked: true, weight: 8 },
+    { name: "deck2", cards: deck2Cards, checked: true, weight: 8 },
+    { name: "deck3", cards: deck3Cards, checked: true, weight: 4 },
+    { name: "deck4", cards: deck4Cards, checked: true, weight: 4 },
+    { name: "deck5", cards: deck5Cards, checked: true, weight: 2 },
+    { name: "deck6", cards: deck6Cards, checked: true, weight: 2 },
+    { name: "deck7", cards: deck7Cards, checked: true, weight: 1 },
   ];
 
-  const [checkedDecks, setCheckedDecks] = useState (orderedDecks)
+  const [checkedDecks, setCheckedDecks] = useState(orderedDecks);
+  const [desiredDecks, setDesiredDecks] = useState(orderedDecks); //IT IS SAME AS "checkedDecks" BUT DEFINED AS checkedDecks CHANGES.
 
   const checkboxes = useRef();
 
@@ -78,14 +78,14 @@ const Training = () => {
     getCards();
   }, [getter]);
 
-  const decksCheckStatusHandler
-   = () => {
+  function decksCheckStatusHandler() {
     for (let i = 0; i <= 7; i++) {
       orderedDecks[i].checked =
         checkboxes.current.elements[orderedDecks[i].name].checked;
     }
 
-    setCheckedDecks(orderedDecks.filter(deck=> deck.checked === true))
+    setCheckedDecks(orderedDecks.filter((deck) => deck.checked === true));
+    setDesiredDecks(orderedDecks.filter((deck) => deck.checked === true));
 
     let sum = 0;
     for (let i = 0; i <= 7; i++) {
@@ -93,9 +93,43 @@ const Training = () => {
         sum = sum + orderedDecks[i].cards.length;
       setCardsInSelectedDecks(sum);
     }
-  };
+  }
 
-  console.table(checkedDecks)
+  function trainingCardDistributer(numberOfCardsToTrain) {
+    if (numberOfCardsToTrain == checkedDecks.length) {
+      for (let i = 0; i < checkedDecks.length; i++) {
+        checkedDecks[i].cardsNumber = 1;
+      }
+    } else if (numberOfCardsToTrain == cardsInSelectedDecks) {
+      for (let i = 0; i < checkedDecks.length; i++) {
+        checkedDecks[i].cardsNumber = checkedDecks[i].cards.length;
+      }
+    } else {
+      let totalWeight = 0;
+      for (let i = 0; i < checkedDecks.length; i++) {
+        totalWeight = totalWeight + checkedDecks[i].weight;
+      }
+      let factor = Math.floor((numberOfCardsToTrain / totalWeight) * 100) / 100;
+      for (let i = 0; i < checkedDecks.length; i++) {
+        checkedDecks[i].cardsNumber = factor * checkedDecks[i].weight;
+      }
+      for (let i = 0; i < checkedDecks.length; i++) {
+        if (checkedDecks[i].cardsNumber < 2) {
+          checkedDecks[i].cardsNumber =
+            Math.floor(checkedDecks[i].cardsNumber) + 1;
+        } else {
+          checkedDecks[i].cardsNumber = Math.round(checkedDecks[i].cardsNumber);
+        }
+      }
+      for (let i = 0; i < checkedDecks.length; i++) {
+        if (checkedDecks[i].cardsNumber > desiredDecks[i].cards.length) {
+          checkedDecks[i].cardsNumber = desiredDecks[i].cards.length
+        }
+      }
+    }
+
+    console.table(checkedDecks);
+  }
 
   return (
     <>
@@ -158,7 +192,9 @@ const Training = () => {
                 id="TrainingForm"
                 onSubmit={(e) => {
                   e.preventDefault();
-                  console.log(e.target.elements);
+                  trainingCardDistributer(
+                    e.target.elements.TrainingCardNumber.value
+                  );
                 }}
               >
                 <p className="text-primary">
@@ -204,10 +240,9 @@ const Training = () => {
                   id="TrainingCardNumber"
                   className={`form-control border-primary ms-3 w-25 d-inline text-primary`}
                   type="number"
-                  min={1}
+                  min={checkedDecks.length}
                   max={cardsInSelectedDecks}
                   defaultValue={20}
-                  onChange={(e) => {}}
                 />
                 <div className="row justify-content-center mt-4">
                   <input
