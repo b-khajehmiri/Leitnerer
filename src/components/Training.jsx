@@ -230,17 +230,28 @@ const Training = () => {
                           role="status"
                         />
                       ) : ( */}
-                        <input
-                          className="m-2 form-check-input trainingChecks"
-                          type="checkbox"
-                          id={deck.name}
-                          name={deck.name}
-                          value={deck.name}
-                          onChange={decksCheckStatusHandler}
-                        />
+                      <input
+                        className="m-2 form-check-input trainingChecks"
+                        type="checkbox"
+                        id={deck.name}
+                        name={deck.name}
+                        value={deck.name}
+                        onChange={decksCheckStatusHandler}
+                      />
                       {/* )} */}
                       <label for={deck.name} className="my-1">
-                        Deck {index} which has {deck.cards.length} cards.
+                        Deck {index} which has{" "}
+                        {loading ? (
+                          <div
+                            className={`spinner-border spinner-border-sm ${
+                              design["deckInfo" + index]
+                            }`}
+                            role="status"
+                          />
+                        ) : (
+                          deck.cards.length
+                        )}{" "}
+                        cards.
                       </label>
                     </div>
                   ))}
@@ -250,14 +261,14 @@ const Training = () => {
                     <div className="ms-2">
                       <i class="fa-solid fa-circle-info me-2 mb-4"></i>
                       There are{" "}
-                      {loading ? (
+                      {/* {loading ? (
                         <div
                           class="spinner-border spinner-border-sm text-primary"
                           role="status"
                         />
-                      ) : (
-                        <b>{cardsInSelectedDecks}</b>
-                      )}{" "}
+                      ) : ( */}
+                      <b>{cardsInSelectedDecks}</b>
+                      {/* )}{" "} */}
                       cards in selected decks.
                     </div>
                     <div className="ms-2 my-1 d-inline">
