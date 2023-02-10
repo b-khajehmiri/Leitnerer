@@ -221,15 +221,22 @@ const Training = () => {
                 <div className="row mb-4">
                   {orderedDecks.map((deck, index) => (
                     <div className={`col-6 ${design["deckInfo" + index]}`}>
-                      <input
-                        className="m-2 form-check-input trainingChecks"
-                        type="checkbox"
-                        id={deck.name}
-                        name={deck.name}
-                        value={deck.name}
-                        defaultChecked
-                        onChange={decksCheckStatusHandler}
-                      />
+                      {loading ? (
+                        <div
+                          class="spinner-border spinner-border-sm text-primary"
+                          role="status"
+                        />
+                      ) : (
+                        <input
+                          className="m-2 form-check-input trainingChecks"
+                          type="checkbox"
+                          id={deck.name}
+                          name={deck.name}
+                          value={deck.name}
+                          defaultChecked
+                          onChange={decksCheckStatusHandler}
+                        />
+                      )}
                       <label for={deck.name} className="my-1">
                         Deck {index} which has {deck.cards.length} cards.
                       </label>
@@ -243,9 +250,7 @@ const Training = () => {
                     <div
                       class="spinner-border spinner-border-sm text-primary"
                       role="status"
-                    >
-                      <span class="visually-hidden">Loading...</span>
-                    </div>
+                    />
                   ) : (
                     <b>{cardsInSelectedDecks}</b>
                   )}{" "}
