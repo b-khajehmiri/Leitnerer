@@ -123,11 +123,29 @@ const Training = () => {
       }
       for (let i = 0; i < checkedDecks.length; i++) {
         if (checkedDecks[i].cardsNumber > desiredDecks[i].cards.length) {
-          checkedDecks[i].cardsNumber = desiredDecks[i].cards.length
+          checkedDecks[i].cardsNumber = desiredDecks[i].cards.length;
+        }
+      }
+      let totalCardsBeforeCorrection = 0;
+      for (let i = 0; i < checkedDecks.length; i++) {
+        totalCardsBeforeCorrection =
+          totalCardsBeforeCorrection + checkedDecks[i].cardsNumber;
+      }
+      while (totalCardsBeforeCorrection < numberOfCardsToTrain) {
+        for (let i = 0; i < checkedDecks.length; i++) {
+          if (
+            checkedDecks[i].cardsNumber < desiredDecks[i].cards.length &&
+            totalCardsBeforeCorrection < numberOfCardsToTrain
+          ) {
+            checkedDecks[i].cardsNumber = checkedDecks[i].cardsNumber + 1;
+            totalCardsBeforeCorrection++;
+            console.log(totalCardsBeforeCorrection);
+          }
         }
       }
     }
 
+    console.log(numberOfCardsToTrain);
     console.table(checkedDecks);
   }
 
