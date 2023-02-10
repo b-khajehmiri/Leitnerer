@@ -41,18 +41,20 @@ const Training = () => {
   };
 
   const orderedDecks = [
-    { name: "deck0", cards: deck0Cards, checked: true, weight: 16 },
-    { name: "deck1", cards: deck1Cards, checked: true, weight: 8 },
-    { name: "deck2", cards: deck2Cards, checked: true, weight: 8 },
-    { name: "deck3", cards: deck3Cards, checked: true, weight: 4 },
-    { name: "deck4", cards: deck4Cards, checked: true, weight: 4 },
-    { name: "deck5", cards: deck5Cards, checked: true, weight: 2 },
-    { name: "deck6", cards: deck6Cards, checked: true, weight: 2 },
-    { name: "deck7", cards: deck7Cards, checked: true, weight: 1 },
+    { name: "deck0", cards: deck0Cards, checked: false, weight: 16 },
+    { name: "deck1", cards: deck1Cards, checked: false, weight: 8 },
+    { name: "deck2", cards: deck2Cards, checked: false, weight: 8 },
+    { name: "deck3", cards: deck3Cards, checked: false, weight: 4 },
+    { name: "deck4", cards: deck4Cards, checked: false, weight: 4 },
+    { name: "deck5", cards: deck5Cards, checked: false, weight: 2 },
+    { name: "deck6", cards: deck6Cards, checked: false, weight: 2 },
+    { name: "deck7", cards: deck7Cards, checked: false, weight: 1 },
   ];
 
   const [checkedDecks, setCheckedDecks] = useState(orderedDecks);
   const [desiredDecks, setDesiredDecks] = useState(orderedDecks); //IT IS SAME AS "checkedDecks" BUT DEFINED AS checkedDecks CHANGES.
+
+  const [oneCardSelected, setOneCardSelected] = useState(false);
 
   const checkboxes = useRef();
 
@@ -79,6 +81,7 @@ const Training = () => {
   }, [getter]);
 
   function decksCheckStatusHandler() {
+    setOneCardSelected(true);
     for (let i = 0; i <= 7; i++) {
       orderedDecks[i].checked =
         checkboxes.current.elements[orderedDecks[i].name].checked;
@@ -221,57 +224,61 @@ const Training = () => {
                 <div className="row mb-4">
                   {orderedDecks.map((deck, index) => (
                     <div className={`col-6 ${design["deckInfo" + index]}`}>
-                      {loading ? (
+                      {/* {loading ? (
                         <div
                           class="spinner-border spinner-border-sm text-primary"
                           role="status"
                         />
-                      ) : (
+                      ) : ( */}
                         <input
                           className="m-2 form-check-input trainingChecks"
                           type="checkbox"
                           id={deck.name}
                           name={deck.name}
                           value={deck.name}
-                          defaultChecked
                           onChange={decksCheckStatusHandler}
                         />
-                      )}
+                      {/* )} */}
                       <label for={deck.name} className="my-1">
                         Deck {index} which has {deck.cards.length} cards.
                       </label>
                     </div>
                   ))}
                 </div>
-                <div className="ms-2">
-                  <i class="fa-solid fa-circle-info me-2 mb-4"></i>
-                  There are{" "}
-                  {loading ? (
-                    <div
-                      class="spinner-border spinner-border-sm text-primary"
-                      role="status"
+                {oneCardSelected && checkedDecks.length != 0 && (
+                  <>
+                    <div className="ms-2">
+                      <i class="fa-solid fa-circle-info me-2 mb-4"></i>
+                      There are{" "}
+                      {loading ? (
+                        <div
+                          class="spinner-border spinner-border-sm text-primary"
+                          role="status"
+                        />
+                      ) : (
+                        <b>{cardsInSelectedDecks}</b>
+                      )}{" "}
+                      cards in selected decks.
+                    </div>
+                    <div className="ms-2 my-1 d-inline">
+                      How many cards do you want to train?
+                    </div>
+                    <input
+                      id="TrainingCardNumber"
+                      className={`form-control border-primary ms-3 w-25 d-inline text-primary`}
+                      type="number"
+                      min={checkedDecks.length}
+                      max={cardsInSelectedDecks}
+                      defaultValue={20}
                     />
-                  ) : (
-                    <b>{cardsInSelectedDecks}</b>
-                  )}{" "}
-                  cards in selected decks.
-                </div>
-                <div className="ms-2 my-1 d-inline">
-                  How many cards do you want to train?
-                </div>
-                <input
-                  id="TrainingCardNumber"
-                  className={`form-control border-primary ms-3 w-25 d-inline text-primary`}
-                  type="number"
-                  min={checkedDecks.length}
-                  max={cardsInSelectedDecks}
-                  defaultValue={20}
-                />
+                  </>
+                )}
                 <div className="row justify-content-center mt-4">
                   <input
                     className="btn btn-primary w-25"
                     type="submit"
                     value="Start"
+                    disabled={!oneCardSelected || checkedDecks.length == 0}
                   />
                 </div>
               </form>
