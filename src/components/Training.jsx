@@ -3,11 +3,15 @@ import design from "./training.module.scss";
 import bannerImg from "../images/training.png";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import TrainingMechanism from "./TrainingMechanism";
 
 const Training = () => {
-  // === STATES ===
+  // === HOOKS ===
 
   const userId = window.localStorage.getItem("user");
+
+  const navigate = useNavigate();
 
   const navsShow = {
     signUpShow: false,
@@ -41,14 +45,14 @@ const Training = () => {
   };
 
   const orderedDecks = [
-    { name: "deck0", cards: deck0Cards, checked: false, weight: 16 },
-    { name: "deck1", cards: deck1Cards, checked: false, weight: 8 },
-    { name: "deck2", cards: deck2Cards, checked: false, weight: 8 },
-    { name: "deck3", cards: deck3Cards, checked: false, weight: 4 },
-    { name: "deck4", cards: deck4Cards, checked: false, weight: 4 },
-    { name: "deck5", cards: deck5Cards, checked: false, weight: 2 },
-    { name: "deck6", cards: deck6Cards, checked: false, weight: 2 },
-    { name: "deck7", cards: deck7Cards, checked: false, weight: 1 },
+    { name: "deck 0", cards: deck0Cards, checked: false, weight: 16 },
+    { name: "deck 1", cards: deck1Cards, checked: false, weight: 8 },
+    { name: "deck 2", cards: deck2Cards, checked: false, weight: 8 },
+    { name: "deck 3", cards: deck3Cards, checked: false, weight: 4 },
+    { name: "deck 4", cards: deck4Cards, checked: false, weight: 4 },
+    { name: "deck 5", cards: deck5Cards, checked: false, weight: 2 },
+    { name: "deck 6", cards: deck6Cards, checked: false, weight: 2 },
+    { name: "deck 7", cards: deck7Cards, checked: false, weight: 1 },
   ];
 
   const [checkedDecks, setCheckedDecks] = useState(orderedDecks);
@@ -166,12 +170,7 @@ const Training = () => {
           className={`row justify-content-center align-items-center ${design.mainContainer}`}
         >
           <div className="col col-md-6 col-12 d-flex flex-column justify-content-center align-items-center px-5">
-            <div className={`${design.trainingContainer}`}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Dignissimos, quo exercitationem at accusamus earum, odio ducimus
-              excepturi autem impedit quas, cupiditate voluptate? Nemo debitis
-              quia aliquam repellat ex voluptates esse!
-            </div>
+            {IsTraining && <TrainingMechanism checkedDecks={checkedDecks} />}
           </div>
           <div className="col col-md-6 col-12 d-flex justify-content-center align-items-center">
             <img
@@ -194,18 +193,23 @@ const Training = () => {
         <div className="modal-dialog modal-dialog-centered" role="document">
           <div className={`modal-content text-primary ${design.trainingModal}`}>
             <div className="modal-header modalTopPart">
-              <h5 className="modal-title" id="exampleModalLongTitle">
+              <h5 className="modal-title=" id="exampleModalLongTitle">
                 Training
               </h5>
-              <button
-                type="button"
-                className={`close ${design.trainingCloseButton}`}
-                data-dismiss="modal"
-                aria-label="Close"
-                onClick={() => setIsTraining(true)}
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
+              <div className="d-flex flex-row">
+                <p
+                  onClick={() => navigate("/account")}
+                  className="cursorPointer mx-2 mt-2 smallLinks"
+                >
+                  <small>Account</small>
+                </p>
+                <p
+                  onClick={() => navigate("/cardsTable")}
+                  className="cursorPointer mx-2 mt-2 smallLinks"
+                >
+                  <small>Cards table</small>
+                </p>
+              </div>
             </div>
             <div className="modal-body">
               <form
@@ -216,6 +220,7 @@ const Training = () => {
                   trainingCardDistributer(
                     e.target.elements.TrainingCardNumber.value
                   );
+                  setIsTraining(true)
                 }}
               >
                 <p className="text-primary">
@@ -226,7 +231,7 @@ const Training = () => {
                     <div className={`col-6 ${design["deckInfo" + index]}`}>
                       {/* {loading ? (
                         <div
-                          class="spinner-border spinner-border-sm text-primary"
+                          className="spinner-border spinner-border-sm text-primary"
                           role="status"
                         />
                       ) : ( */}
@@ -259,17 +264,16 @@ const Training = () => {
                 {oneCardSelected && checkedDecks.length != 0 && (
                   <>
                     <div className="ms-2">
-                      <i class="fa-solid fa-circle-info me-2 mb-4"></i>
+                      <i className="fa-solid fa-circle-info me-2 mb-4"></i>
                       There are{" "}
                       {/* {loading ? (
                         <div
-                          class="spinner-border spinner-border-sm text-primary"
+                          className="spinner-border spinner-border-sm text-primary"
                           role="status"
                         />
                       ) : ( */}
                       <b>{cardsInSelectedDecks}</b>
-                      {/* )}{" "} */}
-                      cards in selected decks.
+                      {/* )}*/} cards in selected decks.
                     </div>
                     <div className="ms-2 my-1 d-inline">
                       How many cards do you want to train?

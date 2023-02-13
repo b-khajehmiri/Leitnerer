@@ -45,6 +45,10 @@ body {
   font-size: 17px;
 }
 
+.font18 {
+  font-size: 18px;
+}
+
 .logOutButton {
   background-color: $primaryBlue;
   border: 0;
@@ -168,11 +172,29 @@ body {
   height: 4rem;
 }
 
-.form-check-input[type=checkbox].trainingChecks {
+.form-check-input[type="checkbox"].trainingChecks {
   background-color: $whiteColor;
   border: 1px solid $primaryBlue;
 }
 
-.form-check-input:checked[type=checkbox].trainingChecks {
+.form-check-input:checked[type="checkbox"].trainingChecks {
   background-color: $primaryBlue;
+}
+
+.smallLinks {
+  &:hover {
+    color: $blackColor;
+  }
+}
+
+.noBullet {
+  list-style-type: none
+}
+
+.yellowText {
+  color: yellow;
+}
+
+.fontWeight500 {
+  font-weight: 500;
 }
