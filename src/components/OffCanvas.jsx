@@ -24,7 +24,7 @@ const OffCanvas = (props) => {
         ${design.offCanvasMain}
         ${props.offCanvasShow ? "show" : "hiding"}
         `}
-        tabindex="-1"
+        tabIndex="-1"
         id="offcanvasExample"
         aria-labelledby="offcanvasExampleLabel"
       >

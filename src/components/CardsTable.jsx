@@ -173,9 +173,9 @@ const CardsTable = () => {
         style={{ display: deleteModalShow || editModalShow ? "block" : "none" }}
       ></div>
       {loading && (
-        <div class="LoadingContainer">
-          <div class="spinner-border text-primary mb-3 loading" role="status" />
-          <h5 class="text-primary">Loading...</h5>
+        <div className="LoadingContainer">
+          <div className="spinner-border text-primary mb-3 loading" role="status" />
+          <h5 className="text-primary">Loading...</h5>
         </div>
       )}
       <NavBar navsShow={navsShow} />
@@ -361,7 +361,7 @@ const CardsTable = () => {
       <div
         className={`modal fade ${deleteModalShow ? "show" : "fade"}`}
         id="exampleModalCenter"
-        tabindex="-1"
+        tabIndex="-1"
         role="dialog"
         aria-labelledby="exampleModalCenterTitle"
         aria-hidden="true"
@@ -417,7 +417,7 @@ const CardsTable = () => {
       <div
         className={`modal fade ${editModalShow ? "show" : "fade"}`}
         id="exampleModalCenter"
-        tabindex="-1"
+        tabIndex="-1"
         role="dialog"
         aria-labelledby="exampleModalCenterTitle"
         aria-hidden="true"

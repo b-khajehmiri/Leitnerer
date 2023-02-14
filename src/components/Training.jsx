@@ -184,7 +184,7 @@ const Training = () => {
       <div
         className={`modal fade ${IsTraining ? "fade" : "show"}`}
         id="TrainingModal"
-        tabindex="-1"
+        tabIndex="-1"
         role="dialog"
         aria-labelledby="TrainingModalTitle"
         aria-hidden="true"
@@ -228,7 +228,7 @@ const Training = () => {
                 </p>
                 <div className="row mb-4">
                   {orderedDecks.map((deck, index) => (
-                    <div className={`col-6 ${design["deckInfo" + index]}`}>
+                    <div className={`col-6 ${design["deckInfo" + index]}`} key={deck.name}>
                       {/* {loading ? (
                         <div
                           className="spinner-border spinner-border-sm text-primary"
@@ -244,7 +244,7 @@ const Training = () => {
                         onChange={decksCheckStatusHandler}
                       />
                       {/* )} */}
-                      <label for={deck.name} className="my-1">
+                      <label htmlFor={deck.name} className="my-1">
                         Deck {index} which has{" "}
                         {loading ? (
                           <div
