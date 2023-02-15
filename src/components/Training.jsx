@@ -170,7 +170,7 @@ const Training = () => {
           className={`row justify-content-center align-items-center ${design.mainContainer}`}
         >
           <div className="col col-md-6 col-12 d-flex flex-column justify-content-center align-items-center px-5">
-            {IsTraining && <TrainingMechanism checkedDecks={checkedDecks} />}
+            {IsTraining && <TrainingMechanism checkedDecks={checkedDecks} setIsTraining={setIsTraining} />}
           </div>
           <div className="col col-md-6 col-12 d-flex justify-content-center align-items-center">
             <img

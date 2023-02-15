@@ -182,19 +182,12 @@ body {
 }
 
 .smallLinks {
+  color: $primaryBlue;
   &:hover {
     color: $blackColor;
   }
 }
 
 .noBullet {
-  list-style-type: none
-}
-
-.yellowText {
-  color: yellow;
-}
-
-.fontWeight500 {
-  font-weight: 500;
+  list-style-type: none;
 }
