@@ -105,11 +105,11 @@ const Training = () => {
   function trainingCardDistributer(numberOfCardsToTrain) {
     if (numberOfCardsToTrain == checkedDecks.length) {
       for (let i = 0; i < checkedDecks.length; i++) {
-        checkedDecks[i].cardsNumber = 1;
+        checkedDecks[i].selectedCards = 1;
       }
     } else if (numberOfCardsToTrain == cardsInSelectedDecks) {
       for (let i = 0; i < checkedDecks.length; i++) {
-        checkedDecks[i].cardsNumber = checkedDecks[i].cards.length;
+        checkedDecks[i].selectedCards = checkedDecks[i].cards.length;
       }
     } else {
       let totalWeight = 0;
@@ -118,42 +118,41 @@ const Training = () => {
       }
       let factor = Math.floor((numberOfCardsToTrain / totalWeight) * 100) / 100;
       for (let i = 0; i < checkedDecks.length; i++) {
-        checkedDecks[i].cardsNumber = factor * checkedDecks[i].weight;
+        checkedDecks[i].selectedCards = factor * checkedDecks[i].weight;
       }
       for (let i = 0; i < checkedDecks.length; i++) {
-        if (checkedDecks[i].cardsNumber < 2) {
-          checkedDecks[i].cardsNumber =
-            Math.floor(checkedDecks[i].cardsNumber) + 1;
+        if (checkedDecks[i].selectedCards < 2) {
+          checkedDecks[i].selectedCards =
+            Math.floor(checkedDecks[i].selectedCards) + 1;
         } else {
-          checkedDecks[i].cardsNumber = Math.round(checkedDecks[i].cardsNumber);
+          checkedDecks[i].selectedCards = Math.round(checkedDecks[i].selectedCards);
         }
       }
       for (let i = 0; i < checkedDecks.length; i++) {
-        if (checkedDecks[i].cardsNumber > desiredDecks[i].cards.length) {
-          checkedDecks[i].cardsNumber = desiredDecks[i].cards.length;
+        if (checkedDecks[i].selectedCards > desiredDecks[i].cards.length) {
+          checkedDecks[i].selectedCards = desiredDecks[i].cards.length;
         }
       }
       let totalCardsBeforeCorrection = 0;
       for (let i = 0; i < checkedDecks.length; i++) {
         totalCardsBeforeCorrection =
-          totalCardsBeforeCorrection + checkedDecks[i].cardsNumber;
+          totalCardsBeforeCorrection + checkedDecks[i].selectedCards;
       }
       while (totalCardsBeforeCorrection < numberOfCardsToTrain) {
         for (let i = 0; i < checkedDecks.length; i++) {
           if (
-            checkedDecks[i].cardsNumber < desiredDecks[i].cards.length &&
+            checkedDecks[i].selectedCards < desiredDecks[i].cards.length &&
             totalCardsBeforeCorrection < numberOfCardsToTrain
           ) {
-            checkedDecks[i].cardsNumber = checkedDecks[i].cardsNumber + 1;
+            checkedDecks[i].selectedCards = checkedDecks[i].selectedCards + 1;
             totalCardsBeforeCorrection++;
-            console.log(totalCardsBeforeCorrection);
+            // console.log(totalCardsBeforeCorrection);
           }
         }
       }
     }
-
-    console.log(numberOfCardsToTrain);
-    console.table(checkedDecks);
+    // console.log(numberOfCardsToTrain);
+    // console.table(checkedDecks);
   }
 
   return (
@@ -284,7 +283,7 @@ const Training = () => {
                       type="number"
                       min={checkedDecks.length}
                       max={cardsInSelectedDecks}
-                      defaultValue={20}
+                      defaultValue={10}
                     />
                   </>
                 )}

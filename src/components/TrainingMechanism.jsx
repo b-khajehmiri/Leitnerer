@@ -1,8 +1,26 @@
-import { useNavigate } from "react-router-dom";
-import design from "./trainingMechanism.module.scss";
+import { useState } from "react";
+import getRandomElements from "../utils/GetRandomElements";
 
 const TrainingMechanism = (props) => {
-  const navigate = useNavigate();
+  let selectedTrainingCards = [];
+  const [cardIndex, setCardIndex] = useState(0);
+
+  for (let i = 0; i < props.checkedDecks.length; i++) {
+    selectedTrainingCards = selectedTrainingCards.concat(
+      getRandomElements(
+        props.checkedDecks[i].cards,
+        props.checkedDecks[i].selectedCards
+      )
+    );
+  }
+
+  selectedTrainingCards = getRandomElements(
+    selectedTrainingCards,
+    selectedTrainingCards.length
+  );
+
+  // console.table(props.checkedDecks);
+  console.log(selectedTrainingCards);
 
   return (
     <div className="row">
@@ -20,7 +38,7 @@ const TrainingMechanism = (props) => {
               <li className="noBullet me-3">
                 <i className="fa-solid fa-check"></i>
                 <span className="ms-1">
-                  {deck.cardsNumber} cards from {deck.name}
+                  {deck.selectedCards} cards from {deck.name}
                 </span>
               </li>
             </div>
@@ -34,12 +52,14 @@ const TrainingMechanism = (props) => {
           </div>
           <ul className="list-group list-group-flush">
             <li className="list-group-item">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Placeat
-              mollitia alias assumenda rerum facilis, illum officiis tempora,
-              fugit reiciendis dolorum quis aut quod corporis ad corrupti minima
-              expedita velit ipsum.
+              <div>{selectedTrainingCards[cardIndex].front}</div>
               <div className="d-flex justify-content-center">
-                <button className="btn btn-primary mb-2 mt-5 w-50">
+                <button
+                  className="btn btn-primary mb-1 mt-5"
+                  onClick={() => {
+                    setCardIndex(cardIndex + 1);
+                  }}
+                >
                   Show back side
                 </button>
               </div>
