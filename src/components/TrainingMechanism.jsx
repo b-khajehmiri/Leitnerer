@@ -1,5 +1,6 @@
 import { useState } from "react";
 import getRandomElements from "../utils/GetRandomElements";
+import FlipCard from "./FlipCard";
 
 const TrainingMechanism = (props) => {
   let selectedTrainingCards = [];
@@ -45,7 +46,7 @@ const TrainingMechanism = (props) => {
           ))}
         </div>
       </div>
-      <div className="mt-4 px-0 d-flex flex-row justify-content-center">
+      {/* <div className="mt-4 px-0 d-flex flex-row justify-content-center">
         <div className="card w-75 border-primary">
           <div className="card-header bg-primary text-light fw-bolder">
             Front side:
@@ -66,7 +67,8 @@ const TrainingMechanism = (props) => {
             </li>
           </ul>
         </div>
-      </div>
+      </div> */}
+      <FlipCard/>
       <p
         className="d-flex justify-content-center mt-4 cursorPointer mx-2 mt-2 smallLinks"
         onClick={() => props.setIsTraining(false)}
