@@ -1,61 +1,44 @@
-.flip-scale-up-hor {
-    margin-top: 20px;
-    height: 200px;
-    background-color: blue;
-	-webkit-animation: flip-vertical-left 0.4s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
-	        animation: flip-vertical-left 0.4s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+.flip-card {
+  background-color: transparent;
+  width: 300px;
+  height: 350px;
+  perspective: 1000px;
 }
 
- @-webkit-keyframes flip-vertical-left {
-    0% {
-      -webkit-transform: rotateY(0);
-              transform: rotateY(0);
-    }
-    100% {
-      -webkit-transform: rotateY(-180deg);
-              transform: rotateY(-180deg);
-    }
-  }
-  @keyframes flip-vertical-left {
-    0% {
-      -webkit-transform: rotateY(0);
-              transform: rotateY(0);
-    }
-    100% {
-      -webkit-transform: rotateY(-180deg);
-              transform: rotateY(-180deg);
-    }
-  }
-
-.flip-scale-up-hor2 {
-    margin-top: 20px;
-    min-height: 200px;
-    background-color: blue;
-	-webkit-animation: flip-vertical-left2 0.4s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
-	        animation: flip-vertical-left2 0.4s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
 }
 
- @-webkit-keyframes flip-vertical-left2 {
-    0% {
-      -webkit-transform: rotateY(0);
-              transform: rotateY(0);
-    }
-    100% {
-      -webkit-transform: rotateY(180deg);
-              transform: rotateY(180deg);
-    }
-  }
-  @keyframes flip-vertical-left2 {
-    0% {
-      -webkit-transform: rotateY(0);
-              transform: rotateY(0);
-    }
-    100% {
-      -webkit-transform: rotateY(180deg);
-              transform: rotateY(180deg);
-    }
-  }
+.flip-card-2 .flip-card-inner {
+  transform: rotateY(180deg);
+}
 
-  .text-flipped {
-    transform: rotateY(180deg);
-  }
+.flip-card-front, .flip-card-back {
+  box-shadow: 0 2px 8px 0 #371900;
+  position: absolute;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center; */
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border: 1.5px solid #371900;
+  border-radius: 1rem;
+}
+
+.flip-card-front {
+  background: linear-gradient(120deg, #fff2bc, 55%, #ffdb13 88%,
+     white 70%, #ffea8f 48%);
+}
+
+.flip-card-back {
+  background: linear-gradient(120deg, #ffdb13, 15%, #fff2bc, 88%,
+     #ffdb13 40%, #ffdb13);
+  transform: rotateY(180deg);
+}
