@@ -1,25 +1,42 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import getRandomElements from "../utils/GetRandomElements";
 import "./flipCard.css";
 
 const TrainingMechanism = (props) => {
-  let selectedTrainingCards = [];
+  console.log("rendered");
   const [flip, setFlip] = useState(false);
   const [cardIndex, setCardIndex] = useState(0);
+  const selectedTrainingCards = useMemo(() => {
+    let cards = [];
+    for (let i = 0; i < props.checkedDecks.length; i++) {
+      cards = cards.concat(
+        getRandomElements(
+          props.checkedDecks[i].cards,
+          props.checkedDecks[i].selectedCards
+        )
+      );
+    }
+    return getRandomElements(cards, cards.length);
+  }, [props.checkedDecks]);
 
-  for (let i = 0; i < props.checkedDecks.length; i++) {
-    selectedTrainingCards = selectedTrainingCards.concat(
-      getRandomElements(
-        props.checkedDecks[i].cards,
-        props.checkedDecks[i].selectedCards
-      )
-    );
-  }
+  // for (let i = 0; i < props.checkedDecks.length; i++) {
+  //   selectedTrainingCards = selectedTrainingCards.concat(
+  //     getRandomElements(
+  //       props.checkedDecks[i].cards,
+  //       props.checkedDecks[i].selectedCards
+  //     )
+  //   );
+  // }
 
-  selectedTrainingCards = getRandomElements(
-    selectedTrainingCards,
-    selectedTrainingCards.length
-  );
+  // selectedTrainingCards = getRandomElements(
+  //   selectedTrainingCards,
+  //   selectedTrainingCards.length
+  // );
+
+  // const handleShowBackSide = useCallback(() => {
+  //   setFlip(flip => !flip);
+  //   setCardIndex(index => index + 1);
+  // }, []);
 
   return (
     <div className="row parent-element">
@@ -57,11 +74,7 @@ const TrainingMechanism = (props) => {
             </div>
             <div class="flip-card-back">
               <h4 className="fw-bolder mt-4">Back Side</h4>
-              <p className="px-4 my-3 text-start textJustified">
-                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-                استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و در
-                ستون و سطرآنچنان که لازم است
-              </p>
+              <p className="px-4 my-3 text-start textJustified">{selectedTrainingCards[cardIndex].back}</p>
             </div>
           </div>
         </div>
@@ -70,7 +83,8 @@ const TrainingMechanism = (props) => {
         <button
           className="btn btn-primary mt-3"
           onClick={() => {
-            setFlip(!flip);
+            setFlip((flip) => !flip);
+            // setCardIndex((index) => index + 1);
           }}
         >
           Show back side
