@@ -121,6 +121,15 @@ body {
   }
 }
 
+.redButton {
+  background-color: $deck0;
+  color: $whiteColor;
+  &:hover {
+    background-color: $deck0;
+    color: $whiteColor;
+  }
+}
+
 .formikError {
   font-size: 14px;
   margin: -0.5rem 0 1rem 0;
@@ -181,8 +190,15 @@ body {
   background-color: $primaryBlue;
 }
 
-.smallLinks {
+.blueSmallLinks {
   color: $primaryBlue;
+  &:hover {
+    color: $blackColor;
+  }
+}
+
+.redSmallLinks {
+  color: $deck0;
   &:hover {
     color: $blackColor;
   }
