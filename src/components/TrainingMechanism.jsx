@@ -1,9 +1,12 @@
-import { useState, useMemo } from "react";
+import axios from "axios";
+import { useState, useMemo, useEffect } from "react";
+import { toast } from "react-toastify";
 import getRandomElements from "../utils/GetRandomElements";
 import "./flipCard.css";
 
 const TrainingMechanism = (props) => {
-  console.log("rendered");
+  const userId = window.localStorage.getItem("user");
+  const [cards, setCards] = useState([]);
   const [flip, setFlip] = useState(false);
   const [cardIndex, setCardIndex] = useState(0);
 
@@ -20,12 +23,71 @@ const TrainingMechanism = (props) => {
     return getRandomElements(cards, cards.length);
   }, [props.checkedDecks]);
 
-  const onBackSideButtons = () => {
+  const onBackSideButtons = (card, answerType) => {
     setFlip((flip) => !flip);
-    setTimeout(() => {
-      setCardIndex((index) => index + 1);
-    }, 300);
+    if (cardIndex < props.checkedDecks.length - 1) {
+      setTimeout(() => {
+        setCardIndex((cardIndex) => cardIndex + 1);
+      }, 300);
+    } else {
+      console.log("finished");
+    }
+
+    DeckModification(card, answerType);
   };
+
+  async function getCards() {
+    try {
+      const res = await axios.get(
+        `https://leitnerer-e8694-default-rtdb.firebaseio.com/${userId}.json`
+      );
+      let keys = Object.keys(res.data);
+      let values = Object.values(res.data);
+      values.map((v, index) => (v.id = keys[index]));
+      setCards(values);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    getCards();
+  }, []);
+
+  async function DeckModification(card, answerType) {
+    try {
+      let currentCard = cards.filter((c) => c.front === card.front)[0];
+      if (answerType === "wrong") {
+        if (currentCard.deck === 1) {
+          currentCard.deck = currentCard.deck - 1;
+          toast.error("The card demoted by a level!");
+        } else if (currentCard.deck > 1) {
+          currentCard.deck = currentCard.deck - 2;
+          toast.error("The card demoted by two levels!");
+        } else {
+          toast.error("The card remained in its previous level!");
+        }
+      } else if (answerType === "Correct") {
+        if (currentCard.deck < 3 || currentCard.deck === 6) {
+          toast.success("The card promoted by a level!");
+          currentCard.deck = currentCard.deck + 1;
+        } else if (currentCard.deck < 6) {
+          toast.success("The card promoted by two levels!");
+          currentCard.deck = currentCard.deck + 2;
+        } else if (currentCard.deck === 7) {
+          toast.success("The card remained in its previous level!");
+        }
+      } else {
+        toast.warning("The card remained in its previous level!");
+      }
+      await axios.put(
+        `https://leitnerer-e8694-default-rtdb.firebaseio.com/${userId}/${card.id}.json`,
+        currentCard
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <div className="row parent-element">
@@ -57,13 +119,13 @@ const TrainingMechanism = (props) => {
           <div class="flip-card-inner">
             <div class="flip-card-front">
               <h4 className="fw-bolder mt-4">Front Side</h4>
-              <p className="px-4 my-3 text-start textJustified">
+              <p className="px-4 my-3 text-start textJustified fs-5">
                 {selectedTrainingCards[cardIndex].front}
               </p>
             </div>
             <div class="flip-card-back">
               <h4 className="fw-bolder mt-4">Back Side</h4>
-              <p className="px-4 my-3 text-start textJustified">
+              <p className="px-4 my-3 text-start textJustified fs-5">
                 {selectedTrainingCards[cardIndex].back}
               </p>
             </div>
@@ -83,28 +145,37 @@ const TrainingMechanism = (props) => {
         )}
         {flip && (
           <div
-            class="btn-group w-50 mt-3"
+            class="btn-group mt-3"
             role="group"
             aria-label="Basic mixed styles example"
           >
             <button
               type="button"
               class="btn redButton"
-              onClick={onBackSideButtons}
+              onClick={() =>
+                onBackSideButtons(selectedTrainingCards[cardIndex], "wrong")
+              }
             >
               Wrong
             </button>
             <button
               type="button"
               class="btn btn-warning"
-              onClick={onBackSideButtons}
+              onClick={() =>
+                onBackSideButtons(
+                  selectedTrainingCards[cardIndex],
+                  "DelayedCorrect"
+                )
+              }
             >
               Delayed correct
             </button>
             <button
               type="button"
               class="btn greenButton"
-              onClick={onBackSideButtons}
+              onClick={() =>
+                onBackSideButtons(selectedTrainingCards[cardIndex], "Correct")
+              }
             >
               Correct
             </button>
@@ -114,7 +185,7 @@ const TrainingMechanism = (props) => {
       <div className="d-flex justify-content-center mt-4 cursorPointer">
         <p
           className="blueSmallLinks me-3"
-          onClick={() => props.setIsTraining(false)}
+          onClick={() => window.location.reload()}
         >
           I want to select cards again.
         </p>

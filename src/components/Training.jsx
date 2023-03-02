@@ -283,7 +283,7 @@ const Training = () => {
                       type="number"
                       min={checkedDecks.length}
                       max={cardsInSelectedDecks}
-                      defaultValue={10}
+                      defaultValue={8}
                     />
                   </>
                 )}
