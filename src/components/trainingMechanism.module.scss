@@ -1,1 +1,21 @@
 @import "../utils/colors.scss";
+
+.redModal {
+  background-color: $warningBackground;
+}
+
+.greenModal {
+  background-color: $successBackground;
+}
+
+.redCloseButton {
+  border: none;
+  font-size: 28px;
+  background-color: $warningBackground;
+}
+
+.greenCloseButton {
+  border: none;
+  font-size: 28px;
+  background-color: $successBackground;
+}

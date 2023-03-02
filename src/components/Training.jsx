@@ -146,13 +146,10 @@ const Training = () => {
           ) {
             checkedDecks[i].selectedCards = checkedDecks[i].selectedCards + 1;
             totalCardsBeforeCorrection++;
-            // console.log(totalCardsBeforeCorrection);
           }
         }
       }
     }
-    // console.log(numberOfCardsToTrain);
-    // console.table(checkedDecks);
   }
 
   return (

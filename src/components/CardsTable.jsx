@@ -359,7 +359,7 @@ const CardsTable = () => {
         </div>
       </div>
       <div
-        className={`modal fade ${deleteModalShow ? "show" : "fade"}`}
+        className={`modal ${deleteModalShow ? "show" : "fade"}`}
         id="exampleModalCenter"
         tabIndex="-1"
         role="dialog"
@@ -415,7 +415,7 @@ const CardsTable = () => {
         </div>
       </div>
       <div
-        className={`modal fade ${editModalShow ? "show" : "fade"}`}
+        className={`modal ${editModalShow ? "show" : "fade"}`}
         id="exampleModalCenter"
         tabIndex="-1"
         role="dialog"

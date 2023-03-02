@@ -1,14 +1,19 @@
 import axios from "axios";
 import { useState, useMemo, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import getRandomElements from "../utils/GetRandomElements";
 import "./flipCard.css";
+import design from "./trainingMechanism.module.scss";
 
 const TrainingMechanism = (props) => {
   const userId = window.localStorage.getItem("user");
   const [cards, setCards] = useState([]);
   const [flip, setFlip] = useState(false);
   const [cardIndex, setCardIndex] = useState(0);
+  const [finishModalShow, setFinishModalShow] = useState(false);
+  const [modalMode, setModalMode] = useState("completed");
+  const navigate = useNavigate();
 
   const selectedTrainingCards = useMemo(() => {
     let cards = [];
@@ -182,14 +187,132 @@ const TrainingMechanism = (props) => {
           </div>
         )}
       </div>
-      <div className="d-flex justify-content-center mt-4 cursorPointer">
+      <div className="d-flex justify-content-center mt-2 cursorPointer">
         <p
-          className="blueSmallLinks me-3"
-          onClick={() => window.location.reload()}
+          className="redSmallLinks ms-3"
+          onClick={() => {
+            setFinishModalShow(true);
+            setModalMode("incomplete");
+          }}
         >
-          I want to select cards again.
+          Finish!
         </p>
-        <p className="redSmallLinks ms-3">Finish!</p>
+      </div>
+
+      {/* Finish modal */}
+      <div
+        className={`modal-backdrop bg-light ${
+          finishModalShow ? "show" : "fade"
+        }`}
+        style={{ display: finishModalShow ? "block" : "none" }}
+      ></div>
+      <div
+        className={`modal ${finishModalShow ? "show" : "fade"}`}
+        id="exampleModalCenter"
+        tabIndex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+        style={{ display: finishModalShow ? "block" : "none" }}
+      >
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div
+            className={`modal-content ${
+              modalMode === "incomplete" ? design.redModal : design.greenModal
+            }`}
+          >
+            <div className="modal-header modalTopPart">
+              <h5
+                className={`modal-title ${
+                  modalMode === "incomplete" ? "text-danger" : "text-success"
+                }`}
+                id="exampleModalLongTitle"
+              >
+                Finish training
+              </h5>
+              <button
+                type="button"
+                className={`close text-danger ${design.redCloseButton} ${
+                  modalMode === "incomplete" ? "d-block" : "d-none"
+                }`}
+                data-dismiss="modal"
+                aria-label="Close"
+                onClick={() => setFinishModalShow(false)}
+              >
+                <span aria-hidden="true" className="text-danger">
+                  &times;
+                </span>
+              </button>
+            </div>
+            <div
+              className={`modal-body pb-0 ${
+                modalMode === "incomplete" ? "text-danger" : "text-success"
+              }`}
+            >
+              <p className="mb-3">
+                {modalMode === "incomplete"
+                  ? "Are you sure?! You want to finish training incomplete?!"
+                  : "Congratulations! You finished the training!"}
+              </p>
+            </div>
+            {modalMode === "incomplete" && (
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-danger btn-sm"
+                  data-dismiss="modal"
+                  onClick={() => window.location.reload()}
+                >
+                  Yes! Reselect Cards
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-danger btn-sm"
+                  data-dismiss="modal"
+                  onClick={() => navigate("/account")}
+                >
+                  Yes! Go to Account
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-danger btn-sm"
+                  data-dismiss="modal"
+                  onClick={() => navigate("/cardsTable")}
+                >
+                  Yes! Review cards.
+                </button>
+              </div>
+            )}
+            {modalMode === "complete" && (
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-success btn-sm"
+                  data-dismiss="modal"
+                  onClick={() => window.location.reload()}
+                >
+                  Train again
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-success btn-sm"
+                  data-dismiss="modal"
+                  onClick={() => navigate("/account")}
+                >
+                  Go to Account page
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-success btn-sm"
+                  data-dismiss="modal"
+                  onClick={() => navigate("/cardsTable")}
+                >
+                  Review Cards
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
