@@ -125,7 +125,9 @@ const Training = () => {
           checkedDecks[i].selectedCards =
             Math.floor(checkedDecks[i].selectedCards) + 1;
         } else {
-          checkedDecks[i].selectedCards = Math.round(checkedDecks[i].selectedCards);
+          checkedDecks[i].selectedCards = Math.round(
+            checkedDecks[i].selectedCards
+          );
         }
       }
       for (let i = 0; i < checkedDecks.length; i++) {
@@ -166,7 +168,12 @@ const Training = () => {
           className={`row justify-content-center align-items-center ${design.mainContainer}`}
         >
           <div className="col col-md-6 col-12 d-flex flex-column justify-content-center align-items-center px-5">
-            {IsTraining && <TrainingMechanism checkedDecks={checkedDecks} setIsTraining={setIsTraining} />}
+            {IsTraining && (
+              <TrainingMechanism
+                checkedDecks={checkedDecks}
+                setIsTraining={setIsTraining}
+              />
+            )}
           </div>
           <div className="col col-md-6 col-12 d-flex justify-content-center align-items-center">
             <img
@@ -216,7 +223,7 @@ const Training = () => {
                   trainingCardDistributer(
                     e.target.elements.TrainingCardNumber.value
                   );
-                  setIsTraining(true)
+                  setIsTraining(true);
                 }}
               >
                 <p className="text-primary">
@@ -224,13 +231,10 @@ const Training = () => {
                 </p>
                 <div className="row mb-4">
                   {orderedDecks.map((deck, index) => (
-                    <div className={`col-6 ${design["deckInfo" + index]}`} key={deck.name}>
-                      {/* {loading ? (
-                        <div
-                          className="spinner-border spinner-border-sm text-primary"
-                          role="status"
-                        />
-                      ) : ( */}
+                    <div
+                      className={`col-6 ${deck.cards.length !== 0 ? design["deckInfo" + index] : "text-secondary"}`}
+                      key={deck.name}
+                    >
                       <input
                         className="m-2 form-check-input trainingChecks"
                         type="checkbox"
@@ -238,8 +242,8 @@ const Training = () => {
                         name={deck.name}
                         value={deck.name}
                         onChange={decksCheckStatusHandler}
+                        disabled={deck.cards.length === 0}
                       />
-                      {/* )} */}
                       <label htmlFor={deck.name} className="my-1">
                         Deck {index} which has{" "}
                         {loading ? (
@@ -261,15 +265,8 @@ const Training = () => {
                   <>
                     <div className="ms-2">
                       <i className="fa-solid fa-circle-info me-2 mb-4"></i>
-                      There are{" "}
-                      {/* {loading ? (
-                        <div
-                          className="spinner-border spinner-border-sm text-primary"
-                          role="status"
-                        />
-                      ) : ( */}
-                      <b>{cardsInSelectedDecks}</b>
-                      {/* )}*/} cards in selected decks.
+                      There are <b>{cardsInSelectedDecks}</b>
+                      cards in selected decks.
                     </div>
                     <div className="ms-2 my-1 d-inline">
                       How many cards do you want to train?

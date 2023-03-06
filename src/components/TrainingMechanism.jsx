@@ -30,12 +30,13 @@ const TrainingMechanism = (props) => {
 
   const onBackSideButtons = (card, answerType) => {
     setFlip((flip) => !flip);
-    if (cardIndex < props.checkedDecks.length - 1) {
+    if (cardIndex < selectedTrainingCards.length - 1) {
       setTimeout(() => {
         setCardIndex((cardIndex) => cardIndex + 1);
       }, 300);
     } else {
-      console.log("finished");
+      setModalMode("completed");
+      setFinishModalShow(true);
     }
 
     DeckModification(card, answerType);
@@ -65,25 +66,39 @@ const TrainingMechanism = (props) => {
       if (answerType === "wrong") {
         if (currentCard.deck === 1) {
           currentCard.deck = currentCard.deck - 1;
-          toast.error("The card demoted by a level!");
+          toast.error("The card demoted by a level!", {
+            position: "top-left",
+          });
         } else if (currentCard.deck > 1) {
           currentCard.deck = currentCard.deck - 2;
-          toast.error("The card demoted by two levels!");
+          toast.error("The card demoted by two levels!", {
+            position: "top-left",
+          });
         } else {
-          toast.error("The card remained in its previous level!");
+          toast.error("The card remained in its previous level!", {
+            position: "top-left",
+          });
         }
       } else if (answerType === "Correct") {
         if (currentCard.deck < 3 || currentCard.deck === 6) {
-          toast.success("The card promoted by a level!");
+          toast.success("The card promoted by a level!", {
+            position: "top-left",
+          });
           currentCard.deck = currentCard.deck + 1;
         } else if (currentCard.deck < 6) {
-          toast.success("The card promoted by two levels!");
+          toast.success("The card promoted by two levels!", {
+            position: "top-left",
+          });
           currentCard.deck = currentCard.deck + 2;
         } else if (currentCard.deck === 7) {
-          toast.success("The card remained in its previous level!");
+          toast.success("The card remained in its previous level!", {
+            position: "top-left",
+          });
         }
       } else {
-        toast.warning("The card remained in its previous level!");
+        toast.warning("The card remained in its previous level!", {
+          position: "top-left",
+        });
       }
       await axios.put(
         `https://leitnerer-e8694-default-rtdb.firebaseio.com/${userId}/${card.id}.json`,
@@ -283,7 +298,7 @@ const TrainingMechanism = (props) => {
                 </button>
               </div>
             )}
-            {modalMode === "complete" && (
+            {modalMode === "completed" && (
               <div className="modal-footer">
                 <button
                   type="button"
