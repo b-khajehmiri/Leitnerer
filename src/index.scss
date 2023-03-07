@@ -28,7 +28,8 @@ body {
   color: $whiteColor;
   text-decoration: none;
   &:hover {
-    color: $blackColor;
+    color: $whiteColor;
+    opacity: 65%;
   }
 }
 
@@ -54,7 +55,8 @@ body {
   border: 0;
   color: $whiteColor;
   &:hover {
-    color: $blackColor;
+    color: $whiteColor;
+    opacity: 65%;
   }
 }
 
@@ -89,7 +91,8 @@ body {
   margin: 0 0.5rem 1.5rem 0.5rem;
   text-decoration: none;
   &:hover {
-    color: $blackColor;
+    color: $primaryBlue;
+    opacity: 50%;
   }
 }
 
@@ -108,7 +111,8 @@ body {
   border: 0;
   color: $primaryBlue;
   &:hover {
-    color: $blackColor;
+    color: $primaryBlue;
+    opacity: 50%;
   }
 }
 
@@ -193,14 +197,16 @@ body {
 .blueSmallLinks {
   color: $primaryBlue;
   &:hover {
-    color: $blackColor;
+    color: $primaryBlue;
+    opacity: 50%;
   }
 }
 
 .redSmallLinks {
   color: $deck0;
   &:hover {
-    color: $blackColor;
+    color: $deck0;
+    opacity: 45%;
   }
 }
 
