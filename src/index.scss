@@ -125,6 +125,11 @@ body {
   }
 }
 
+.disabledGreenButton {
+  background-color: $disabledSuccessColor;
+  color: $whiteColor;
+}
+
 .redButton {
   background-color: $deck0;
   color: $whiteColor;
@@ -216,4 +221,9 @@ body {
 
 .textJustified {
   text-align: justify !important;
+}
+
+.btn:disabled {
+  background-color: #cccccc;
+  border-color: #cccccc;
 }

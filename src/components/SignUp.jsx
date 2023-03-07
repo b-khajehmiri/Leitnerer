@@ -15,6 +15,8 @@ const SignUp = () => {
   const { createUser } = UserAuth();
   const navigate = useNavigate();
   const [hiddenPass, setHiddenPass] = useState(true);
+  const [loading, setLoading] = useState(false)
+
 
   const navsShow = {
     signUpShow: false,
@@ -27,9 +29,11 @@ const SignUp = () => {
     e.preventDefault();
     if (password === password2) {
       try {
+        setLoading(true)
         await createUser(email, password);
         navigate("/account");
         toast.success("New user created and signed in.")
+        setLoading(false)
       } catch (e) {
         setError(e.message);
         console.log(error);
@@ -69,7 +73,7 @@ const SignUp = () => {
                     type="email"
                     className="form-control mb-3 border-primary"
                     onChange={(e) => setEmail(e.target.value)}
-                  />{" "}
+                  />
                   <label htmlFor="password" className="form-label">
                     Password:
                   </label>
@@ -100,7 +104,7 @@ const SignUp = () => {
                       onClick={() => setHiddenPass(!hiddenPass)}
                     ></i>
                   </div>
-                  <button className="btn w-100 btn-primary mt-4 mb-4">
+                  <button className="btn w-100 btn-primary mt-4 mb-4" disabled={loading}>
                     Sign Up
                   </button>
                   <p className="text-center mt-4">

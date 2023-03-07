@@ -21,6 +21,7 @@ const AddCards = () => {
   const [cards, setCards] = useState([]);
   const [onAdd, setOnAdd] = useState(true);
   const [duplication, setDuplication] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   const formik = useFormik({
     initialValues: {
@@ -41,12 +42,14 @@ const AddCards = () => {
       }, 2500);
     } else {
       try {
+        setLoading(true)
         await axios.post(
           `https://leitnerer-e8694-default-rtdb.firebaseio.com/${userId}.json`,
           { ...card, deck: 0 }
         );
         toast.success("Card added successfully!");
         resetForm({ values: "" });
+        setLoading(false)
       } catch (e) {
         console.log(e);
       }
@@ -128,7 +131,7 @@ const AddCards = () => {
                       {formik.errors.back}
                     </div>
                   ) : null}
-                  <button className="btn w-100 greenButton mt-3 mb-4">
+                  <button className="btn w-100 greenButton mt-3 mb-4" disabled={loading}>
                     Add
                   </button>
                 </form>
