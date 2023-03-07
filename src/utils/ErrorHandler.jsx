@@ -12,6 +12,8 @@ const ErrorHandler = (err) => {
     return "User not found!";
   } else if (err === "Firebase: Error (auth/network-request-failed).") {
     return "Network request Failed!";
+  } else if (err === "Invalid Email.") {
+    return "Invalid Email!";
   } else {
     return err;
   }

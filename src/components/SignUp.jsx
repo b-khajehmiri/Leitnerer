@@ -6,6 +6,7 @@ import design from "./signUp.module.scss";
 import bannerImg from "../images/bannerTop.png";
 import ErrorHandler from "../utils/ErrorHandler";
 import { toast } from "react-toastify";
+import IsValidEmail from "../utils/ValidEmail";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -27,7 +28,7 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (password === password2) {
+    if (password === password2 && IsValidEmail(email)) {
       try {
         setLoading(true)
         await createUser(email, password);
@@ -38,6 +39,8 @@ const SignUp = () => {
         setError(e.message);
         console.log(error);
       }
+    } else if (!IsValidEmail(email)) {
+      setError("Invalid Email.");
     } else {
       setError("Those passwords didn’t match. Try again.");
     }
