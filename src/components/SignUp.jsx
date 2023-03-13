@@ -116,17 +116,17 @@ const SignUp = () => {
                   </div>
                   <button
                     className={`btn w-100 btn-primary mt-3 mb-4 ${
-                      loading ? "disabledButton" : ""
+                      loading && error === "" ? "disabledButton" : ""
                     }`}
                   >
-                    {loading && (
+                    {loading && error === "" && (
                       <span
                         class="spinner-border spinner-border-sm me-2"
                         role="status"
                         aria-hidden="true"
                       ></span>
                     )}
-                    {loading ? "Signing up..." : "Sign up"}
+                    {loading && error === "" ? "Signing up..." : "Sign up"}
                   </button>
                   <p className="text-center mt-4">
                     Do you have an account?

@@ -77,23 +77,27 @@ const SignIn = () => {
                       onChange={(e) => setPassword(e.target.value)}
                     />
                     <i
-                      className={`fa-solid ${hiddenPass ? "fa-eye" : "fa-eye-slash"} input-group-text d-flex text-primary border-primary ${design.passwordIcon}`}
+                      className={`fa-solid ${
+                        hiddenPass ? "fa-eye" : "fa-eye-slash"
+                      } input-group-text d-flex text-primary border-primary ${
+                        design.passwordIcon
+                      }`}
                       onClick={() => setHiddenPass(!hiddenPass)}
                     ></i>
                   </div>
                   <button
                     className={`btn w-100 btn-primary mt-3 mb-4 ${
-                      loading ? "disabledButton" : ""
+                      loading && error === "" ? "disabledButton" : ""
                     }`}
                   >
-                    {loading && (
+                    {loading && error === "" && (
                       <span
                         class="spinner-border spinner-border-sm me-2"
                         role="status"
                         aria-hidden="true"
                       ></span>
                     )}
-                    {loading ? "Signing in..." : "Sign in"}
+                    {loading && error === "" ? "Signing in..." : "Sign in"}
                   </button>
                   <p className="text-center mt-4">
                     Don't have an account yet?

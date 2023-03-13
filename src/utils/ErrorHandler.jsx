@@ -14,6 +14,8 @@ const ErrorHandler = (err) => {
     return "Network request Failed!";
   } else if (err === "Invalid Email.") {
     return "Invalid Email!";
+  } else if (err === "timeout exceeded") {
+    return "Timeout exceeded! Refresh or check Connection.";
   } else {
     return err;
   }

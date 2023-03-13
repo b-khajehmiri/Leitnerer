@@ -8,6 +8,7 @@ import { AddCardsValidationSchema } from "../utils/ValidationSchemas";
 import { toast } from "react-toastify";
 import bannerImg from "../images/bannerBottom.png";
 import { UserAuth } from "../context/AuthContext";
+import ErrorHandler from "../utils/ErrorHandler";
 
 const AddCards = () => {
   const { user } = UserAuth();
@@ -24,6 +25,7 @@ const AddCards = () => {
   const [cards, setCards] = useState([]);
   const [onAdd, setOnAdd] = useState(true);
   const [duplication, setDuplication] = useState(false);
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const formik = useFormik({
@@ -53,8 +55,9 @@ const AddCards = () => {
         toast.success("Card added successfully!");
         resetForm({ values: "" });
         setLoading(false);
+        setError("")
       } catch (e) {
-        console.log(e);
+        setError(e.message);
       }
     }
 
@@ -92,6 +95,12 @@ const AddCards = () => {
                   Add New Card
                 </h3>
                 <form onSubmit={formik.handleSubmit}>
+                {error && (
+                    <div className="alert alert-danger" role="alert">
+                      <i className="fa-solid fa-circle-exclamation me-2"></i>
+                      {ErrorHandler(error)}
+                    </div>
+                  )}
                   <label htmlFor="frontSide" className="form-label">
                     Front side:
                   </label>
@@ -136,17 +145,17 @@ const AddCards = () => {
                   ) : null}
                   <button
                     className={`btn w-100 greenButton mt-3 mb-4 ${
-                      loading ? "disabledButton" : ""
+                      loading && error === "" ? "disabledButton" : ""
                     }`}
                   >
-                    {loading && (
+                    {loading && error === "" && (
                       <span
                         class="spinner-border spinner-border-sm me-2"
                         role="status"
                         aria-hidden="true"
                       ></span>
                     )}
-                    {loading ? "Adding..." : "Add"}
+                    {loading && error === "" ? "Adding..." : "Add"}
                   </button>
                 </form>
                 <div className="row">
