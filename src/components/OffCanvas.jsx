@@ -46,7 +46,7 @@ const OffCanvas = (props) => {
           <ul className="nav flex-column">
             <li className="nav-item">
               <NavLink
-                to="/account"
+                to="/addCards"
                 className={({ isActive }) =>
                   isActive ? "activeOffcanvasLink" : "inactiveOffcanvasLink"
                 }
@@ -54,7 +54,7 @@ const OffCanvas = (props) => {
                   display: props.navsShow.otherLinksShow ? "flex" : "none",
                 }}
               >
-                Account
+                Add Cards
               </NavLink>
             </li>
             <li className="nav-item">
@@ -81,19 +81,6 @@ const OffCanvas = (props) => {
                 }}
               >
                 Training
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                to="/addCards"
-                className={({ isActive }) =>
-                  isActive ? "activeOffcanvasLink" : "inactiveOffcanvasLink"
-                }
-                style={{
-                  display: props.navsShow.otherLinksShow ? "flex" : "none",
-                }}
-              >
-                Add Cards
               </NavLink>
             </li>
           </ul>

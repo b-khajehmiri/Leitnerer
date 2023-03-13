@@ -13,6 +13,7 @@ const SignIn = () => {
   const navigate = useNavigate();
   const { signIn } = UserAuth();
   const [hiddenPass, setHiddenPass] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const navsShow = {
     signUpShow: true,
@@ -25,8 +26,10 @@ const SignIn = () => {
     e.preventDefault();
     setError("");
     try {
+      setLoading(true);
       await signIn(email, password);
-      navigate("/account");
+      navigate("/addCards");
+      setLoading(false);
     } catch (e) {
       setError(e.message);
     }
@@ -78,8 +81,19 @@ const SignIn = () => {
                       onClick={() => setHiddenPass(!hiddenPass)}
                     ></i>
                   </div>
-                  <button className="btn w-100 btn-primary mt-4 mb-4">
-                    Sign In
+                  <button
+                    className={`btn w-100 btn-primary mt-3 mb-4 ${
+                      loading ? "disabledButton" : ""
+                    }`}
+                  >
+                    {loading && (
+                      <span
+                        class="spinner-border spinner-border-sm me-2"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                    )}
+                    {loading ? "Signing in..." : "Sign in"}
                   </button>
                   <p className="text-center mt-4">
                     Don't have an account yet?

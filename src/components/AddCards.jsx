@@ -7,8 +7,11 @@ import { useFormik } from "formik";
 import { AddCardsValidationSchema } from "../utils/ValidationSchemas";
 import { toast } from "react-toastify";
 import bannerImg from "../images/bannerBottom.png";
+import { UserAuth } from "../context/AuthContext";
 
 const AddCards = () => {
+  const { user } = UserAuth();
+  window.localStorage.setItem("user", user.uid);
   const userId = window.localStorage.getItem("user");
   const navsShow = {
     signUpShow: false,
@@ -21,7 +24,7 @@ const AddCards = () => {
   const [cards, setCards] = useState([]);
   const [onAdd, setOnAdd] = useState(true);
   const [duplication, setDuplication] = useState(false);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -42,14 +45,14 @@ const AddCards = () => {
       }, 2500);
     } else {
       try {
-        setLoading(true)
+        setLoading(true);
         await axios.post(
           `https://leitnerer-e8694-default-rtdb.firebaseio.com/${userId}.json`,
           { ...card, deck: 0 }
         );
         toast.success("Card added successfully!");
         resetForm({ values: "" });
-        setLoading(false)
+        setLoading(false);
       } catch (e) {
         console.log(e);
       }
@@ -131,8 +134,19 @@ const AddCards = () => {
                       {formik.errors.back}
                     </div>
                   ) : null}
-                  <button className="btn w-100 greenButton mt-3 mb-4" disabled={loading}>
-                    Add
+                  <button
+                    className={`btn w-100 greenButton mt-3 mb-4 ${
+                      loading ? "disabledButton" : ""
+                    }`}
+                  >
+                    {loading && (
+                      <span
+                        class="spinner-border spinner-border-sm me-2"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                    )}
+                    {loading ? "Adding..." : "Add"}
                   </button>
                 </form>
                 <div className="row">
@@ -170,7 +184,7 @@ const AddCards = () => {
               src={bannerImg}
               alt="banner"
               className={`img-fluid px-5 px-md-0 figure-img`}
-              style={{height:"20rem"}}
+              style={{ height: "20rem" }}
             />
           </div>
         </div>

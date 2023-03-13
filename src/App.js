@@ -1,6 +1,5 @@
 import React from "react";
 import SignUp from "./components/SignUp";
-import Account from "./components/Account";
 import { Route, Routes } from "react-router-dom";
 import { AuthContextProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -30,15 +29,7 @@ function App() {
             path="/"
             element={
               <ProtectedRoute>
-                <Account />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/account"
-            element={
-              <ProtectedRoute>
-                <Account />
+                <AddCards />
               </ProtectedRoute>
             }
           />

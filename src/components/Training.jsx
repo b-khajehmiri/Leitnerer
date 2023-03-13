@@ -201,10 +201,10 @@ const Training = () => {
               </h5>
               <div className="d-flex flex-row">
                 <p
-                  onClick={() => navigate("/account")}
+                  onClick={() => navigate("/addCards")}
                   className="cursorPointer mx-2 mt-2 blueSmallLinks"
                 >
-                  <small>Account</small>
+                  <small>Add Card</small>
                 </p>
                 <p
                   onClick={() => navigate("/cardsTable")}

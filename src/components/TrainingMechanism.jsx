@@ -284,9 +284,9 @@ const TrainingMechanism = (props) => {
                   type="button"
                   className="btn btn-danger btn-sm"
                   data-dismiss="modal"
-                  onClick={() => navigate("/account")}
+                  onClick={() => navigate("/addCards")}
                 >
-                  Yes! Go to Account
+                  Yes! Let's Add new card
                 </button>
                 <button
                   type="button"
@@ -294,7 +294,7 @@ const TrainingMechanism = (props) => {
                   data-dismiss="modal"
                   onClick={() => navigate("/cardsTable")}
                 >
-                  Yes! Review cards.
+                  Yes! Review cards
                 </button>
               </div>
             )}
@@ -312,9 +312,9 @@ const TrainingMechanism = (props) => {
                   type="button"
                   className="btn btn-success btn-sm"
                   data-dismiss="modal"
-                  onClick={() => navigate("/account")}
+                  onClick={() => navigate("/addCards")}
                 >
-                  Go to Account page
+                  Let's add new card
                 </button>
                 <button
                   type="button"

@@ -16,7 +16,7 @@ import { EditCardsValidationSchema } from "../utils/ValidationSchemas";
 
 const CardsTable = () => {
   const userId = window.localStorage.getItem("user");
-  
+
   const navsShow = {
     signUpShow: false,
     signInShow: false,
@@ -174,7 +174,10 @@ const CardsTable = () => {
       ></div>
       {loading && (
         <div className="LoadingContainer">
-          <div className="spinner-border text-primary mb-3 loading" role="status" />
+          <div
+            className="spinner-border text-primary mb-3 loading"
+            role="status"
+          />
           <h5 className="text-primary">Loading...</h5>
         </div>
       )}
@@ -212,20 +215,32 @@ const CardsTable = () => {
               </tr>
             ))}
           </thead>
-          <tbody {...getTableBodyProps()}>
-            {page.map((row, i) => {
-              prepareRow(row);
-              return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map((cell) => {
-                    return (
-                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                    );
-                  })}
-                </tr>
-              );
-            })}
-          </tbody>
+          {page.length > 0 ? (
+            <tbody {...getTableBodyProps()}>
+              {page.map((row, i) => {
+                prepareRow(row);
+                return (
+                  <tr {...row.getRowProps()}>
+                    {row.cells.map((cell) => {
+                      return (
+                        <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </tbody>
+          ) : (
+            <tbody>
+              <tr>
+                <td colSpan={headerGroups[0].headers.length}>
+                  <h3 className="my-5 text-primary text-center">
+                    You didn't add any cards yet!
+                  </h3>
+                </td>
+              </tr>
+            </tbody>
+          )}
           <tfoot>
             {footerGroups.map((footerGroup) => (
               <tr {...footerGroup.getFooterGroupProps()}>
@@ -500,7 +515,7 @@ const CardsTable = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                <div className="modal-footer" style={{marginTop:"-4.5rem"}}>
+                <div className="modal-footer" style={{ marginTop: "-4.5rem" }}>
                   <button
                     type="button"
                     className="btn btn-secondary"

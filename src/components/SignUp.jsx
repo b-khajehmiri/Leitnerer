@@ -16,8 +16,7 @@ const SignUp = () => {
   const { createUser } = UserAuth();
   const navigate = useNavigate();
   const [hiddenPass, setHiddenPass] = useState(true);
-  const [loading, setLoading] = useState(false)
-
+  const [loading, setLoading] = useState(false);
 
   const navsShow = {
     signUpShow: false,
@@ -30,11 +29,11 @@ const SignUp = () => {
     e.preventDefault();
     if (password === password2 && IsValidEmail(email)) {
       try {
-        setLoading(true)
+        setLoading(true);
         await createUser(email, password);
-        navigate("/account");
-        toast.success("New user created and signed in.")
-        setLoading(false)
+        navigate("/addCards");
+        toast.success("New user created and signed in.");
+        setLoading(false);
       } catch (e) {
         setError(e.message);
         console.log(error);
@@ -88,7 +87,11 @@ const SignUp = () => {
                       onChange={(e) => setPassword(e.target.value)}
                     />
                     <i
-                      className={`fa-solid ${hiddenPass ? "fa-eye" : "fa-eye-slash"} input-group-text d-flex text-primary border-primary ${design.passwordIcon}`}
+                      className={`fa-solid ${
+                        hiddenPass ? "fa-eye" : "fa-eye-slash"
+                      } input-group-text d-flex text-primary border-primary ${
+                        design.passwordIcon
+                      }`}
                       onClick={() => setHiddenPass(!hiddenPass)}
                     ></i>
                   </div>
@@ -103,12 +106,27 @@ const SignUp = () => {
                       onChange={(e) => setPassword2(e.target.value)}
                     />
                     <i
-                      className={`fa-solid ${hiddenPass ? "fa-eye" : "fa-eye-slash"} input-group-text d-flex text-primary border-primary ${design.passwordIcon}`}
+                      className={`fa-solid ${
+                        hiddenPass ? "fa-eye" : "fa-eye-slash"
+                      } input-group-text d-flex text-primary border-primary ${
+                        design.passwordIcon
+                      }`}
                       onClick={() => setHiddenPass(!hiddenPass)}
                     ></i>
                   </div>
-                  <button className="btn w-100 btn-primary mt-4 mb-4" disabled={loading}>
-                    Sign Up
+                  <button
+                    className={`btn w-100 btn-primary mt-3 mb-4 ${
+                      loading ? "disabledButton" : ""
+                    }`}
+                  >
+                    {loading && (
+                      <span
+                        class="spinner-border spinner-border-sm me-2"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                    )}
+                    {loading ? "Signing up..." : "Sign up"}
                   </button>
                   <p className="text-center mt-4">
                     Do you have an account?

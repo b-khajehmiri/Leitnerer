@@ -36,7 +36,7 @@ const NavBar = (props) => {
             <ul className="navbar-nav mr-auto">
               <li className="nav-item me-4">
                 <NavLink
-                  to="/account"
+                  to="/addCards"
                   className={({ isActive }) =>
                     isActive ? "activeNavLink" : "inactiveNavLink"
                   }
@@ -44,7 +44,7 @@ const NavBar = (props) => {
                     display: props.navsShow.otherLinksShow ? "flex" : "none",
                   }}
                 >
-                  Account
+                  Add Cards
                 </NavLink>
               </li>
               <li className="nav-item me-4">
@@ -71,19 +71,6 @@ const NavBar = (props) => {
                   }}
                 >
                   Training
-                </NavLink>
-              </li>
-              <li className="nav-item me-4">
-                <NavLink
-                  to="/addCards"
-                  className={({ isActive }) =>
-                    isActive ? "activeNavLink" : "inactiveNavLink"
-                  }
-                  style={{
-                    display: props.navsShow.otherLinksShow ? "flex" : "none",
-                  }}
-                >
-                  Add Cards
                 </NavLink>
               </li>
             </ul>

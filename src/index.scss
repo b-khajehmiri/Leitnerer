@@ -223,7 +223,11 @@ body {
   text-align: justify !important;
 }
 
-.btn:disabled {
-  background-color: #cccccc;
-  border-color: #cccccc;
+// .btn:disabled {
+//   background-color: #cccccc;
+//   border-color: #cccccc;
+// }
+
+.disabledButton {
+  pointer-events: none;
 }
