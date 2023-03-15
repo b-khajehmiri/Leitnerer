@@ -245,7 +245,7 @@ const Training = () => {
                         disabled={deck.cards.length === 0}
                       />
                       <label htmlFor={deck.name} className="my-1">
-                        Deck {index} which has{" "}
+                        Deck {index} with{" "}
                         {loading ? (
                           <div
                             className={`spinner-border spinner-border-sm ${
