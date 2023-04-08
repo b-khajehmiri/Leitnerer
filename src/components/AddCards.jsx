@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import NavBar from "./NavBar";
 import design from "./addCard.module.scss";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { AddCardsValidationSchema } from "../utils/ValidationSchemas";
 import { toast } from "react-toastify";
@@ -55,7 +55,7 @@ const AddCards = () => {
         toast.success("Card added successfully!");
         resetForm({ values: "" });
         setLoading(false);
-        setError("")
+        setError("");
       } catch (e) {
         setError(e.message);
       }
@@ -95,7 +95,7 @@ const AddCards = () => {
                   Add New Card
                 </h3>
                 <form onSubmit={formik.handleSubmit}>
-                {error && (
+                  {error && (
                     <div className="alert alert-danger" role="alert">
                       <i className="fa-solid fa-circle-exclamation me-2"></i>
                       {ErrorHandler(error)}
@@ -183,10 +183,16 @@ const AddCards = () => {
             <div className="px-4 pb-4 px-md-0">
               <h2 className={`${design.explain} logoFont`}>Leitnerer</h2>
               <p className={`${design.explain}`}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias,
-                quidem qui? Provident sed voluptates exercitationem similique id
-                autem, reprehenderit eum facilis corrupti voluptate? Impedit
-                earum tempora molestias necessitatibus, laboriosam voluptatibus.
+                Welcome to the "Add Card" page of Leitnerer! Here you can create
+                new flashcards to practice and memorize any language or subject
+                using the Leitner Method. Simply fill front and back side of
+                flash card, its meaning or definition, and any additional
+                information that may be helpful, then it will be added to the
+                deck 0. You can practice them smartly in
+                <Link to="/training" className="text-decoration-none ms-2">
+                  Training page!
+                </Link>
+
               </p>
             </div>
             <img

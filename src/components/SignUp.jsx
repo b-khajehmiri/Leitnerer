@@ -142,10 +142,16 @@ const SignUp = () => {
             <div className="px-4 pb-4 px-md-0">
               <h2 className={`${design.explain} logoFont`}>Leitnerer</h2>
               <p className={`${design.explain}`}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias,
-                quidem qui? Provident sed voluptates exercitationem similique id
-                autem, reprehenderit eum facilis corrupti voluptate? Impedit
-                earum tempora molestias necessitatibus, laboriosam voluptatibus.
+                Welcome to Leitnerer, the online platform for
+                practicing words in the Leitner Method! With Leitnerer, you can
+                create flashcards for any language or subject, and the
+                smart algorithm will help you learn and memorize the words
+                efficiently. You can easily add, edit, and delete your cards in
+                a table, and the search function allows you to quickly find any
+                card you need. With regular practice and review, you'll be able
+                to master any language or subject in no time!
+                <br />
+                So why wait? Sign up now and start learning with Leitnerer!
               </p>
             </div>
             <img

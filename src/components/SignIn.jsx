@@ -113,10 +113,14 @@ const SignIn = () => {
             <div className="px-4 pb-4 px-md-0">
               <h2 className={`${design.explain} logoFont`}>Leitnerer</h2>
               <p className={`${design.explain}`}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias,
-                quidem qui? Provident sed voluptates exercitationem similique id
-                autem, reprehenderit eum facilis corrupti voluptate? Impedit
-                earum tempora molestias necessitatibus, laboriosam voluptatibus.
+                Welcome back to Leitnerer! We're thrilled to have you back on
+                board. Sign in and continue practicing and mastering the words
+                in the Leitner Method.
+                <br />
+                Don't have an account yet?
+                <Link to="/signUp" className="text-decoration-none ms-2">
+                  Sign up now!
+                </Link>
               </p>
             </div>
             <img
