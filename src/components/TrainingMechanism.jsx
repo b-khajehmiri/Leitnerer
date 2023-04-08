@@ -64,14 +64,9 @@ const TrainingMechanism = (props) => {
     try {
       let currentCard = cards.filter((c) => c.front === card.front)[0];
       if (answerType === "wrong") {
-        if (currentCard.deck === 1) {
+        if (currentCard.deck !== 0) {
           currentCard.deck = currentCard.deck - 1;
           toast.error("The card demoted by a level!", {
-            position: "top-left",
-          });
-        } else if (currentCard.deck > 1) {
-          currentCard.deck = currentCard.deck - 2;
-          toast.error("The card demoted by two levels!", {
             position: "top-left",
           });
         } else {
@@ -80,17 +75,12 @@ const TrainingMechanism = (props) => {
           });
         }
       } else if (answerType === "Correct") {
-        if (currentCard.deck < 3 || currentCard.deck === 6) {
+        if (currentCard.deck < 7) {
           toast.success("The card promoted by a level!", {
             position: "top-left",
           });
           currentCard.deck = currentCard.deck + 1;
-        } else if (currentCard.deck < 6) {
-          toast.success("The card promoted by two levels!", {
-            position: "top-left",
-          });
-          currentCard.deck = currentCard.deck + 2;
-        } else if (currentCard.deck === 7) {
+        } else {
           toast.success("The card remained in its previous level!", {
             position: "top-left",
           });
