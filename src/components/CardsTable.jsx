@@ -273,7 +273,9 @@ const CardsTable = () => {
             <i
               className={`fa-solid fa-chevron-left ${design.iconsFontSize}`}
             ></i>
-            Previous
+            <i
+              className={`fa-solid fa-chevron-left ${design.iconsFontSize}`}
+            ></i>
           </span>
           <span
             className={`mx-3 text-primary cursorPointer ${design.pageHandlers}`}
@@ -315,7 +317,9 @@ const CardsTable = () => {
             }}
             onClick={() => nextPage()}
           >
-            Next
+            <i
+              className={`fa-solid fa-chevron-right ${design.iconsFontSize}`}
+            ></i>
             <i
               className={`fa-solid fa-chevron-right ${design.iconsFontSize}`}
             ></i>
