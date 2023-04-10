@@ -144,7 +144,7 @@ const AddCards = () => {
                     </div>
                   ) : null}
                   <button
-                    className={`btn w-100 greenButton mt-3 mb-4 ${
+                    className={`btn w-100 greenButton mt-1 mb-4 ${
                       loading && error === "" ? "disabledButton" : ""
                     }`}
                   >
@@ -161,7 +161,7 @@ const AddCards = () => {
                 <div className="row">
                   <div className="col col-md-6 col-12 d-flex justify-content-center align-items-center">
                     <button
-                      className="btn w-100 btn-primary mt-3 mb-4"
+                      className="btn w-100 btn-primary mb-1 mb-4"
                       onClick={() => navigate("/training")}
                     >
                       Train Now
@@ -169,7 +169,7 @@ const AddCards = () => {
                   </div>
                   <div className="col col-md-6 col-12 d-flex justify-content-center align-items-center">
                     <button
-                      className="btn w-100 btn-primary mt-3 mb-4"
+                      className="btn w-100 btn-primary mb-1 mb-4"
                       onClick={() => navigate("/cardsTable")}
                     >
                       Review Cards

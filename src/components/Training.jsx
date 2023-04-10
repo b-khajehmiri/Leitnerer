@@ -232,7 +232,7 @@ const Training = () => {
                 <div className="row mb-4">
                   {orderedDecks.map((deck, index) => (
                     <div
-                      className={`col-6 ${deck.cards.length !== 0 ? design["deckInfo" + index] : "text-secondary"}`}
+                      className={`col-12 col-sm-6 ${deck.cards.length !== 0 ? design["deckInfo" + index] : "text-secondary"}`}
                       key={deck.name}
                     >
                       <input
