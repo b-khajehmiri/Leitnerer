@@ -1,48 +1,38 @@
 {
-  "name": "firebase-auth-yt",
-  "version": "0.1.0",
+  "name": "hoceyntest",
   "private": true,
-  "dependencies": {
-    "@fortawesome/free-solid-svg-icons": "^6.2.1",
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^12.0.0",
-    "@testing-library/user-event": "^13.2.1",
-    "axios": "^1.2.2",
-    "bootstrap": "^5.2.3",
-    "firebase": "^9.6.10",
-    "formik": "^2.2.9",
-    "react": "18",
-    "react-dom": "18",
-    "react-router-dom": "^6.3.0",
-    "react-scripts": "5.0.0",
-    "react-table": "^7.8.0",
-    "react-toastify": "^9.1.1",
-    "sass": "^1.57.1",
-    "web-vitals": "^2.1.0",
-    "yup": "^0.32.11"
-  },
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "axios": "^1.5.1",
+    "bootstrap": "^5.3.2",
+    "firebase": "^10.4.0",
+    "formik": "^2.4.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.16.0",
+    "react-table": "^7.8.0",
+    "react-toastify": "^9.1.3",
+    "sass": "^1.69.0",
+    "vite-plugin-svgr": "^4.1.0",
+    "web-vitals": "^3.5.0",
+    "yup": "^1.3.2"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@vitejs/plugin-react-swc": "^3.3.2",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "vite": "^4.4.5"
   }
 }
