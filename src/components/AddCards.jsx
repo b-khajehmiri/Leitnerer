@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import NavBar from "./NavBar";
 import design from "./addCard.module.scss";
 import { Link, useNavigate } from "react-router-dom";
@@ -27,6 +27,11 @@ const AddCards = () => {
   const [duplication, setDuplication] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [translatingField, setTranslatingField] = useState("");
+  const [translationError, setTranslationError] = useState("");
+  const translationTimeout = useRef(null);
+  const translationRequestId = useRef(0);
+  const latestFormValues = useRef({ front: "", back: "" });
 
   const formik = useFormik({
     initialValues: {
@@ -38,6 +43,10 @@ const AddCards = () => {
     },
     validationSchema: AddCardsValidationSchema,
   });
+
+  useEffect(() => {
+    latestFormValues.current = formik.values;
+  }, [formik.values]);
 
   async function addCard(card, { resetForm }) {
     if (cards.some((card) => card.front === formik.values.front)) {
@@ -76,10 +85,90 @@ const AddCards = () => {
     console.log(values);
   }
 
+  function getTranslationLanguages(text) {
+    const hasPersianLetters = /[\u0600-\u06FF]/.test(text);
+
+    return hasPersianLetters
+      ? { sourceLang: "fa", targetLang: "en" }
+      : { sourceLang: "en", targetLang: "fa" };
+  }
+
+  async function translateText(text, sourceLang, targetLang) {
+    const res = await axios.get("https://api.mymemory.translated.net/get", {
+      params: {
+        q: text,
+        langpair: `${sourceLang}|${targetLang}`,
+      },
+    });
+
+    return res.data.responseData.translatedText;
+  }
+
+  function handleAutoTranslateChange(e) {
+    const { name, value } = e.target;
+    const targetField = name === "front" ? "back" : "front";
+    const targetValue = latestFormValues.current[targetField];
+
+    formik.setFieldValue(name, value);
+    setTranslationError("");
+    clearTimeout(translationTimeout.current);
+
+    const currentRequestId = translationRequestId.current + 1;
+    translationRequestId.current = currentRequestId;
+
+    if (!value.trim()) {
+      setTranslatingField("");
+      return;
+    }
+
+    if (targetValue.trim()) {
+      setTranslatingField("");
+      return;
+    }
+
+    translationTimeout.current = setTimeout(async () => {
+      if (latestFormValues.current[targetField].trim()) {
+        setTranslatingField("");
+        return;
+      }
+
+      const { sourceLang, targetLang } = getTranslationLanguages(value);
+
+      try {
+        setTranslatingField(targetField);
+        const translatedText = await translateText(
+          value.trim(),
+          sourceLang,
+          targetLang
+        );
+
+        if (translationRequestId.current === currentRequestId) {
+          if (latestFormValues.current[targetField].trim()) {
+            return;
+          }
+
+          formik.setFieldValue(targetField, translatedText);
+        }
+      } catch (e) {
+        if (translationRequestId.current === currentRequestId) {
+          setTranslationError("Auto translation failed. Please try again.");
+        }
+      } finally {
+        if (translationRequestId.current === currentRequestId) {
+          setTranslatingField("");
+        }
+      }
+    }, 700);
+  }
+
   useEffect(() => {
     getCards();
     document.getElementById("frontSide").focus();
   }, [onAdd]);
+
+  useEffect(() => {
+    return () => clearTimeout(translationTimeout.current);
+  }, []);
 
   return (
     <>
@@ -110,9 +199,14 @@ const AddCards = () => {
                     type="text"
                     className="form-control mb-3 border-primary"
                     value={formik.values.front}
-                    onChange={formik.handleChange}
+                    onChange={handleAutoTranslateChange}
                     onBlur={formik.handleBlur}
                   />
+                  {translatingField === "front" ? (
+                    <div className="text-primary small mb-2">
+                      Translating front side...
+                    </div>
+                  ) : null}
                   {formik.touched.front && formik.errors.front ? (
                     <div className="formikError">
                       <i className="fa-solid fa-circle-exclamation me-2"></i>
@@ -134,9 +228,20 @@ const AddCards = () => {
                     type="text"
                     className="form-control mb-3 border-primary"
                     value={formik.values.back}
-                    onChange={formik.handleChange}
+                    onChange={handleAutoTranslateChange}
                     onBlur={formik.handleBlur}
                   />
+                  {translatingField === "back" ? (
+                    <div className="text-primary small mb-2">
+                      Translating back side...
+                    </div>
+                  ) : null}
+                  {translationError ? (
+                    <div className="formikError">
+                      <i className="fa-solid fa-circle-exclamation me-2"></i>
+                      {translationError}
+                    </div>
+                  ) : null}
                   {formik.touched.back && formik.errors.back ? (
                     <div className="formikError">
                       <i className="fa-solid fa-circle-exclamation me-2"></i>
