@@ -161,6 +161,13 @@ const AddCards = () => {
     }, 700);
   }
 
+  function handleTextareaKeyDown(e) {
+    if (e.key === "Enter" && !e.altKey && !e.nativeEvent.isComposing) {
+      e.preventDefault();
+      formik.submitForm();
+    }
+  }
+
   useEffect(() => {
     getCards();
     document.getElementById("frontSide").focus();
@@ -200,6 +207,7 @@ const AddCards = () => {
                     className="form-control mb-3 border-primary"
                     value={formik.values.front}
                     onChange={handleAutoTranslateChange}
+                    onKeyDown={handleTextareaKeyDown}
                     onBlur={formik.handleBlur}
                   />
                   {translatingField === "front" ? (
@@ -229,6 +237,7 @@ const AddCards = () => {
                     className="form-control mb-3 border-primary"
                     value={formik.values.back}
                     onChange={handleAutoTranslateChange}
+                    onKeyDown={handleTextareaKeyDown}
                     onBlur={formik.handleBlur}
                   />
                   {translatingField === "back" ? (
@@ -255,7 +264,7 @@ const AddCards = () => {
                   >
                     {loading && error === "" && (
                       <span
-                        class="spinner-border spinner-border-sm me-2"
+                        className="spinner-border spinner-border-sm me-2"
                         role="status"
                         aria-hidden="true"
                       ></span>
@@ -288,12 +297,12 @@ const AddCards = () => {
             <div className="px-4 pb-4 px-md-0">
               <h2 className={`${design.explain} logoFont`}>Leitnerer</h2>
               <p className={`${design.explain}`}>
-                Welcome to the "Add Card" page of Leitnerer! Here you can create
-                new flashcards to practice and memorize any language or subject
-                using the Leitner Method. Simply fill front and back side of
-                flash card, its meaning or definition, and any additional
-                information that may be helpful, then it will be added to the
-                deck 0. You can practice them smartly in
+                Welcome to the &quot;Add Card&quot; page of Leitnerer! Here you can
+                create new flashcards to practice and memorize any language or
+                subject using the Leitner Method. Simply fill front and back
+                side of flash card, its meaning or definition, and any
+                additional information that may be helpful, then it will be
+                added to the deck 0. You can practice them smartly in
                 <Link to="/training" className="text-decoration-none ms-2">
                   Training page!
                 </Link>
